@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;;
 
 public class PayrollDto {
+    private int payroll_id;
     private int employee_id;
     private LocalDate pay_month;
     private LocalTime over_time_hours;
@@ -11,13 +12,23 @@ public class PayrollDto {
     private double full_salary;
     private String status;
 
-    public PayrollDto(int employee_id, LocalDate pay_month, LocalTime over_time_hours, double base_salary, String status) {
+    public PayrollDto(int payroll_id, int employee_id, LocalDate pay_month, LocalTime over_time_hours, double base_salary, double full_salary, String status) {
+        this.payroll_id = payroll_id;
         this.employee_id = employee_id;
         this.pay_month = pay_month;
         this.over_time_hours = over_time_hours;
         this.base_salary = base_salary;
+        this.full_salary = full_salary;
         this.status = status;
         calculateFullSalary();
+    }
+
+    public int getPayroll_id() {
+        return payroll_id;
+    }
+
+    public void setPayroll_id(int payroll_id) {
+        this.payroll_id = payroll_id;
     }
 
     public int getEmployeeID() {

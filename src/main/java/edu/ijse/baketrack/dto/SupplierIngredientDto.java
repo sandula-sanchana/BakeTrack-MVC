@@ -1,14 +1,16 @@
 package edu.ijse.baketrack.dto;
 
 
+import java.time.LocalDate;
+
 public class SupplierIngredientDto {
     private int ingredient_id;
     private int supplier_id;
     private double price_per_unit;
     private String unit;
-    private String last_order_date;
+    private LocalDate last_order_date;
 
-    public SupplierIngredientDto(int ingredient_id, int supplier_id, double price_per_unit, String unit, String last_order_date) {
+    public SupplierIngredientDto(int ingredient_id, int supplier_id, double price_per_unit, String unit, LocalDate last_order_date) {
         this.ingredient_id = ingredient_id;
         this.supplier_id = supplier_id;
         this.price_per_unit = price_per_unit;
@@ -48,11 +50,11 @@ public class SupplierIngredientDto {
         this.unit = unit;
     }
 
-    public String getLastOrderDate() {
+    public LocalDate getLastOrderDate() {
         return last_order_date;
     }
 
-    public void setLastOrderDate(String last_order_date) {
+    public void setLastOrderDate(LocalDate last_order_date) {
         this.last_order_date = last_order_date;
     }
 }

@@ -1,21 +1,21 @@
 package edu.ijse.baketrack.dto;
 
 public class EmployeeDto {
+      private int employee_id;
       private String name;
       private String address;
       private Double salary;
       private String contact;
       private String role;
 
-
-      public EmployeeDto(String name, String address, Double salary, String contact, String role){
-           this.name=name;
-           this.address=address;
-           this.salary=salary;
-           this.contact=contact;
-           this.role=role;
-      }
-
+    public EmployeeDto(int employee_id, String name, String address, Double salary, String contact, String role) {
+        this.employee_id = employee_id;
+        this.name = name;
+        this.salary = salary;
+        this.address = address;
+        this.contact = contact;
+        this.role = role;
+    }
 
     public String getName(){
         return this.name;

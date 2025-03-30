@@ -1,14 +1,22 @@
 package edu.ijse.baketrack.dto;
 
 public class VehicleDto {
-
+    private int vehicle_id;
     private String type;
     private String license_plate;
 
-    public VehicleDto(String type, String license_plate) {
-
+    public VehicleDto(int vehicle_id, String type, String license_plate) {
+        this.vehicle_id = vehicle_id;
         this.type = type;
         this.license_plate = license_plate;
+    }
+
+    public int getVehicle_id() {
+        return vehicle_id;
+    }
+
+    public void setVehicle_id(int vehicle_id) {
+        this.vehicle_id = vehicle_id;
     }
 
     public String getType() {

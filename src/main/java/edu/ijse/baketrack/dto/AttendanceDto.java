@@ -5,19 +5,33 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class AttendanceDto {
+    private int attendance_id;
     private int employee_id;
     private LocalDate attend_date;
     private LocalTime check_in_time;
     private LocalTime check_out_time;
     private String status;
 
-    public AttendanceDto(int employee_id, LocalDate attend_date, LocalTime check_in_time, LocalTime check_out_time, String status){
-           this.employee_id=employee_id;
-           this.attend_date=attend_date;
-           this.check_in_time=check_in_time;
-           this.check_out_time=check_out_time;
-           this.status=status;
+    public AttendanceDto() {
     }
+
+    public AttendanceDto(int employee_id, int attendance_id, LocalDate attend_date, LocalTime check_in_time, LocalTime check_out_time, String status) {
+        this.employee_id = employee_id;
+        this.attendance_id = attendance_id;
+        this.attend_date = attend_date;
+        this.check_in_time = check_in_time;
+        this.check_out_time = check_out_time;
+        this.status = status;
+    }
+
+    public int getAttendance_id() {
+        return attendance_id;
+    }
+
+    public void setAttendance_id(int attendance_id) {
+        this.attendance_id = attendance_id;
+    }
+
     public int getEmpID(){
         return this.employee_id;
     }

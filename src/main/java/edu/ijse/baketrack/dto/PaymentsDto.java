@@ -4,18 +4,27 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PaymentsDto {
+    private int payment_id;
     private int order_id;
     private double price;
     private String payment_method;
     private LocalDate payment_date;
 
-    public PaymentsDto(int order_id, double price, String payment_method, LocalDate payment_date) {
+    public PaymentsDto(int payment_id, int order_id, double price, String payment_method, LocalDate payment_date) {
+        this.payment_id = payment_id;
         this.order_id = order_id;
         this.price = price;
         this.payment_method = payment_method;
         this.payment_date = payment_date;
     }
 
+    public int getPayment_id() {
+        return payment_id;
+    }
+
+    public void setPayment_id(int payment_id) {
+        this.payment_id = payment_id;
+    }
 
     public int getOrderID() {
         return order_id;

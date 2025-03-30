@@ -7,22 +7,27 @@ import java.sql.SQLException;
 public class DBobject{
      private static DBobject obo;
      private Connection connection;
- 
-     private DBobject() throws ClassNotFoundException,SQLException{
-         Class.forName("com.mysql.cj.jdbc.Driver");
-         connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/PROJECT_BAKERY","sandula","92540010");
- 
+
+     private DBobject() {
+         try {
+             Class.forName("com.mysql.cj.jdbc.Driver");
+             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/PROJECT_BAKERY", "sandula", "92540010");
+         } catch (ClassNotFoundException | SQLException e) {
+             System.err.println(e.getMessage());
+             throw new RuntimeException(e);
+
+
+         }
      }
- 
-     public static DBobject getInstance() throws ClassNotFoundException,SQLException{
-          if (obo==null) {
-             obo=new DBobject();
-          }
-          return obo;
+         public static DBobject getInstance () {
+             if (obo == null) {
+                 obo = new DBobject();
+             }
+             return obo;
+         }
+
+         public Connection getConnection () {
+             return this.connection;
+         }
+
      }
- 
-     public  Connection getConnection(){
-         return this.connection;
-     }
- 
- }

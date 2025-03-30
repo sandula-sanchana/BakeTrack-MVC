@@ -2,10 +2,14 @@ package edu.ijse.baketrack.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import edu.ijse.baketrack.dto.EmployeeDto;
+
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.DeliveryDto;
+import edu.ijse.baketrack.dto.EmployeeDto;
 
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class EmployeeModel implements EmployeeInterface{
     private Connection connection;
@@ -106,15 +110,24 @@ public void updateSalary(int id,Double salary) throws SQLException{
   
   }
 
-public void viewAllEmployee() throws SQLException{
-  String updateSql="SELECT * FROM employee";
-  PreparedStatement viewstm=connection.prepareStatement(updateSql);
-  
-  ResultSet rowsAffected=viewstm.executeQuery();
-  while(rowsAffected.next()){
-      System.out.println(rowsAffected.getString("emp_name")+"  " +rowsAffected.getString("emp_address"));
-  
+    public ArrayList<EmployeeDto> getAllEmployee()  {
+        String allSql="SELECT * FROM employee";
+        ArrayList<EmployeeDto> getall=new ArrayList<>();
 
-}
-}      
+        try {
+            PreparedStatement statement=connection.prepareStatement(allSql);
+            ResultSet resultSet=statement.executeQuery();
+
+            LocalDate localDate_delivery =resultSet.getDate("attend_date").toLocalDate();
+            while (resultSet.next()){
+               EmployeeDto employeeDto= new EmployeeDto(  resultSet.getInt("employee_id"),resultSet.getString("emp_name"),resultSet.getString("emp_address"),resultSet.getDouble("salary"), resultSet.getString("contact_no"),resultSet.getString("roles"));
+                getall.add(employeeDto);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage() );
+            throw new RuntimeException(e);
+        }
+        return getall;
+    }
+
 }

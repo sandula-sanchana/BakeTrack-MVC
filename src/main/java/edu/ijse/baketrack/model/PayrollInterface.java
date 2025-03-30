@@ -1,6 +1,7 @@
 package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.ijse.baketrack.dto.PayrollDto;
 
@@ -14,4 +15,6 @@ public interface PayrollInterface {
     void deletePayroll(int payrollId) throws SQLException;
 
     void getPayrollById(int payrollId) throws SQLException;
+
+    ArrayList<PayrollDto> getAllPayrolls() throws  SQLException;
 }

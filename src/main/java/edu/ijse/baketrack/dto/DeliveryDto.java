@@ -4,17 +4,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DeliveryDto {
+    private int delivery_id;
      private int vehicle_id;
      private LocalDate delivery_date;
      private String area;
 
-     public DeliveryDto(int vehicle_id, LocalDate delivery_date, String area){
-             this.vehicle_id=vehicle_id;
-             this.delivery_date=delivery_date;
-             this.area=area;
-     }
+    public DeliveryDto(int delivery_id, int vehicle_id, LocalDate delivery_date, String area) {
+        this.delivery_id = delivery_id;
+        this.vehicle_id = vehicle_id;
+        this.delivery_date = delivery_date;
+        this.area = area;
+    }
 
-     public int getVehicleID(){
+    public DeliveryDto() {
+    }
+
+    public int getVehicleID(){
         return this.vehicle_id;
    }
    public LocalDate getDeliveryDate(){

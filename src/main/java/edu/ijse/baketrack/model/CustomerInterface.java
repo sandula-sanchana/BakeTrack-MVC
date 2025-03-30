@@ -1,10 +1,12 @@
 package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.ijse.baketrack.dto.CustomersDto;
 
 public interface CustomerInterface {
+
     void addCustomer(CustomersDto customer) throws SQLException;
 
     void deleteCustomer(int customerId) throws SQLException;
@@ -15,5 +17,5 @@ public interface CustomerInterface {
 
     void updateAddress(int customerId, String address) throws SQLException;
 
-    void viewAllCustomers() throws SQLException;
+    ArrayList<CustomersDto> getAllCustomers() throws SQLException;
 }

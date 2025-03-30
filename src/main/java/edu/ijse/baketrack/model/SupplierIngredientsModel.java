@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.ArrayList;
 
-import edu.ijse.baketrack.dto.SupplierIngredientDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.SupplierIngredientDto;
 
 public class SupplierIngredientsModel implements SupplierIngredientInterface {
     private Connection connection;
@@ -54,7 +55,7 @@ public class SupplierIngredientsModel implements SupplierIngredientInterface {
         System.out.println(rowsAffected > 0 ? "Supplier-Ingredient deleted successfully" : "Failed to delete Supplier-Ingredient");
     }
 
-      public void getSupplierIngredient(int ingredientId, int supplierId) throws SQLException {
+      public void getSupplierIngredientByID(int ingredientId, int supplierId) throws SQLException {
         String sql = "SELECT * FROM supplier_ingredient WHERE ingredient_id = ? AND supplier_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, ingredientId);
@@ -70,6 +71,31 @@ public class SupplierIngredientsModel implements SupplierIngredientInterface {
         } else {
             System.out.println("No record found for ingredient_id: " + ingredientId + " and supplier_id: " + supplierId);
         }
+    }
+
+    public ArrayList<SupplierIngredientDto> getAllSupplierIngredients() throws SQLException {
+        String sql = "SELECT * FROM supplier_ingredient";
+        ArrayList<SupplierIngredientDto> supplierIngredientList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                SupplierIngredientDto supplierIngredient = new SupplierIngredientDto(
+                        resultSet.getInt("ingredient_id"),
+                        resultSet.getInt("supplier_id"),
+                        resultSet.getDouble("price_per_unit"),
+                        resultSet.getString("unit"),
+                        resultSet.getDate("last_order_date").toLocalDate()
+                );
+                supplierIngredientList.add(supplierIngredient);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return supplierIngredientList;
     }
 
 

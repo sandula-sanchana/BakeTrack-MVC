@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import edu.ijse.baketrack.dto.VehicleDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.VehicleDto;
 
 public class VehicleModel implements VehicleInterface {
     private Connection connection;
@@ -66,6 +67,29 @@ public class VehicleModel implements VehicleInterface {
         if (resultSet.next()) {
            System.out.println(resultSet.getString("type"));
         }
+    }
+
+    public ArrayList<VehicleDto> getAllVehicles() throws SQLException {
+        String sql = "SELECT * FROM vehicle";
+        ArrayList<VehicleDto> vehicleList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                VehicleDto vehicle = new VehicleDto(
+                        resultSet.getInt("vehicle_id"),
+                        resultSet.getString("type"),
+                        resultSet.getString("license_plate")
+                );
+                vehicleList.add(vehicle);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return vehicleList;
     }
 
 }

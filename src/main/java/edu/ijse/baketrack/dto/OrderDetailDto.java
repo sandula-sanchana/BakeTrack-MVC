@@ -1,12 +1,12 @@
 package edu.ijse.baketrack.dto;
 
-public class OrderDetail {
+public class OrderDetailDto {
     private int product_id;
     private int order_id;
     private int quantity;
     private double price_at_order;
 
-    public OrderDetail(int product_id, int order_id, int quantity, double price_at_order) {
+    public OrderDetailDto(int product_id, int order_id, int quantity, double price_at_order) {
         this.product_id = product_id;
         this.order_id = order_id;
         this.quantity = quantity;

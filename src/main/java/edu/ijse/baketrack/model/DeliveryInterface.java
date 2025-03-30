@@ -1,6 +1,7 @@
 package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.ijse.baketrack.dto.DeliveryDto;
 
@@ -15,5 +16,5 @@ public interface DeliveryInterface {
 
     String getDeliveryStatusByDeliveryID(DeliveryDto deliveryDto, int deliveryId) throws SQLException;
 
-    //void getAllDeliveries() throws SQLException;
+    ArrayList<DeliveryDto> getAllDelivery() throws SQLException;
 }

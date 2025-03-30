@@ -1,6 +1,7 @@
 package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.ijse.baketrack.dto.VehicleDto;
 
@@ -12,4 +13,6 @@ public interface VehicleInterface {
     void updateVehicle(VehicleDto vehicleDto, int vehicleId) throws SQLException;
 
     void getVehicleById(int vehicleId) throws SQLException;
+
+    ArrayList<VehicleDto> getAllVehicles() throws SQLException;
 }

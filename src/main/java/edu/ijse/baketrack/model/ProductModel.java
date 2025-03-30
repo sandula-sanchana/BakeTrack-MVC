@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import edu.ijse.baketrack.dto.ProductDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.ProductDto;
 
 public class ProductModel implements ProductInterface{
     private Connection connection;
@@ -75,5 +76,30 @@ public class ProductModel implements ProductInterface{
         } else {
             System.out.println("No product found with product_id: " + productID);
         }
+    }
+
+    public ArrayList<ProductDto> getAllProducts() throws SQLException {
+        String sql = "SELECT * FROM product";
+        ArrayList<ProductDto> productList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ProductDto product = new ProductDto(
+                        resultSet.getInt("product_id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("category"),
+                        resultSet.getDouble("price"),
+                        resultSet.getString("description")
+                );
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return productList;
     }
 }

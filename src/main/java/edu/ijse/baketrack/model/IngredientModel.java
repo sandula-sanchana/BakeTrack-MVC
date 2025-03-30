@@ -5,9 +5,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
-import edu.ijse.baketrack.dto.IngredientDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.EmployeeDto;
+import edu.ijse.baketrack.dto.IngredientDto;
 
 public class IngredientModel implements IngredientInterface {
      
@@ -76,5 +79,26 @@ public class IngredientModel implements IngredientInterface {
             System.out.println(resultSet.getString("expire_date"));
        }
     }
+
+    public ArrayList<IngredientDto> getAllIngredients()  {
+        String allSql="SELECT * FROM ingredient";
+        ArrayList<IngredientDto> getall=new ArrayList<>();
+
+        try {
+            PreparedStatement statement=connection.prepareStatement(allSql);
+            ResultSet resultSet=statement.executeQuery();
+
+            LocalDate localDate_expire =resultSet.getDate("expire_date").toLocalDate();
+            while (resultSet.next()){
+               IngredientDto ingredientDto= new IngredientDto(  resultSet.getInt("employee_id"),resultSet.getString("emp_name"), resultSet.getInt("employee_id"),resultSet.getString("emp_name"), resultSet.getDouble("salary"),localDate_expire);
+                getall.add(ingredientDto);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage() );
+            throw new RuntimeException(e);
+        }
+        return getall;
+    }
+
 
 }

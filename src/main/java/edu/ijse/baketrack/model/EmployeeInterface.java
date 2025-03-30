@@ -1,8 +1,10 @@
 package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
+import edu.ijse.baketrack.dto.DeliveryDto;
 import edu.ijse.baketrack.dto.EmployeeDto;
 
 public interface EmployeeInterface {
@@ -18,5 +20,5 @@ public interface EmployeeInterface {
 
     void updateSalary(int employeeId, Double salary) throws SQLException;
 
-    void viewAllEmployee() throws SQLException;
+    ArrayList<EmployeeDto> getAllEmployee()  throws SQLException;
 }

@@ -6,9 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-import edu.ijse.baketrack.dto.OrderDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.OrderDto;
 
 public class OrdersModel implements OrderInterface{
 
@@ -62,27 +63,32 @@ public class OrdersModel implements OrderInterface{
             int rowsAffected = statement.executeUpdate();
             System.out.println(rowsAffected > 0 ? "Order deleted successfully" : "Failed to delete order");
         }
-    
 
-    public void printAllOrders() throws SQLException {
+
+    public ArrayList<OrderDto> getAllOrders() {
         String query = "SELECT * FROM orders";
+        ArrayList<OrderDto> ordersList = new ArrayList<>();
 
-        PreparedStatement statement = connection.prepareStatement(query);
-                ResultSet rs = statement.executeQuery(); 
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                int orderId = rs.getInt("order_id");
-                int customerId = rs.getInt("customer_id");
-                int deliveryId = rs.getInt("delivery_id");
-                LocalDate orderDate = rs.getDate("order_date").toLocalDate();
-                double totalPrice = rs.getDouble("total_price");
-                String status = rs.getString("status");
-
-                System.out.println("Order ID: " + orderId + ", Customer ID: " + customerId +
-                        ", Delivery ID: " + deliveryId + ", Order Date: " + orderDate +
-                        ", Total Price: " + totalPrice + ", Status: " + status);
+                OrderDto order = new OrderDto(
+                        rs.getInt("order_id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("delivery_id"),
+                        rs.getDate("order_date").toLocalDate(),
+                        rs.getDouble("total_price"),
+                        rs.getString("status")// my database status need to be ENUM , I will fix it later :)
+                );
+                ordersList.add(order);
             }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-    
+        return ordersList;
+    }
 
 }

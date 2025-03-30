@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import edu.ijse.baketrack.dto.UsersDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.UsersDto;
 
 public class UsersModel implements UsersInterface {
 

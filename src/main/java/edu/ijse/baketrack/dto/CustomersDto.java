@@ -6,10 +6,7 @@ public class CustomersDto {
     private String contact;
     private String address;
 
-    public CustomersDto(String name, String contact, String address){
-         this.name=name;
-         this.contact=contact;
-         this.address=address;
+    public CustomersDto() {
     }
 
     public CustomersDto(int id, String name, String contact, String address){

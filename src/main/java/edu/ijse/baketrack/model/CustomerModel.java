@@ -3,10 +3,12 @@ package edu.ijse.baketrack.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import edu.ijse.baketrack.dto.CustomersDto;
+
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.CustomersDto;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class CustomerModel implements CustomerInterface {
     private Connection connection;
@@ -91,14 +93,25 @@ public class CustomerModel implements CustomerInterface {
 
     }
 
-    public void viewAllCustomers() throws SQLException {
-        String updateSql = "SELECT * FROM customer";
-        PreparedStatement viewstm = connection.prepareStatement(updateSql);
 
-        ResultSet rowsAffected = viewstm.executeQuery();
-        while (rowsAffected.next()) {
-            System.out.println(rowsAffected.getString("name") + "  " + rowsAffected.getString("address"));
 
+    public ArrayList<CustomersDto> getAllCustomers()  {
+        String allSql="SELECT * FROM customer";
+        ArrayList<CustomersDto> getall=new ArrayList<>();
+
+        try {
+            PreparedStatement statement=connection.prepareStatement(allSql);
+            ResultSet resultSet=statement.executeQuery();
+
+
+            while (resultSet.next()){
+                CustomersDto customersDto=new CustomersDto(resultSet.getInt("customer_id"), resultSet.getString("name"),resultSet.getString("address"),resultSet.getString("contact_no"));
+                getall.add(customersDto);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage() );
+            throw new RuntimeException(e);
         }
+        return getall;
     }
 }

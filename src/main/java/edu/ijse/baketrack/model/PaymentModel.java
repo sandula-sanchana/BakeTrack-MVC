@@ -5,10 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import edu.ijse.baketrack.dto.PaymentsDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.PaymentsDto;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class PaymentModel implements PaymentInterface{
 
@@ -88,6 +89,31 @@ public class PaymentModel implements PaymentInterface{
             return resultSet.getDouble("total_revenue");
         }
         return no_sales;
+    }
+
+    public ArrayList<PaymentsDto> getAllPayments() {
+        String sql = "SELECT * FROM payments";
+        ArrayList<PaymentsDto> paymentsList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                PaymentsDto payment = new PaymentsDto(
+                        resultSet.getInt("payment_id"),
+                        resultSet.getInt("order_id"),
+                        resultSet.getDouble("price"),
+                        resultSet.getString("payment_method"),
+                        resultSet.getDate("payment_date").toLocalDate()
+                );
+                paymentsList.add(payment);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return paymentsList;
     }
 
 }

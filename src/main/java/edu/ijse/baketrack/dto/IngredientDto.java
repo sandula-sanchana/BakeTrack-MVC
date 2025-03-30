@@ -4,18 +4,28 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class IngredientDto {
+    private  int ingredient_id;
     private String name;
     private int stock_amount;
     private String unit;
     private double buying_price;
     private LocalDate expire_date;
 
-    public IngredientDto(String name, int stock_amount, String unit, double buying_price, LocalDate expire_date) {
+    public IngredientDto(int ingredient_id, String name, int stock_amount, String unit, double buying_price, LocalDate expire_date) {
+        this.ingredient_id = ingredient_id;
         this.name = name;
         this.stock_amount = stock_amount;
         this.unit = unit;
         this.buying_price = buying_price;
         this.expire_date = expire_date;
+    }
+
+    public int getIngredient_id() {
+        return ingredient_id;
+    }
+
+    public void setIngredient_id(int ingredient_id) {
+        this.ingredient_id = ingredient_id;
     }
 
     public String getName() {

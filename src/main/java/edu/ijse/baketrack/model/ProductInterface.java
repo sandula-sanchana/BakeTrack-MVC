@@ -1,6 +1,7 @@
 package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.ijse.baketrack.dto.ProductDto;
 
@@ -12,4 +13,6 @@ public interface ProductInterface {
     void updateProduct(ProductDto productDto, int productID) throws SQLException;
 
     void getProductDetailsByProductID(int productID) throws SQLException;
+
+    ArrayList<ProductDto> getAllProducts() throws SQLException;
 }

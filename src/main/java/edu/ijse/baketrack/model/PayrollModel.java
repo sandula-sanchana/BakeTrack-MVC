@@ -1,7 +1,7 @@
 package edu.ijse.baketrack.model;
 
-import edu.ijse.baketrack.dto.PayrollDto;
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.PayrollDto;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 
 public class PayrollModel implements PayrollInterface{
@@ -100,5 +101,32 @@ public class PayrollModel implements PayrollInterface{
                 System.out.println(resultSet.getString("payroll_id") + "  " + resultSet.getString("full_salary"));
             }
         }
+    }
+
+    public ArrayList<PayrollDto> getAllPayrolls() {
+        String sql = "SELECT * FROM payroll";
+        ArrayList<PayrollDto> payrollList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                PayrollDto payroll = new PayrollDto(
+                        resultSet.getInt("payroll_id"),
+                        resultSet.getInt("employee_id"),
+                        resultSet.getDate("pay_month").toLocalDate(),
+                        resultSet.getTime("over_time_hours").toLocalTime(),
+                        resultSet.getDouble("base_salary"),
+                        resultSet.getDouble("full_salary"),
+                        resultSet.getString("status")
+                );
+                payrollList.add(payroll);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return payrollList;
     }
 }
