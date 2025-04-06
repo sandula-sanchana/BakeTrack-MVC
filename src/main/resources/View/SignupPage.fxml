@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="73.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="385.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="65.0">
                <image>
-                  <Image url="@../images/ChatGPT_Image_Apr_1__2025__10_44_09_AM-removebg-preview.png" />
+                  <Image url="@../images/logo_no_bg.png" />
                </image>
             </ImageView>
          </children>

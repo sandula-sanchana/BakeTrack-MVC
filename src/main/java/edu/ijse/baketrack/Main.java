@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent parent= FXMLLoader.load(getClass().getResource("/View/LogInPage.fxml"));
         Scene scene=new Scene(parent);
-        //Image icon=new Image("/images/ChatGPT_Image_Apr_1__2025__10_44_09_AM-removebg-preview.png");
+        //Image icon=new Image("/images/logo_no_bg.png");
 
         stage.setScene(scene);
         stage.setTitle("baketrack v 1.0");
