@@ -48,6 +48,12 @@
                         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="196.0" text="Suppliers" />
                      </children>
                   </HBox>
+                  <HBox alignment="TOP_RIGHT" spacing="10.0">
+                     <children>
+                        <FontAwesomeIconView fill="#f39c12" glyphName="CAR" size="30" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="205.0" text="Vehicles" />
+                     </children>
+                  </HBox>
                   <HBox prefHeight="38.0" prefWidth="236.0" spacing="20.0">
                      <children>
                         <FontAwesomeIconView fill="#f39c12" glyphName="FILE_ALT" size="30" />

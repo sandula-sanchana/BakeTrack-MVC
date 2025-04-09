@@ -17,7 +17,7 @@
          <children>
             <TextField fx:id="txtUserNameSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Username.." style="-fx-border-radius: 10; -fx-background-color: #ECF0F1; -fx-background-radius: 10;" />
             <TextField fx:id="txtUserPasswordSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Password.." style="-fx-background-radius: 10; -fx-background-color: #ECF0F1; -fx-border-radius: 10;" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLogInloginPage" prefHeight="26.0" prefWidth="192.0" style="-fx-background-color: #3498DB;" text="log in" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLogInloginPage" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: #3498DB;" text="log in" />
          </children>
       </VBox>
       <VBox alignment="CENTER" layoutX="361.0" layoutY="75.0" prefHeight="174.0" prefWidth="159.0" AnchorPane.bottomAnchor="351.0" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="75.0">

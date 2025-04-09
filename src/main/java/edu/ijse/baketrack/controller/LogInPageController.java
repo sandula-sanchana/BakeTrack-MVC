@@ -1,5 +1,7 @@
 package edu.ijse.baketrack.controller;
 
+import edu.ijse.baketrack.model.AttendanceInterface;
+import edu.ijse.baketrack.model.AttendanceModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +41,7 @@ public class LogInPageController {
 
     @FXML
     void hlForgotPwdLPage(ActionEvent event) {
+//      ttendanceInterface.addAttendance();
 
     }
 
