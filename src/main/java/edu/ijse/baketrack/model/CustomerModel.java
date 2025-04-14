@@ -114,4 +114,19 @@ public class CustomerModel implements CustomerInterface {
         }
         return getall;
     }
+
+    public CustomersDto getCustomerByID(int cusID) throws SQLException {
+        connection=DBobject.getInstance().getConnection();
+        String sql="SELECT * FROM customer WHERE customer_id=?";
+        PreparedStatement statement=connection.prepareStatement(sql);
+
+        statement.setInt(1,cusID);
+
+        ResultSet resultSet=statement.executeQuery();
+
+        if(resultSet.next()){
+            return new CustomersDto(resultSet.getInt("customer_id"), resultSet.getString("name"),resultSet.getString("address"),resultSet.getString("contact_no"));
+        }
+        return null;
+    }
 }

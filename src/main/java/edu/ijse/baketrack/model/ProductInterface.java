@@ -12,7 +12,9 @@ public interface ProductInterface {
 
     void updateProduct(ProductDto productDto, int productID) throws SQLException;
 
-    void getProductDetailsByProductID(int productID) throws SQLException;
+    ProductDto getProductDetailsByProductID(int productID) throws SQLException;
 
     ArrayList<ProductDto> getAllProducts() throws SQLException;
+
+    public double getPriceAtOrder(int product_id) throws SQLException;
 }

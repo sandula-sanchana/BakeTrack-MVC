@@ -19,6 +19,14 @@ import java.time.format.DateTimeFormatter;
          this.status = status;
      }
 
+     public OrderDto( int customer_id,int delivery_id,  LocalDate order_date, double total_price, String status) {
+         this.customer_id = customer_id;
+         this.delivery_id = delivery_id;
+         this.order_date = order_date;
+         this.total_price = total_price;
+         this.status = status;
+     }
+
      public int getOrder_id() {
          return order_id;
      }

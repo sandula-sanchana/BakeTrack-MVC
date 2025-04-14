@@ -18,4 +18,6 @@ public interface CustomerInterface {
     void updateAddress(int customerId, String address) throws SQLException;
 
     ArrayList<CustomersDto> getAllCustomers() throws SQLException;
+
+    public CustomersDto getCustomerByID(int cusID) throws SQLException;
 }

@@ -62,19 +62,16 @@ public class ProductModel implements ProductInterface{
         }
     }
 
-    public void getProductDetailsByProductID(int productID) throws SQLException {
+    public ProductDto getProductDetailsByProductID(int productID) throws SQLException {
         String sql = "SELECT * FROM product WHERE product_id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1,productID);
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            System.out.println("name: " + resultSet.getString("name"));
-            System.out.println("Category: " + resultSet.getString("category"));
-            System.out.println("Price: " + resultSet.getDouble("price"));
-            System.out.println("Description: " + resultSet.getString("description"));
+            return new ProductDto(resultSet.getInt("product_id"),resultSet.getString("name"), resultSet.getString("category"),resultSet.getDouble("price"),resultSet.getString("description"));
         } else {
-            System.out.println("No product found with product_id: " + productID);
+           return  null;
         }
     }
 
@@ -101,5 +98,26 @@ public class ProductModel implements ProductInterface{
             throw new RuntimeException(e);
         }
         return productList;
+    }
+
+    public double getPriceAtOrder(int product_id) throws SQLException {
+        String sql="SELECT price FROM product WHERE product_id=?";
+
+        try {
+            PreparedStatement statement=connection.prepareStatement(sql);
+
+            statement.setInt(1,product_id);
+
+            ResultSet resultSet=statement.executeQuery();
+
+            if (resultSet.next()){
+                return resultSet.getDouble("price");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return 0.0;
     }
 }

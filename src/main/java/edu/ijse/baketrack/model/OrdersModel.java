@@ -1,14 +1,12 @@
 package edu.ijse.baketrack.model;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.ijse.baketrack.db.DBobject;
+import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
 
 public class OrdersModel implements OrderInterface{
@@ -89,6 +87,78 @@ public class OrdersModel implements OrderInterface{
             throw new RuntimeException(e);
         }
         return ordersList;
+    }
+
+
+    public String placeOrder(OrderDto orderDto, ArrayList<OrderDetailDto> orderDetail) throws SQLException {
+
+        connection=DBobject.getInstance().getConnection();
+
+           try{
+               connection.setAutoCommit(false);
+
+               String addSql = "INSERT INTO orders (customer_id,delivery_id,order_date,total_price,status) VALUES (?,?,?,?,?)";
+               PreparedStatement statement = connection.prepareStatement(addSql, Statement.RETURN_GENERATED_KEYS);
+               statement.setInt(1, orderDto.getCustomerID());
+               statement.setInt(2, orderDto.getDeliveryID());
+               statement.setDate(3, Date.valueOf(orderDto.getOrderDate()));
+               statement.setDouble(4, orderDto.getTotalPrice());
+               statement.setString(5, orderDto.getStatus());
+               statement.executeUpdate();
+
+               ResultSet resultSet=statement.getGeneratedKeys();
+               int orderId=-1;
+               if(resultSet.next()){
+                       orderId=resultSet.getInt(1);
+                   String orderDetailsql = "INSERT INTO order_detail (product_id, order_id, quantity, price_at_order) VALUES (?, ?, ?, ?)";
+                   PreparedStatement orderDetailStatement = connection.prepareStatement(orderDetailsql);
+                   boolean orderDetailsResult=true;
+                   for(OrderDetailDto orderDetailDto : orderDetail) {
+                       orderDetailStatement.setInt(1, orderDetailDto.getProductID());
+                       orderDetailStatement.setInt(2, orderId);
+                       orderDetailStatement.setInt(3, orderDetailDto.getQuantity());
+                       orderDetailStatement.setDouble(4, orderDetailDto.getPriceAtOrder());
+                       if (!(orderDetailStatement.executeUpdate()>0)){
+                           orderDetailsResult=false;
+                       }
+                   }
+
+                   if (orderDetailsResult){
+                       String Quantitysql = "UPDATE product SET total_quantity=(total_quantity-?) WHERE product_id = ?";
+                       PreparedStatement QuantityStatement = connection.prepareStatement(Quantitysql);
+                       boolean quantitySaved=true;
+                       for (OrderDetailDto orderDetailDto: orderDetail) {
+                           QuantityStatement.setInt(1,orderDetailDto.getQuantity() );
+                           QuantityStatement.setInt(2,orderDetailDto.getProductID());
+                         if(!(QuantityStatement.executeUpdate()>0)){
+                             quantitySaved=false;
+                         }
+                       }
+                       if(quantitySaved){
+                              connection.commit();
+                              return "order place Transaction successfully done";
+                       }else{
+                           connection.rollback();
+                           return "Quantity update failed";
+                       }
+                   }else{
+                       connection.rollback();
+                       return  "order detail update error";
+                   }
+               }
+               else {
+                   connection.rollback();
+                   return "generated key not found";
+               }
+
+
+           } catch (Exception e) {
+               connection.rollback();
+               throw new RuntimeException(e);
+           }
+           finally {
+                connection.setAutoCommit(true);
+           }
     }
 
 }
