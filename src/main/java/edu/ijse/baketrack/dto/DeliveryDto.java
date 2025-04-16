@@ -16,6 +16,12 @@ public class DeliveryDto {
         this.area = area;
     }
 
+    public DeliveryDto(int vehicle_id, LocalDate delivery_date, String area) {
+        this.vehicle_id = vehicle_id;
+        this.delivery_date = delivery_date;
+        this.area = area;
+    }
+
     public DeliveryDto() {
     }
 

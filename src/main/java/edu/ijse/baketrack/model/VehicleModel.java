@@ -81,7 +81,8 @@ public class VehicleModel implements VehicleInterface {
                 VehicleDto vehicle = new VehicleDto(
                         resultSet.getInt("vehicle_id"),
                         resultSet.getString("type"),
-                        resultSet.getString("license_plate")
+                        resultSet.getString("license_plate"),
+                        resultSet.getString("status")
                 );
                 vehicleList.add(vehicle);
             }
@@ -90,6 +91,32 @@ public class VehicleModel implements VehicleInterface {
             throw new RuntimeException(e);
         }
         return vehicleList;
+    }
+
+    public ArrayList<VehicleDto> getAvailableVehicles(String status) throws SQLException {
+        String sql = "SELECT * FROM vehicle WHERE status=?";
+        ArrayList<VehicleDto> vehicleList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,status);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                VehicleDto vehicle = new VehicleDto(
+                        resultSet.getInt("vehicle_id"),
+                        resultSet.getString("type"),
+                        resultSet.getString("license_plate"),
+                        resultSet.getString("status")
+                );
+                vehicleList.add(vehicle);
+                return vehicleList;
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
 }

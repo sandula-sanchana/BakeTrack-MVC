@@ -13,6 +13,12 @@ public class OrderDetailDto {
         this.price_at_order = price_at_order;
     }
 
+    public OrderDetailDto(int product_id, int quantity, double price_at_order) {
+        this.product_id = product_id;
+        this.quantity = quantity;
+        this.price_at_order = price_at_order;
+    }
+
     public int getProductID() {
         return product_id;
     }

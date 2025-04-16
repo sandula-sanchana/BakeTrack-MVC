@@ -8,6 +8,7 @@ import java.util.List;
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
+import java.sql.Types.*;
 
 public class OrdersModel implements OrderInterface{
 
@@ -21,7 +22,7 @@ public class OrdersModel implements OrderInterface{
         String addSql = "INSERT INTO orders (customer_id,delivery_id,order_date,total_price,status) VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(addSql);
         statement.setInt(1, orders.getCustomerID());
-        statement.setInt(2, orders.getDeliveryID());
+        statement.setInt(2,orders.getDeliveryID());
         statement.setDate(3, Date.valueOf(orders.getOrderDate()));
         statement.setDouble(4, orders.getTotalPrice());
         statement.setString(5, orders.getStatus());
@@ -100,7 +101,7 @@ public class OrdersModel implements OrderInterface{
                String addSql = "INSERT INTO orders (customer_id,delivery_id,order_date,total_price,status) VALUES (?,?,?,?,?)";
                PreparedStatement statement = connection.prepareStatement(addSql, Statement.RETURN_GENERATED_KEYS);
                statement.setInt(1, orderDto.getCustomerID());
-               statement.setInt(2, orderDto.getDeliveryID());
+               statement.setNull(2,-1);
                statement.setDate(3, Date.valueOf(orderDto.getOrderDate()));
                statement.setDouble(4, orderDto.getTotalPrice());
                statement.setString(5, orderDto.getStatus());
@@ -159,6 +160,35 @@ public class OrdersModel implements OrderInterface{
            finally {
                 connection.setAutoCommit(true);
            }
+    }
+
+    public ArrayList<OrderDto> getOrderByID(int orderID) throws SQLException{
+        String query = "SELECT * FROM orders WHERE order_id=?";
+        ArrayList<OrderDto> ordersList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,orderID);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                OrderDto order = new OrderDto(
+                        rs.getInt("order_id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("delivery_id"),
+                        rs.getDate("order_date").toLocalDate(),
+                        rs.getDouble("total_price"),
+                        rs.getString("status")// my database status need to be ENUM , I will fix it later :)
+                );
+                ordersList.add(order);
+                return ordersList;
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
 }

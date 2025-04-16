@@ -12,4 +12,5 @@ public interface OrderInterface {
     void deleteOrder(int orderId) throws SQLException;
     ArrayList<OrderDto> getAllOrders() throws SQLException;
     String placeOrder(OrderDto orderDto, ArrayList<OrderDetailDto> orderDetailDtos) throws SQLException;
+    ArrayList<OrderDto> getOrderByID(int orderID) throws SQLException;
 }

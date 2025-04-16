@@ -116,7 +116,7 @@ public class AddOrderPageController implements Initializable {
     }
 
     public  void addOrderDetailToTable(){
-        OrderDetailDto orderDetailDto=new OrderDetailDto(Integer.parseInt(txtOrderPagePid.getText()),1,Integer.parseInt(txtOrderPageQty.getText()),Double.parseDouble(lblPriceAtOrder.getText()));
+        OrderDetailDto orderDetailDto=new OrderDetailDto(Integer.parseInt(txtOrderPagePid.getText()),Integer.parseInt(txtOrderPageQty.getText()),Double.parseDouble(lblPriceAtOrder.getText()));
         orderDetailDtoList.add(orderDetailDto);
         addOrderPageTable.getItems().clear();
         addOrderPageTable.getItems().addAll(orderDetailDtoList);
@@ -153,7 +153,7 @@ public class AddOrderPageController implements Initializable {
     public void placeOrder() throws SQLException {
         LocalDate today_date=LocalDate.now();
         Double x=getTotalPriceOfOrder();
-        OrderDto orderDto=new OrderDto(Integer.parseInt(txtOrderPageCusID.getText()),2,today_date,x,"pending");
+        OrderDto orderDto=new OrderDto(Integer.parseInt(txtOrderPageCusID.getText()),today_date,x,"pending");
         String resp=orderInterface.placeOrder(orderDto,orderDetailDtoList);
 
         Alert alert=new Alert(Alert.AlertType.INFORMATION);

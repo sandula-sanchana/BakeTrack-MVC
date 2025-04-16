@@ -17,4 +17,6 @@ public interface DeliveryInterface {
     String getDeliveryStatusByDeliveryID(DeliveryDto deliveryDto, int deliveryId) throws SQLException;
 
     ArrayList<DeliveryDto> getAllDelivery() throws SQLException;
+
+    public String setDelivery(DeliveryDto deliveryDto,String orderID) throws SQLException;
 }
