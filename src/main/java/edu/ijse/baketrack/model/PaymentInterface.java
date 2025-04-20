@@ -10,7 +10,8 @@ public interface PaymentInterface {
  void addPayment(PaymentsDto payment) throws SQLException;
     void deletePayment(int orderId) throws SQLException;
     void updatePayment(PaymentsDto payment, int orderId) throws SQLException;
-    void getPaymentDetailsByOrderId(int orderId) throws SQLException;
+    ArrayList<PaymentsDto> getPaymentDetailsByOrderId(int orderId) throws SQLException;
     double getTotRevenue() throws SQLException;
     ArrayList<PaymentsDto> getAllPayments() throws SQLException;
+   public String setPayments(PaymentsDto paymentsDto,int vehicle_id)throws SQLException;
 }

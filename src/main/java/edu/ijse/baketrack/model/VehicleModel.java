@@ -102,21 +102,23 @@ public class VehicleModel implements VehicleInterface {
             statement.setString(1,status);
             ResultSet resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {
+
+                while(resultSet.next()){
                 VehicleDto vehicle = new VehicleDto(
                         resultSet.getInt("vehicle_id"),
                         resultSet.getString("type"),
                         resultSet.getString("license_plate"),
-                        resultSet.getString("status")
-                );
-                vehicleList.add(vehicle);
+                        resultSet.getString("status"));
+                        vehicleList.add(vehicle);
+                }
+
                 return vehicleList;
-            }
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             throw new RuntimeException(e);
         }
-        return null;
+
     }
 
 }

@@ -6,12 +6,14 @@ import java.time.format.DateTimeFormatter;
 public class DeliveryDto {
     private int delivery_id;
      private int vehicle_id;
+     private int employee_id;
      private LocalDate delivery_date;
      private String area;
 
-    public DeliveryDto(int delivery_id, int vehicle_id, LocalDate delivery_date, String area) {
+    public DeliveryDto(int delivery_id, int vehicle_id,int employee_id, LocalDate delivery_date, String area) {
         this.delivery_id = delivery_id;
         this.vehicle_id = vehicle_id;
+        this.employee_id=employee_id;
         this.delivery_date = delivery_date;
         this.area = area;
     }
@@ -47,4 +49,13 @@ public class DeliveryDto {
    public void setDeliveryArea(String area) {
     this.area = area;
    }
+
+    public int getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
+    }
 }
+

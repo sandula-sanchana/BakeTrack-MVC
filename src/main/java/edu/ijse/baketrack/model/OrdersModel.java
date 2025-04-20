@@ -136,8 +136,21 @@ public class OrdersModel implements OrderInterface{
                          }
                        }
                        if(quantitySaved){
-                              connection.commit();
-                              return "order place Transaction successfully done";
+                             String paymentSql="INSERT INTO payments (order_id,price,payment_method,payment_date,status) VALUES (?,?,?,?,?)";
+                             PreparedStatement paymentStatement=connection.prepareStatement(paymentSql);
+                             paymentStatement.setInt(1,orderId);
+                             paymentStatement.setDouble(2,orderDto.getTotalPrice());
+                             paymentStatement.setNull(3,-1);
+                             paymentStatement.setNull(4, Types.DATE);
+                             paymentStatement.setString(5,"pending");
+
+                             if(paymentStatement.executeUpdate()>0){
+                                 connection.commit();
+                                 return "setOrder done, payment pending";
+                             }else {
+                                 connection.rollback();
+                                 return "payment table set error";
+                             }
                        }else{
                            connection.rollback();
                            return "Quantity update failed";
@@ -180,6 +193,35 @@ public class OrdersModel implements OrderInterface{
                         rs.getDate("order_date").toLocalDate(),
                         rs.getDouble("total_price"),
                         rs.getString("status")// my database status need to be ENUM , I will fix it later :)
+                );
+                ordersList.add(order);
+                return ordersList;
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public ArrayList<OrderDto> getOrderByDelID(String delID) {
+        String query = "SELECT * FROM orders WHERE delivery_id=?";
+        ArrayList<OrderDto> ordersList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,Integer.parseInt(delID));
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                OrderDto order = new OrderDto(
+                        rs.getInt("order_id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("delivery_id"),
+                        rs.getDate("order_date").toLocalDate(),
+                        rs.getDouble("total_price"),
+                        rs.getString("status")
                 );
                 ordersList.add(order);
                 return ordersList;

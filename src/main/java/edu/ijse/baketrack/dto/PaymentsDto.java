@@ -9,13 +9,23 @@ public class PaymentsDto {
     private double price;
     private String payment_method;
     private LocalDate payment_date;
+    private String status;
 
-    public PaymentsDto(int payment_id, int order_id, double price, String payment_method, LocalDate payment_date) {
+    public PaymentsDto(int payment_id, int order_id, double price, String payment_method, LocalDate payment_date,String status) {
         this.payment_id = payment_id;
         this.order_id = order_id;
         this.price = price;
         this.payment_method = payment_method;
         this.payment_date = payment_date;
+        this.status=status;
+    }
+
+    public PaymentsDto(int payment_id,int order_id, String payment_method, LocalDate payment_date, String status) {
+        this.payment_id = payment_id;
+        this.order_id = order_id;
+        this.payment_method = payment_method;
+        this.payment_date = payment_date;
+        this.status = status;
     }
 
     public int getPayment_id() {
@@ -51,12 +61,20 @@ public class PaymentsDto {
     }
 
     public LocalDate getPaymentDate() {
+
         return payment_date;
     }
 
-    public void setPaymentDate(String payment_date_String) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.payment_date = LocalDate.parse(payment_date_String, format);
+    public void setPaymentDate(LocalDate payment_date) {
+       this.payment_date=payment_date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 

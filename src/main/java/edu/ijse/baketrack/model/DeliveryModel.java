@@ -103,8 +103,8 @@ public class DeliveryModel implements DeliveryInterface{
         }
     }
 
-    public String getDeliveryStatusByDeliveryID(DeliveryDto deliveryDto, int delivery_id){
-        String getSql="SELECT status From delivery WHERE delivery_id=?";
+    public int getVehicleIDbyDelID(int delivery_id){
+        String getSql="SELECT vehicle_id From delivery WHERE delivery_id=?";
         ResultSet rset= null;
         try {
             PreparedStatement statement=connection.prepareStatement(getSql);
@@ -113,11 +113,11 @@ public class DeliveryModel implements DeliveryInterface{
 
 
         if(rset.next()){
-            System.out.println(rset.getString("status"));
-            return rset.getString("status");
+
+            return rset.getInt("vehicle_id");
         }
         else{
-            return"not found";
+            return -1;
         }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -136,7 +136,7 @@ public class DeliveryModel implements DeliveryInterface{
 
             LocalDate localDate_delivery =resultSet.getDate("attend_date").toLocalDate();
             while (resultSet.next()){
-                DeliveryDto deliveryDto= new DeliveryDto(  resultSet.getInt("delivery_id"),resultSet.getInt("vehicle_id"), localDate_delivery, resultSet.getString("area"));
+                DeliveryDto deliveryDto= new DeliveryDto( resultSet.getInt("delivery_id"),resultSet.getInt("vehicle_id"),resultSet.getInt("employee_id"), localDate_delivery, resultSet.getString("area"));
                 getall.add(deliveryDto);
             }
         } catch (SQLException e) {
@@ -150,13 +150,14 @@ public class DeliveryModel implements DeliveryInterface{
          try {
              connection.setAutoCommit(false);
 
-             String addSql = "INSERT INTO delivery (vehicle_id, delivery_date, area) VALUES (?, ?, ?)";//here i set the delivery to delivery table :)
+             String addSql = "INSERT INTO delivery (vehicle_id,employee_id, delivery_date, area) VALUES (?, ?, ?,?)";//here i set the delivery to delivery table :)
                                                                                                        //next i will update the delivery id in order table
              try {
                  PreparedStatement statement = connection.prepareStatement(addSql, Statement.RETURN_GENERATED_KEYS);
                  statement.setInt(1, deliveryDto.getVehicleID());
-                 statement.setDate(2, Date.valueOf(deliveryDto.getDeliveryDate()));
-                 statement.setString(3, deliveryDto.getDeliveryArea());
+                 statement.setNull(2,-1);
+                 statement.setDate(3, Date.valueOf(deliveryDto.getDeliveryDate()));
+                 statement.setString(4, deliveryDto.getDeliveryArea());
                  statement.executeUpdate();
 
                  ResultSet gen_key=statement.getGeneratedKeys();

@@ -127,7 +127,7 @@
                       </TableView>
                     </children>
                 </VBox>
-                <Button layoutX="523.0" layoutY="680.0" mnemonicParsing="false" onAction="#btnSetDelivery" prefHeight="51.0" prefWidth="191.0" style="-fx-background-color: #3498DB;" text="Place Order" />
+                <Button layoutX="523.0" layoutY="680.0" mnemonicParsing="false" onAction="#btnSetDelivery" prefHeight="51.0" prefWidth="191.0" style="-fx-background-color: #3498DB;" text="set Delivery" />
             <VBox layoutY="287.0" prefHeight="200.0" prefWidth="796.0">
                <children>
                   <TableView fx:id="VehicleDetailTable" prefHeight="200.0" prefWidth="200.0">
