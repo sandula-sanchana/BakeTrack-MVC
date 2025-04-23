@@ -4,17 +4,22 @@ import edu.ijse.baketrack.dto.CustomersDto;
 import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
 import edu.ijse.baketrack.dto.ProductDto;
+import edu.ijse.baketrack.dto.tm.OrderDetailTM;
 import edu.ijse.baketrack.model.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -24,19 +29,22 @@ import java.util.ResourceBundle;
 public class AddOrderPageController implements Initializable {
 
     public Label lblPriceAtOrder;
-    public TableColumn<OrderDetailDto,Integer> clmnPID;
-    public TableColumn<OrderDetailDto,Integer> clmnQty;
-    public TableColumn<OrderDetailDto,Double> clmnPatOrder;
+    public TableColumn<OrderDetailTM,Integer> clmnPID;
+    public TableColumn<OrderDetailTM,Integer> clmnQty;
+    public TableColumn<OrderDetailTM,Double> clmnPatOrder;
     public Label lblTotalPrice;
+    public AnchorPane apOrderPage;
     private CustomerInterface customerInterface=new CustomerModel();
     private ProductInterface productInterface=new ProductModel();
     private OrderInterface orderInterface=new OrdersModel();
     private ArrayList<OrderDetailDto> orderDetailDtoList = new ArrayList<>();
     private ArrayList<Double> total_price_array=new ArrayList<>();
+    private ObservableList<OrderDetailTM> orderDetailTMs = FXCollections.observableArrayList();
+
 
 
     @FXML
-    private TableView<OrderDetailDto> addOrderPageTable;
+    private TableView<OrderDetailTM> addOrderPageTable;
 
     @FXML
     private Label lblCusData;
@@ -62,6 +70,16 @@ public class AddOrderPageController implements Initializable {
 
     @FXML
     void OrderPageGoBackButton(ActionEvent event) {
+        try {
+            apOrderPage.getChildren().clear();
+            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/OwnerDashboard.fxml"));
+            apOrderPage.getChildren().add(ap);
+        } catch (IOException e) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("not found");
+            alert.showAndWait();
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -116,10 +134,11 @@ public class AddOrderPageController implements Initializable {
     }
 
     public  void addOrderDetailToTable(){
-        OrderDetailDto orderDetailDto=new OrderDetailDto(Integer.parseInt(txtOrderPagePid.getText()),Integer.parseInt(txtOrderPageQty.getText()),Double.parseDouble(lblPriceAtOrder.getText()));
+        OrderDetailDto orderDetailDto=new OrderDetailDto(Integer.parseInt(txtOrderPagePid.getText()),Integer.parseInt(txtOrderPageQty.getText()),
+                Double.parseDouble(lblPriceAtOrder.getText()));
         orderDetailDtoList.add(orderDetailDto);
-        addOrderPageTable.getItems().clear();
-        addOrderPageTable.getItems().addAll(orderDetailDtoList);
+        OrderDetailTM tm=new OrderDetailTM(Integer.parseInt(txtOrderPagePid.getText()),Integer.parseInt(txtOrderPageQty.getText()), Double.parseDouble(lblPriceAtOrder.getText()));
+        orderDetailTMs.add(tm);
 
 
     }
@@ -137,17 +156,13 @@ public class AddOrderPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        clmnPID.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getProductID()));
+        clmnPID.setCellValueFactory(new PropertyValueFactory<>("product_id"));
 
-        clmnQty.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getQuantity()));
+        clmnQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        clmnPatOrder.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getPriceAtOrder()));
+        clmnPatOrder.setCellValueFactory(new PropertyValueFactory<>("price_at_order"));
 
-
-        addOrderPageTable.setItems(FXCollections.observableArrayList(orderDetailDtoList));
+        addOrderPageTable.setItems(orderDetailTMs);
     }
 
     public void placeOrder() throws SQLException {

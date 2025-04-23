@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.AddOrderPageController">
+<AnchorPane fx:id="apOrderPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.AddOrderPageController">
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="484.0" style="-fx-background-color: #2C3E50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="796.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox layoutY="269.0" prefHeight="391.0" prefWidth="484.0" spacing="20.0">
+                <VBox layoutY="269.0" prefHeight="341.0" prefWidth="484.0" spacing="20.0">
                <children>
                   <HBox prefHeight="51.0" prefWidth="236.0" spacing="15.0">
                      <children>
@@ -52,17 +52,17 @@
                         <TextField fx:id="txtOrderPageQty" prefHeight="38.0" prefWidth="237.0" promptText="amount.." />
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="76.0">
+                  <HBox prefHeight="60.0" prefWidth="484.0" spacing="76.0">
                      <children>
                         <Label text="price_at_order" textFill="#f39c12">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="lblPriceAtOrder" prefHeight="18.0" prefWidth="282.0" style="-fx-background-color: WHITE;" />
+                        <Label fx:id="lblPriceAtOrder" prefHeight="18.0" prefWidth="309.0" style="-fx-background-color: WHITE;" />
                      </children>
                   </HBox>
-                  <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="44.0" prefWidth="484.0">
                      <children>
                         <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnAddOrderDetail" prefHeight="41.0" prefWidth="242.0" style="-fx-background-color: #3498DB;" text="ADD" />
                      </children>
@@ -75,6 +75,12 @@
                     </image>
                 </ImageView>
             <Button layoutX="53.0" layoutY="28.0" mnemonicParsing="false" onAction="#OrderPageGoBackButton" text="go back" />
+            <VBox layoutX="69.0" layoutY="641.0" prefHeight="157.0" prefWidth="414.0" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="UPDATE" />
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" text="DELETE" />
+               </children>
+            </VBox>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="484.0" layoutY="189.0" prefHeight="800.0" prefWidth="796.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="484.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -8,6 +8,8 @@ import java.util.List;
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
+import edu.ijse.baketrack.util.SqlExecute;
+
 import java.sql.Types.*;
 
 public class OrdersModel implements OrderInterface{
@@ -112,39 +114,35 @@ public class OrdersModel implements OrderInterface{
                if(resultSet.next()){
                        orderId=resultSet.getInt(1);
                    String orderDetailsql = "INSERT INTO order_detail (product_id, order_id, quantity, price_at_order) VALUES (?, ?, ?, ?)";
-                   PreparedStatement orderDetailStatement = connection.prepareStatement(orderDetailsql);
                    boolean orderDetailsResult=true;
                    for(OrderDetailDto orderDetailDto : orderDetail) {
-                       orderDetailStatement.setInt(1, orderDetailDto.getProductID());
-                       orderDetailStatement.setInt(2, orderId);
-                       orderDetailStatement.setInt(3, orderDetailDto.getQuantity());
-                       orderDetailStatement.setDouble(4, orderDetailDto.getPriceAtOrder());
-                       if (!(orderDetailStatement.executeUpdate()>0)){
+                       Boolean done=SqlExecute.SqlExecute(orderDetailsql,orderDetailDto.getProductID(), orderId,
+                               orderDetailDto.getQuantity(),orderDetailDto.getPriceAtOrder());
+                       if (!done){
                            orderDetailsResult=false;
                        }
                    }
 
                    if (orderDetailsResult){
                        String Quantitysql = "UPDATE product SET total_quantity=(total_quantity-?) WHERE product_id = ?";
-                       PreparedStatement QuantityStatement = connection.prepareStatement(Quantitysql);
                        boolean quantitySaved=true;
                        for (OrderDetailDto orderDetailDto: orderDetail) {
-                           QuantityStatement.setInt(1,orderDetailDto.getQuantity() );
-                           QuantityStatement.setInt(2,orderDetailDto.getProductID());
-                         if(!(QuantityStatement.executeUpdate()>0)){
+                           Boolean UpdateDone=SqlExecute.SqlExecute(Quantitysql,orderDetailDto.getQuantity(),orderDetailDto.getProductID());
+                         if(!UpdateDone){
                              quantitySaved=false;
                          }
                        }
                        if(quantitySaved){
                              String paymentSql="INSERT INTO payments (order_id,price,payment_method,payment_date,status) VALUES (?,?,?,?,?)";
-                             PreparedStatement paymentStatement=connection.prepareStatement(paymentSql);
-                             paymentStatement.setInt(1,orderId);
-                             paymentStatement.setDouble(2,orderDto.getTotalPrice());
-                             paymentStatement.setNull(3,-1);
-                             paymentStatement.setNull(4, Types.DATE);
-                             paymentStatement.setString(5,"pending");
+//                             PreparedStatement paymentStatement=connection.prepareStatement(paymentSql);
+//                             paymentStatement.setInt(1,orderId);
+//                             paymentStatement.setDouble(2,orderDto.getTotalPrice());
+//                             paymentStatement.setNull(3,-1);
+//                             paymentStatement.setNull(4, Types.DATE);
+//                             paymentStatement.setString(5,"pending");
+                             Boolean paymentDone=SqlExecute.SqlExecute(paymentSql,orderId,orderDto.getTotalPrice(),null,null,"pending");
 
-                             if(paymentStatement.executeUpdate()>0){
+                             if(paymentDone){
                                  connection.commit();
                                  return "setOrder done, payment pending";
                              }else {

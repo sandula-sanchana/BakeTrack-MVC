@@ -8,6 +8,7 @@ module baketrack.project_bakery_x {
 
     exports edu.ijse.baketrack to javafx.fxml;
     exports edu.ijse.baketrack.controller to javafx.fxml;
+    opens edu.ijse.baketrack.dto.tm to javafx.base;
 
     opens edu.ijse.baketrack to javafx.graphics, javafx.fxml;
     opens edu.ijse.baketrack.controller to javafx.fxml;
