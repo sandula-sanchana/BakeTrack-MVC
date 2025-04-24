@@ -8,8 +8,8 @@ import edu.ijse.baketrack.dto.OrderDto;
 
 public interface OrderInterface {
  void addOrders(OrderDto orders) throws SQLException;
-    void updateOrder(OrderDto orderDto, int orderId) throws SQLException;
-    void deleteOrder(int orderId) throws SQLException;
+    public String updateOrder(OrderDto orderDto) throws SQLException;
+    public String deleteOrder(int orderId) throws SQLException;
     ArrayList<OrderDto> getAllOrders() throws SQLException;
     String placeOrder(OrderDto orderDto, ArrayList<OrderDetailDto> orderDetailDtos) throws SQLException;
     ArrayList<OrderDto> getOrderByID(int orderID) throws SQLException;

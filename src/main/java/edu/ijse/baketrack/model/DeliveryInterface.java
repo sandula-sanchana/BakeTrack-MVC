@@ -8,11 +8,11 @@ import edu.ijse.baketrack.dto.DeliveryDto;
 public interface DeliveryInterface {
     void addDelivery(DeliveryDto deliveryDto) throws SQLException;
 
-    void deleteDelivery(int deliveryId) throws SQLException;
+    String deleteDelivery(int deliveryId) throws SQLException;
 
     void updateDeliveryStatus(int deliveryId, String status) throws SQLException;
 
-    void updateDelivery(int deliveryId, DeliveryDto deliveryDto) throws SQLException;
+    String updateDelivery( DeliveryDto deliveryDto) throws SQLException;
 
     public int getVehicleIDbyDelID(int delivery_id) throws SQLException;
 

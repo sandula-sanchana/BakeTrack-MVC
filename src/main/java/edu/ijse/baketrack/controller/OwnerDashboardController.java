@@ -33,8 +33,12 @@ public class OwnerDashboardController {
     }
 
     @FXML
-    void btnReport(ActionEvent event) {
+    public void btnReports(ActionEvent event) {
+    }
 
+    @FXML
+    public void btnDelivery(ActionEvent event) {
+        setPages("/View/setDeliveryPage.fxml");
     }
 
     @FXML
@@ -60,6 +64,7 @@ public class OwnerDashboardController {
 
         }
     }
+
 
 
 }

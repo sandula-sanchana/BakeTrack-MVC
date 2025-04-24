@@ -39,7 +39,7 @@ public class OrdersModel implements OrderInterface{
 
     }
 
-    public void updateOrder(OrderDto orderDto, int order_id) throws SQLException {
+    public String updateOrder(OrderDto orderDto) throws SQLException {
         String updateSql = "UPDATE orders SET customer_id=?, delivery_id=?, order_date=?, total_price=?, status=? WHERE order_id=?";
 
         PreparedStatement statement = connection.prepareStatement(updateSql) ;
@@ -48,21 +48,21 @@ public class OrdersModel implements OrderInterface{
             statement.setDate(3, Date.valueOf(orderDto.getOrderDate()));
             statement.setDouble(4, orderDto.getTotalPrice());
             statement.setString(5, orderDto.getStatus());
-            statement.setInt(6, order_id);
+            statement.setInt(6, orderDto.getOrder_id());
 
             int rowsAffected = statement.executeUpdate();
-            System.out.println(rowsAffected > 0 ? "Order updated successfully" : "Failed to update order");
+            return (rowsAffected > 0 ? "Order updated successfully" : "Failed to update order");
         
     }
 
-    public void deleteOrder(int orderId) throws SQLException {
+    public String deleteOrder(int orderId) throws SQLException {
         String deleteSql = "DELETE FROM orders WHERE order_id = ?";
 
         PreparedStatement statement = connection.prepareStatement(deleteSql);
             statement.setInt(1, orderId);
 
             int rowsAffected = statement.executeUpdate();
-            System.out.println(rowsAffected > 0 ? "Order deleted successfully" : "Failed to delete order");
+           return rowsAffected > 0 ? "Order & order_Detail,Payments deleted successfully" : "Failed to delete order";
         }
 
 

@@ -44,7 +44,7 @@
                   </HBox>
                   <HBox prefHeight="36.0" prefWidth="236.0" spacing="15.0">
                      <children>
-                        <FontAwesomeIconView fill="#f39c12" glyphName="TRUCK" size="30" />
+                        <FontAwesomeIconView fill="#f39c12" glyphName="INDUSTRY" size="30" />
                         <Button mnemonicParsing="false" onAction="#btnSup" prefHeight="30.0" prefWidth="196.0" text="Suppliers" />
                      </children>
                   </HBox>
@@ -56,8 +56,14 @@
                   </HBox>
                   <HBox prefHeight="38.0" prefWidth="236.0" spacing="20.0">
                      <children>
+                        <FontAwesomeIconView fill="#f39c12" glyphName="TRUCK" size="30" />
+                        <Button mnemonicParsing="false" onAction="#btnDelivery" prefHeight="30.0" prefWidth="191.0" text="Deliveries" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="23.0">
+                     <children>
                         <FontAwesomeIconView fill="#f39c12" glyphName="FILE_ALT" size="30" />
-                        <Button mnemonicParsing="false" onAction="#btnReport" prefHeight="30.0" prefWidth="191.0" text="Reports" />
+                        <Button mnemonicParsing="false" onAction="#btnReports" prefHeight="30.0" prefWidth="191.0" text="Reports" />
                      </children>
                   </HBox>
                </children>

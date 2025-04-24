@@ -27,6 +27,8 @@ public class DeliveryDto {
     public DeliveryDto() {
     }
 
+
+
     public int getVehicleID(){
         return this.vehicle_id;
    }
@@ -56,6 +58,14 @@ public class DeliveryDto {
 
     public void setEmployee_id(int employee_id) {
         this.employee_id = employee_id;
+    }
+
+    public int getDelivery_id() {
+        return delivery_id;
+    }
+
+    public void setDelivery_id(int delivery_id) {
+        this.delivery_id = delivery_id;
     }
 }
 
