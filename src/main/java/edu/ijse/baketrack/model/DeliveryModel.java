@@ -77,6 +77,32 @@ public class DeliveryModel implements DeliveryInterface {
             System.out.println("Failed to update delivery status");
         }
     }
+    public ArrayList<DeliveryDto> getUnassignedDeliveries() {
+        String query = "SELECT * FROM delivery WHERE employee_id IS NULL";
+        ArrayList<DeliveryDto> unassignedDeliveries = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                DeliveryDto deliveryDto = new DeliveryDto(
+                        resultSet.getInt("delivery_id"),
+                        resultSet.getInt("vehicle_id"),
+                        0,
+                        resultSet.getDate("delivery_date").toLocalDate(),
+                        resultSet.getString("area")
+                );
+                unassignedDeliveries.add(deliveryDto);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        return unassignedDeliveries;
+    }
+
 
     public String updateDelivery( DeliveryDto deliveryDto) {
         String updateSql = "UPDATE delivery SET vehicle_id = ?,employee_id=?, delivery_date = ?, area = ? WHERE delivery_id = ?";
@@ -182,4 +208,18 @@ public class DeliveryModel implements DeliveryInterface {
             connection.setAutoCommit(true);
         }
     }
+    public String setEmployeeForDelivery(int del_id,int emp_id){
+        Boolean done= null;
+        try {
+            String empSql="UPDATE delivery SET employee_id=? WHERE delivery_id=?";
+            done = SqlExecute.SqlExecute(empSql,emp_id,del_id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if(done){
+            return "successfully set the employee";
+        }
+        return "error while set Employee";
+    }
+
 }

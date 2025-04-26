@@ -125,9 +125,6 @@ public class setDeliveryPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        orderDtos = new ArrayList<>();
-        vehicleDtos=new ArrayList<>();
-
         clmnCusID.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
 
         clmnDelID.setCellValueFactory(new PropertyValueFactory<>("delivery_id"));

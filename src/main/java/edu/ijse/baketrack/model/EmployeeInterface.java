@@ -21,4 +21,6 @@ public interface EmployeeInterface {
     void updateSalary(int employeeId, Double salary) throws SQLException;
 
     ArrayList<EmployeeDto> getAllEmployee()  throws SQLException;
+
+    ArrayList<EmployeeDto> getAllAvailableAndNonAssinEmp() throws SQLException;
 }

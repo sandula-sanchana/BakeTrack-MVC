@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.DeliveryDto;
 import edu.ijse.baketrack.dto.EmployeeDto;
+import edu.ijse.baketrack.util.SqlExecute;
 
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -129,5 +130,33 @@ public void updateSalary(int id,Double salary) throws SQLException{
         }
         return getall;
     }
+
+    public ArrayList<EmployeeDto> getAllAvailableAndNonAssinEmp() throws SQLException {
+        ArrayList<EmployeeDto> arrayList=new ArrayList<>();
+        String searchSQl="SELECT * \n" +
+                "FROM employee e \n" +
+                "JOIN attendance a ON e.employee_id = a.employee_id  \n" +
+                "LEFT JOIN delivery d ON e.employee_id = d.employee_id \n" +
+                "WHERE a.status = 'present' \n" +
+                "AND a.attend_date = CURRENT_DATE\n" +
+                "AND e.roles = 'Mobile_sellers' \n" +
+                "AND d.employee_id IS NULL;\n";
+
+        ResultSet resultSet= null;
+        try {
+            resultSet = SqlExecute.SqlExecute(searchSQl);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        while (resultSet.next()){
+            EmployeeDto employeeDto=new EmployeeDto(  resultSet.getInt("employee_id"),resultSet.getString("emp_name"),resultSet.getString("emp_address"),resultSet.getDouble("salary"), resultSet.getString("contact_no"),resultSet.getString("roles"));
+
+            arrayList.add(employeeDto);
+        }
+
+       return arrayList;
+    }
+
 
 }

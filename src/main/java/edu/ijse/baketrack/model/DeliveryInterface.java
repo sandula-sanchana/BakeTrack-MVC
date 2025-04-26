@@ -18,5 +18,9 @@ public interface DeliveryInterface {
 
     ArrayList<DeliveryDto> getAllDelivery() throws SQLException;
 
+    ArrayList<DeliveryDto> getUnassignedDeliveries() throws SQLException;
+
     public String setDelivery(DeliveryDto deliveryDto,String orderID) throws SQLException;
+
+    public String setEmployeeForDelivery(int del_id,int emp_id) throws SQLException;
 }
