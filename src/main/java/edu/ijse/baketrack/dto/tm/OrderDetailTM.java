@@ -1,32 +1,31 @@
 package edu.ijse.baketrack.dto.tm;
 
 public class OrderDetailTM {
-    private int product_id;
-    private int order_id;
+    private int productId; // <-- renamed from product_id
+    private int orderId;
     private int quantity;
-    private double price_at_order;
+    private double priceAtOrder; // <-- renamed from price_at_order
 
-    public OrderDetailTM(int product_id,int quantity, double price_at_order) {
-        this.product_id = product_id;
-        this.order_id = order_id;
+    public OrderDetailTM(int productId, int quantity, double priceAtOrder) {
+        this.productId = productId;
         this.quantity = quantity;
-        this.price_at_order = price_at_order;
+        this.priceAtOrder = priceAtOrder;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getProductId() {  // <-- camelCase getter
+        return productId;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getQuantity() {
@@ -37,11 +36,11 @@ public class OrderDetailTM {
         this.quantity = quantity;
     }
 
-    public double getPrice_at_order() {
-        return price_at_order;
+    public double getPriceAtOrder() {  // <-- camelCase getter
+        return priceAtOrder;
     }
 
-    public void setPrice_at_order(double price_at_order) {
-        this.price_at_order = price_at_order;
+    public void setPriceAtOrder(double priceAtOrder) {
+        this.priceAtOrder = priceAtOrder;
     }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.ProductDto;
+import edu.ijse.baketrack.util.SqlExecute;
 
 public class ProductModel implements ProductInterface{
     private Connection connection;
@@ -73,6 +74,18 @@ public class ProductModel implements ProductInterface{
         } else {
            return  null;
         }
+    }
+
+    public int getQtyByPid(int ProductID) throws SQLException {
+        String sql = "SELECT total_quantity FROM product WHERE product_id=?";
+        ResultSet resultSet= null;
+        try {
+            resultSet = SqlExecute.SqlExecute(sql,ProductID);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return resultSet.getInt("total_quantity");
+
     }
 
     public ArrayList<ProductDto> getAllProducts() throws SQLException {

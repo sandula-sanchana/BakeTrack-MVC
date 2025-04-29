@@ -4,9 +4,7 @@ import edu.ijse.baketrack.dto.CustomersDto;
 import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
 import edu.ijse.baketrack.dto.ProductDto;
-import edu.ijse.baketrack.dto.tm.OrderDetailTM;
 import edu.ijse.baketrack.model.*;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +23,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import edu.ijse.baketrack.dto.tm.OrderDetailTM;
+
 
 public class AddOrderPageController implements Initializable {
 
@@ -38,8 +38,9 @@ public class AddOrderPageController implements Initializable {
     private ProductInterface productInterface=new ProductModel();
     private OrderInterface orderInterface=new OrdersModel();
     private ArrayList<OrderDetailDto> orderDetailDtoList = new ArrayList<>();
-    private ArrayList<Double> total_price_array=new ArrayList<>();
+    private Double total_price=0.0;
     private ObservableList<OrderDetailTM> orderDetailTMs = FXCollections.observableArrayList();
+    OrderDetailTM newItem;
 
 
 
@@ -83,14 +84,14 @@ public class AddOrderPageController implements Initializable {
 
     }
 
-    @FXML
-    void btnAddOrderDetail(ActionEvent event) {
-        addOrderDetailToTable();
-        calculateTotalPricePerProduct();
-        String y=String.valueOf(getTotalPriceOfOrder());
-        lblTotalPrice.setText(y);
-
-    }
+//    @FXML
+//    void btnAddOrderDetail(ActionEvent event) throws SQLException {
+//        addOrderDetailToTable();
+//        calculateTotalPricePerProduct();
+//        String y=String.valueOf(getTotalPriceOfOrder());
+//        lblTotalPrice.setText(y);
+//
+//    }
 
     @FXML
     void btnSearchCid(ActionEvent event) throws SQLException {
@@ -133,14 +134,36 @@ public class AddOrderPageController implements Initializable {
         }
     }
 
-    public  void addOrderDetailToTable(){
-        OrderDetailDto orderDetailDto=new OrderDetailDto(Integer.parseInt(txtOrderPagePid.getText()),Integer.parseInt(txtOrderPageQty.getText()),
-                Double.parseDouble(lblPriceAtOrder.getText()));
-        orderDetailDtoList.add(orderDetailDto);
-        OrderDetailTM tm=new OrderDetailTM(Integer.parseInt(txtOrderPagePid.getText()),Integer.parseInt(txtOrderPageQty.getText()), Double.parseDouble(lblPriceAtOrder.getText()));
-        orderDetailTMs.add(tm);
+    @FXML
+    void btnAddOrderDetail(ActionEvent event) {
+        try {
+            int pid = Integer.parseInt(txtOrderPagePid.getText());
+            int qty = Integer.parseInt(txtOrderPageQty.getText());
+            double price = Double.parseDouble(lblPriceAtOrder.getText());
+
+            boolean found = false;
+            for (OrderDetailTM item : orderDetailTMs) {
+                if (item.getProductId() == pid) {
+                    item.setQuantity(item.getQuantity() + qty);
+                    found = true;
+                    break;
+                }
+            }
 
 
+            if (!found) {
+                newItem = new OrderDetailTM(pid, qty, price);
+                orderDetailTMs.add(newItem);
+            }
+
+            addOrderPageTable.refresh();
+            updateTotalPriceLabel();
+
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
+            e.printStackTrace();
+        }
     }
 
 
@@ -149,26 +172,31 @@ public class AddOrderPageController implements Initializable {
         double price_at_order=productInterface.getPriceAtOrder(Integer.parseInt(txtOrderPagePid.getText()));
         lblPriceAtOrder.setText(Double.toString(price_at_order));
 
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        clmnPID.setCellValueFactory(new PropertyValueFactory<>("product_id"));
-
+        clmnPID.setCellValueFactory(new PropertyValueFactory<>("productId"));
         clmnQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        clmnPatOrder.setCellValueFactory(new PropertyValueFactory<>("priceAtOrder"));
 
-        clmnPatOrder.setCellValueFactory(new PropertyValueFactory<>("price_at_order"));
-
+        orderDetailTMs = FXCollections.observableArrayList();
+        addOrderPageTable.getItems().clear();
         addOrderPageTable.setItems(orderDetailTMs);
+        addOrderPageTable.refresh();
     }
 
     public void placeOrder() throws SQLException {
+
+        orderDetailDtoList.clear();
+        for (OrderDetailTM tm : orderDetailTMs) {
+            orderDetailDtoList.add(new OrderDetailDto(tm.getProductId(), tm.getQuantity(), tm.getPriceAtOrder()));
+        }
+
         LocalDate today_date=LocalDate.now();
-        Double x=getTotalPriceOfOrder();
-        OrderDto orderDto=new OrderDto(Integer.parseInt(txtOrderPageCusID.getText()),today_date,x,"pending");
+        OrderDto orderDto=new OrderDto(Integer.parseInt(txtOrderPageCusID.getText()),today_date,total_price,"pending");
         String resp=orderInterface.placeOrder(orderDto,orderDetailDtoList);
 
         Alert alert=new Alert(Alert.AlertType.INFORMATION);
@@ -178,22 +206,13 @@ public class AddOrderPageController implements Initializable {
 
     }
 
-    public void calculateTotalPricePerProduct(){
-        int Quantity=Integer.parseInt(txtOrderPageQty.getText());
-        double price_at_order= Double.parseDouble(lblPriceAtOrder.getText());
-        Double totalPricePerProduct=Quantity*price_at_order;
-        total_price_array.add(totalPricePerProduct);
-
-    }
-    public Double getTotalPriceOfOrder(){
-        Double totalPriceOfOrder=0.0;
-        for(Double price_per_order : total_price_array){
-             totalPriceOfOrder+=price_per_order;
+    public void updateTotalPriceLabel() {
+        total_price = 0.0;
+        for (OrderDetailTM item : orderDetailTMs) {
+            total_price += item.getQuantity() * item.getPriceAtOrder();
         }
-
-        return totalPriceOfOrder;
+        lblTotalPrice.setText(String.valueOf(total_price));
     }
-
 
 
 
