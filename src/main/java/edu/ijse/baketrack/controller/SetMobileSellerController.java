@@ -162,7 +162,7 @@ public class SetMobileSellerController implements Initializable {
         EmployeeTM selectedEmp=TableMobileSeller.getSelectionModel().getSelectedItem();
         if(selectedEmp!=null && selectedDel!=null) {
             int del_id = selectedDel.getDelivery_id();
-            int emp_id = selectedEmp.getEmployee_id();
+            int emp_id = selectedEmp.getEmployeeID();
             try {
                 String resp = deliveryInterface.setEmployeeForDelivery(del_id, emp_id);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

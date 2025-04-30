@@ -24,11 +24,11 @@ public class EmployeeTM {
         this.role = role;
     }
 
-    public int getEmployee_id() {
+    public int getEmployeeID() {
         return employee_id;
     }
 
-    public void setEmployee_id(int employee_id) {
+    public void setEmployeeID(int employee_id) {
         this.employee_id = employee_id;
     }
 

@@ -8,9 +8,9 @@ import edu.ijse.baketrack.dto.DeliveryDto;
 import edu.ijse.baketrack.dto.EmployeeDto;
 
 public interface EmployeeInterface {
-    void addEmployee(EmployeeDto employeeDto) throws SQLException;
+    String addEmployee(EmployeeDto employeeDto) throws SQLException;
 
-    void deleteEmployee(int employeeId) throws SQLException;
+    String deleteEmployee(int employee_id)throws SQLException;
 
     void updateName(int employeeId, String name) throws SQLException;
 
@@ -23,4 +23,6 @@ public interface EmployeeInterface {
     ArrayList<EmployeeDto> getAllEmployee()  throws SQLException;
 
     ArrayList<EmployeeDto> getAllAvailableAndNonAssinEmp() throws SQLException;
+
+    String updateEmployee(EmployeeDto employeeDto) throws SQLException;
 }

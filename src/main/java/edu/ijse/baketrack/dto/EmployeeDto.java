@@ -17,6 +17,14 @@ public class EmployeeDto {
         this.role = role;
     }
 
+    public EmployeeDto(String name, String address, Double salary, String contact, String role) {
+        this.name = name;
+        this.address = address;
+        this.salary = salary;
+        this.contact = contact;
+        this.role = role;
+    }
+
     public int getEmployee_id() {
         return employee_id;
     }
