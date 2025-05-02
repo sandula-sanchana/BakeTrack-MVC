@@ -1,42 +1,37 @@
-package edu.ijse.baketrack.dto;
+package edu.ijse.baketrack.dto.tm;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
-public class AttendanceDto {
-    private int employee_id;
-    private LocalDate attend_date;
+public class AttendanceTM {
+    private int employeeID;
+    private LocalDate attendDate;
     private LocalTime check_in_time;
     private LocalTime check_out_time;
     private String status;
 
-    public AttendanceDto() {
-    }
-
-    public AttendanceDto(int employee_id,  LocalDate attend_date, LocalTime check_in_time, LocalTime check_out_time, String status) {
-        this.employee_id = employee_id;
-        this.attend_date = attend_date;
+    public AttendanceTM(int employeeID, LocalDate attendDate, LocalTime check_in_time, LocalTime check_out_time, String status) {
+        this.employeeID = employeeID;
+        this.attendDate = attendDate;
         this.check_in_time = check_in_time;
         this.check_out_time = check_out_time;
         this.status = status;
     }
 
-
-    public int getEmployee_id() {
-        return employee_id;
+    public int getEmployeeID() {
+        return employeeID;
     }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
-    public LocalDate getAttend_date() {
-        return attend_date;
+    public LocalDate getAttendDate() {
+        return attendDate;
     }
 
-    public void setAttend_date(LocalDate attend_date) {
-        this.attend_date = attend_date;
+    public void setAttendDate(LocalDate attendDate) {
+        this.attendDate = attendDate;
     }
 
     public LocalTime getCheck_in_time() {
@@ -62,4 +57,5 @@ public class AttendanceDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }

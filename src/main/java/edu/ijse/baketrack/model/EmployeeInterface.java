@@ -25,4 +25,6 @@ public interface EmployeeInterface {
     ArrayList<EmployeeDto> getAllAvailableAndNonAssinEmp() throws SQLException;
 
     String updateEmployee(EmployeeDto employeeDto) throws SQLException;
+
+    ArrayList<EmployeeDto> getAllEmployeeNamesAndIds() throws SQLException;
 }

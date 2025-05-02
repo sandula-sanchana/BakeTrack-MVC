@@ -25,6 +25,11 @@ public class EmployeeDto {
         this.role = role;
     }
 
+    public EmployeeDto(int employee_id, String name) {
+        this.employee_id = employee_id;
+        this.name = name;
+    }
+
     public int getEmployee_id() {
         return employee_id;
     }

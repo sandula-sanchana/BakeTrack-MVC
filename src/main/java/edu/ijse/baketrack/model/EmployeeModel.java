@@ -31,6 +31,26 @@ public class EmployeeModel implements EmployeeInterface{
 
     }
 
+    public ArrayList<EmployeeDto> getAllEmployeeNamesAndIds() {
+        String sql = "SELECT employee_id, emp_name FROM employee";
+        ArrayList<EmployeeDto> empList = new ArrayList<>();
+
+        try {
+            ResultSet resultSet=SqlExecute.SqlExecute(sql);
+
+            while (resultSet.next()) {
+                EmployeeDto employeeDto = new EmployeeDto(resultSet.getInt("employee_id"),resultSet.getString("emp_name"));
+                empList.add(employeeDto);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching employee names and IDs: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        return empList;
+    }
+
+
     public String deleteEmployee(int employee_id)throws SQLException{
          String deleteSql="DELETE FROM employee WHERE employee_id=?";
 
