@@ -187,6 +187,21 @@ public void updateSalary(int id,Double salary) throws SQLException{
         return done ? "Updated employee successfully" : "Failed to update employee";
     }
 
+    public Double getSalaryById(int employeeId) throws SQLException {
+        String sql = "SELECT salary FROM employee WHERE employee_id = ?";
+        try  {
+            ResultSet resultSet = SqlExecute.SqlExecute(sql,employeeId);
+            if (resultSet.next()) {
+                return resultSet.getDouble("salary");
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 }

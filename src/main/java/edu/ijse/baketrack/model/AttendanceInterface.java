@@ -21,4 +21,6 @@ public interface AttendanceInterface {
     String deleteAttendance(int employeeID, LocalDate attendDate) throws SQLException;
 
     String updateAttendance(AttendanceDto dto) throws SQLException;
+
+    double getEmployeeTotalOTHours(int employeeId, int month, int year) throws SQLException;
 }

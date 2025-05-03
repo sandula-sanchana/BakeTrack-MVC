@@ -24,11 +24,11 @@ public class PayrollModel implements PayrollInterface{
     public void addPayroll(PayrollDto payrollDto) throws SQLException {
         String addSql = "INSERT INTO payroll (employee_id,pay_month,over_time_hours,base_salary,full_salary,status) VALUES (?,?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(addSql);
-        statement.setInt(1, payrollDto.getEmployeeID());
-        statement.setDate(2, Date.valueOf(payrollDto.getPayMonth()));
-        statement.setTime(3, Time.valueOf(payrollDto.getOverTimeHours()));
-        statement.setDouble(4, payrollDto.getBaseSalary());
-        statement.setDouble(5, payrollDto.getFullSalary());
+        statement.setInt(1, payrollDto.getEmployee_id());
+        statement.setDate(2, Date.valueOf(payrollDto.getPay_Date()));
+        statement.setDouble(3, payrollDto.getOver_time_hours());
+        statement.setDouble(4, payrollDto.getBase_salary());
+        statement.setDouble(5, payrollDto.getFull_salary());
         statement.setString(6, payrollDto.getStatus());
 
         int rowsAffected = statement.executeUpdate();
@@ -41,44 +41,54 @@ public class PayrollModel implements PayrollInterface{
 
     }
 
+    @Override
     public void updateBaseSalary(PayrollDto payrollDto, int payrollId, double baseSalary) throws SQLException {
-        String updateSql = "UPDATE payroll SET base_salary=?, full_salary=? WHERE payroll_id=?";
-        PreparedStatement updatestm = connection.prepareStatement(updateSql);
-        
-        payrollDto.setBaseSalary(baseSalary);
-        updatestm.setDouble(1, baseSalary);
-        updatestm.setDouble(2, payrollDto.getFullSalary());
-        updatestm.setInt(3, payrollId);
-    
-        int rowsAffected = updatestm.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Payroll base salary updated successfully.");
-        } else {
-            System.out.println("Failed to update payroll base salary.");
-        }
+
     }
 
-    public void updateOverTimeHours(PayrollDto payrollDto, int id, String overTimeHoursString) throws SQLException {
-        String updateSql = "UPDATE payroll SET over_time_hours=?, full_salary=? WHERE payroll_id=?";
-        PreparedStatement updatestm = connection.prepareStatement(updateSql);
+    @Override
+    public void updateOverTimeHours(PayrollDto payrollDto, int payrollId, String overTimeHoursString) throws SQLException {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime overTimeHours = LocalTime.parse(overTimeHoursString, formatter);
-
-        payrollDto.setOverTimeHours(overTimeHoursString);
-
-        updatestm.setTime(1, Time.valueOf(overTimeHours));
-        updatestm.setDouble(2, payrollDto.getFullSalary());
-        updatestm.setInt(3, id);
-
-        int rowsAffected = updatestm.executeUpdate();
-
-        if (rowsAffected > 0) {
-            System.out.println("Overtime hours updated successfully");
-        } else {
-            System.out.println("Failed to update overtime hours");
-        }
     }
+
+//    public void updateBaseSalary(PayrollDto payrollDto, int payrollId, double baseSalary) throws SQLException {
+//        String updateSql = "UPDATE payroll SET base_salary=?, full_salary=? WHERE payroll_id=?";
+//        PreparedStatement updatestm = connection.prepareStatement(updateSql);
+//
+//        payrollDto.setBaseSalary(baseSalary);
+//        updatestm.setDouble(1, baseSalary);
+//        updatestm.setDouble(2, payrollDto.getFullSalary());
+//        updatestm.setInt(3, payrollId);
+//
+//        int rowsAffected = updatestm.executeUpdate();
+//        if (rowsAffected > 0) {
+//            System.out.println("Payroll base salary updated successfully.");
+//        } else {
+//            System.out.println("Failed to update payroll base salary.");
+//        }
+//    }
+
+//    public void updateOverTimeHours(PayrollDto payrollDto, int id, String overTimeHoursString) throws SQLException {
+//        String updateSql = "UPDATE payroll SET over_time_hours=?, full_salary=? WHERE payroll_id=?";
+//        PreparedStatement updatestm = connection.prepareStatement(updateSql);
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+//        LocalTime overTimeHours = LocalTime.parse(overTimeHoursString, formatter);
+//
+//        payrollDto.setOverTimeHours(overTimeHoursString);
+//
+//        updatestm.setTime(1, Time.valueOf(overTimeHours));
+//        updatestm.setDouble(2, payrollDto.getFullSalary());
+//        updatestm.setInt(3, id);
+//
+//        int rowsAffected = updatestm.executeUpdate();
+//
+//        if (rowsAffected > 0) {
+//            System.out.println("Overtime hours updated successfully");
+//        } else {
+//            System.out.println("Failed to update overtime hours");
+//        }
+//    }
 
     public void deletePayroll(int payrollId) throws SQLException {
         String deleteSql = "DELETE FROM payroll WHERE payroll_id=?";
@@ -115,8 +125,8 @@ public class PayrollModel implements PayrollInterface{
                 PayrollDto payroll = new PayrollDto(
                         resultSet.getInt("payroll_id"),
                         resultSet.getInt("employee_id"),
-                        resultSet.getDate("pay_month").toLocalDate(),
-                        resultSet.getTime("over_time_hours").toLocalTime(),
+                        resultSet.getDate("pay_date").toLocalDate(),
+                        resultSet.getDouble("over_time_hours"),
                         resultSet.getDouble("base_salary"),
                         resultSet.getDouble("full_salary"),
                         resultSet.getString("status")

@@ -57,6 +57,26 @@ public class AttendanceModel implements AttendanceInterface {
     }
 
 
+    public double getEmployeeTotalOTHours(int employeeId, int month, int year) throws SQLException {
+        String sql = "SELECT ROUND(SUM(GREATEST((TIME_TO_SEC(TIMEDIFF(check_out_time, check_in_time)) / 3600.0) - 8, 0)), 2) AS total_overtime_hours " +
+                "FROM attendance " +
+                "WHERE employee_id = ? AND MONTH(attend_date) = ? AND YEAR(attend_date) = ? " +
+                "GROUP BY employee_id";
+
+        try {
+            ResultSet resultSet = SqlExecute.SqlExecute(sql, employeeId, month, year);
+            if (resultSet.next()) {
+                return resultSet.getDouble("total_overtime_hours");
+            } else {
+                return 0.0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error calculating OT: " + e.getMessage());
+            throw e;
+        }
+    }
+
+
 
 
     public void getAttendanceByEmployee(int employee_id, String status) throws SQLException {

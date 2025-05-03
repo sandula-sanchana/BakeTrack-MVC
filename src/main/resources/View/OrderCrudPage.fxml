@@ -15,7 +15,7 @@
 
 <AnchorPane fx:id="apOrderPage" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.OrderCrudPageController">
     <children>
-        <!-- Sidebar Form -->
+
         <AnchorPane prefHeight="800.0" prefWidth="343.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
             <children>
                 <VBox alignment="TOP_CENTER" layoutX="17.0" layoutY="203.0" spacing="20.0" prefHeight="391.0" prefWidth="322.0">
@@ -67,7 +67,6 @@
             </children>
         </AnchorPane>
 
-        <!-- Main Content -->
         <AnchorPane layoutX="344.0" layoutY="0.0" prefHeight="800.0" prefWidth="936.0" style="-fx-background-color: #F5F5DC;" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="344.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
             <children>
                 <Label layoutX="68.0" layoutY="26.0" text="Orders">

@@ -1,9 +1,9 @@
-package edu.ijse.baketrack.dto;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;;
+package edu.ijse.baketrack.dto.tm;
 
-public class PayrollDto {
+import java.time.LocalDate;
+
+public class PayrollTM {
+
     private int payroll_id;
     private int employee_id;
     private LocalDate pay_Date;
@@ -12,7 +12,26 @@ public class PayrollDto {
     private double full_salary;
     private String status;
 
-    public PayrollDto(int payroll_id, int employee_id, LocalDate pay_Date, double over_time_hours, double base_salary, double full_salary, String status) {
+    public PayrollTM(int payroll_id, int employee_id, LocalDate pay_Date, Double over_time_hours, double base_salary, String status, double full_salary) {
+        this.payroll_id = payroll_id;
+        this.employee_id = employee_id;
+        this.pay_Date = pay_Date;
+        this.over_time_hours = over_time_hours;
+        this.base_salary = base_salary;
+        this.status = status;
+        this.full_salary = full_salary;
+    }
+
+    public PayrollTM(int employee_id, LocalDate pay_Date, Double over_time_hours, double base_salary, double full_salary, String status) {
+        this.employee_id = employee_id;
+        this.pay_Date = pay_Date;
+        this.over_time_hours = over_time_hours;
+        this.base_salary = base_salary;
+        this.full_salary = full_salary;
+        this.status = status;
+    }
+
+    public PayrollTM(int payroll_id, int employee_id, LocalDate pay_Date, Double over_time_hours, double base_salary, double full_salary, String status) {
         this.payroll_id = payroll_id;
         this.employee_id = employee_id;
         this.pay_Date = pay_Date;
