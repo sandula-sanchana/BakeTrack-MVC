@@ -2,6 +2,7 @@ package edu.ijse.baketrack.model;
 
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.PayrollDto;
+import edu.ijse.baketrack.util.SqlExecute;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -21,22 +22,22 @@ public class PayrollModel implements PayrollInterface{
         this.connection= DBobject.getInstance().getConnection();
     }
 
-    public void addPayroll(PayrollDto payrollDto) throws SQLException {
-        String addSql = "INSERT INTO payroll (employee_id,pay_month,over_time_hours,base_salary,full_salary,status) VALUES (?,?,?,?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(addSql);
-        statement.setInt(1, payrollDto.getEmployee_id());
-        statement.setDate(2, Date.valueOf(payrollDto.getPay_Date()));
-        statement.setDouble(3, payrollDto.getOver_time_hours());
-        statement.setDouble(4, payrollDto.getBase_salary());
-        statement.setDouble(5, payrollDto.getFull_salary());
-        statement.setString(6, payrollDto.getStatus());
+    public String addPayroll(PayrollDto payrollDto){
+        String addSql = "INSERT INTO payroll (employee_id,pay_date,over_time_hours,base_salary,full_salary,status) VALUES (?,?,?,?,?,?)";
 
-        int rowsAffected = statement.executeUpdate();
 
-        if (rowsAffected > 0) {
-            System.out.println("payroll updated successfully");
+        Boolean done= null;
+        try {
+            done = SqlExecute.SqlExecute(addSql,payrollDto.getEmployee_id(), Date.valueOf(payrollDto.getPay_Date()),
+                    payrollDto.getOver_time_hours(),payrollDto.getBase_salary(),payrollDto.getFull_salary(),payrollDto.getStatus());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (done) {
+            return  "payroll updated successfully";
         } else {
-            System.out.println("failed");
+            return "failed";
         }
 
     }
@@ -90,13 +91,12 @@ public class PayrollModel implements PayrollInterface{
 //        }
 //    }
 
-    public void deletePayroll(int payrollId) throws SQLException {
+    public String deletePayroll(int payrollId) throws SQLException {
         String deleteSql = "DELETE FROM payroll WHERE payroll_id=?";
 
         try (PreparedStatement statement = connection.prepareStatement(deleteSql)) {
-            statement.setInt(1, payrollId);
-            int rowsAffected = statement.executeUpdate();
-            System.out.println(rowsAffected > 0 ? "Payroll deleted successfully" : "Failed to delete payroll");
+           Boolean done=SqlExecute.SqlExecute(deleteSql,payrollId);
+            return (done? "Payroll deleted successfully" : "Failed to delete payroll");
         }
     }
 
@@ -139,4 +139,25 @@ public class PayrollModel implements PayrollInterface{
         }
         return payrollList;
     }
+
+    public String updatePayroll(PayrollDto payrollDto, int payrollId) {
+        String updateSql = "UPDATE payroll SET employee_id=?,pay_date=?,  over_time_hours=?,base_salary=?, full_salary=?, status=? WHERE payroll_id=?";
+
+        try  {
+
+            boolean done=SqlExecute.SqlExecute(updateSql,payrollDto.getEmployee_id(),payrollDto.getPay_Date(),payrollDto.getOver_time_hours(),
+                    payrollDto.getBase_salary(),payrollDto.getFull_salary(),payrollDto.getStatus(),payrollId);
+            if (done) {
+                return "Payroll updated successfully";
+            } else {
+                return "Failed to update payroll";
+            }
+              } catch (Exception e) {
+               System.err.println("Error updating payroll: " + e.getMessage());
+                throw e;
+        }
+
+
+    }
+
 }

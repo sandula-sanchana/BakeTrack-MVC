@@ -22,6 +22,15 @@ public class PayrollDto {
         this.status = status;
     }
 
+    public PayrollDto(int employee_id, LocalDate pay_Date, Double over_time_hours, double base_salary, double full_salary, String status) {
+        this.employee_id = employee_id;
+        this.pay_Date = pay_Date;
+        this.over_time_hours = over_time_hours;
+        this.base_salary = base_salary;
+        this.full_salary = full_salary;
+        this.status = status;
+    }
+
     public int getPayroll_id() {
         return payroll_id;
     }

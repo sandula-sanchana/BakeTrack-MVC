@@ -35,6 +35,8 @@ public class PayrollCrudPageController implements Initializable {
     private SystemSettingInterface systemSettingInterface;
     private AttendanceInterface attendanceInterface;
     private boolean suppressDatePickerEvent = false;
+    private int selected_emp_ID;
+    private LocalDate selected_date;
 
     public PayrollCrudPageController(){
     try {
@@ -103,7 +105,7 @@ public class PayrollCrudPageController implements Initializable {
 
     @FXML
     void btnDelete(ActionEvent event) {
-
+         deleteAttendance();
     }
 
     @FXML
@@ -113,17 +115,19 @@ public class PayrollCrudPageController implements Initializable {
 
     @FXML
     void btnSave(ActionEvent event) {
-
+          savePayroll();
     }
 
     @FXML
     void btnUpdate(ActionEvent event) {
-
+        updatePayroll();
     }
 
     @FXML
     void cmbClicked(MouseEvent event) {
-
+        btnSaveID.setDisable(false);
+        btnDeleteID.setDisable(true);
+        btnUpdateID.setDisable(true);
     }
 
     @FXML
@@ -235,6 +239,7 @@ public class PayrollCrudPageController implements Initializable {
     public void getBaseSalaryOfEmp(){
         employeeTM=comboBoxEmp.getSelectionModel().getSelectedItem();
         int emp_id=employeeTM.getEmployeeID();
+        selected_emp_ID=emp_id;
         try {
             Double base_salary=employeeInterface.getSalaryById(emp_id);
             if(base_salary!=null){
@@ -245,33 +250,39 @@ public class PayrollCrudPageController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
-    public void getTotalOTtime(){
-        employeeTM=comboBoxEmp.getSelectionModel().getSelectedItem();
-        int emp_id=employeeTM.getEmployeeID();
-        if(payDatePicker.getValue()!=null) {
-              LocalDate date=payDatePicker.getValue();
-              int year=date.getYear();
-              int month=date.getMonthValue();
+        public void getTotalOTtime(){
+            employeeTM = comboBoxEmp.getSelectionModel().getSelectedItem();
+            if (employeeTM == null) return;
+
+            LocalDate date = payDatePicker.getValue();
+            if (date == null) return; // Just skip if no date
+
+            selected_date = date;
+            int year = date.getYear();
+            int month = date.getMonthValue();
+
             try {
-                Double ot_time = attendanceInterface.getEmployeeTotalOTHours(emp_id,month,year);
-                if(ot_time>0.0){
-                    txtOvertimeHour.setText(String.valueOf(ot_time));
-                }else{
-                    txtOvertimeHour.setText(String.valueOf(ot_time));
-                }
+                Double ot_time = attendanceInterface.getEmployeeTotalOTHours(employeeTM.getEmployeeID(), month, year);
+                txtOvertimeHour.setText(String.valueOf(ot_time));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }else {
-            new Alert(Alert.AlertType.ERROR,"select a date first").showAndWait();
         }
-    }
+
+
 
     public void empSelected(ActionEvent actionEvent) {
-        getBaseSalaryOfEmp();
+        employeeTM = comboBoxEmp.getSelectionModel().getSelectedItem();
+        if (employeeTM == null) return;
 
+        getBaseSalaryOfEmp();
+        if (payDatePicker.getValue() != null) {
+            getTotalOTtime();
+            calculateFullSalary(employeeTM.getEmployeeID());
+        }
     }
 
     public void dateSelected(ActionEvent actionEvent) {
@@ -280,6 +291,7 @@ public class PayrollCrudPageController implements Initializable {
         }
         if(comboBoxEmp.getSelectionModel().getSelectedItem()!=null) {
             getTotalOTtime();
+            calculateFullSalary(selected_emp_ID);
         }else {
             new Alert(Alert.AlertType.ERROR,"select a Emp first").showAndWait();
             suppressDatePickerEvent = true;
@@ -287,5 +299,149 @@ public class PayrollCrudPageController implements Initializable {
             suppressDatePickerEvent = false;
         }
     }
+
+
+        public void savePayroll() {
+
+            if (comboBoxEmp.getValue() == null || comboBoxStatus.getValue() == null || payDatePicker.getValue() == null
+                    || txtOvertimeHour.getText().isEmpty() || txtBaseSalary.getText().isEmpty() || txtFullSalary.getText().isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "Please fill all required fields").showAndWait();
+                return;
+            }
+
+            employeeTM = comboBoxEmp.getSelectionModel().getSelectedItem();
+            if (employeeTM == null) {
+                new Alert(Alert.AlertType.WARNING, "Please select an employee").showAndWait();
+                return;
+            }
+
+            employeeTM = comboBoxEmp.getValue();
+            String status = comboBoxStatus.getValue();
+            LocalDate payDate = payDatePicker.getValue();
+
+            double otHours;
+            double baseSalary;
+            double fullSalary;
+
+            try {
+                otHours = Double.parseDouble(txtOvertimeHour.getText().trim());
+                baseSalary = Double.parseDouble(txtBaseSalary.getText().trim());
+                fullSalary = Double.parseDouble(txtFullSalary.getText().trim());
+            } catch (NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Please enter valid numbers for salary and overtime").showAndWait();
+                return;
+            }
+
+            PayrollDto payrollDto = new PayrollDto(
+                    employeeTM.getEmployeeID(),
+                    payDate,
+                    otHours,
+                    baseSalary,
+                    fullSalary,
+                    status
+            );
+
+            try {
+                String resp = payrollInterface.addPayroll(payrollDto);
+                new Alert(Alert.AlertType.INFORMATION, resp).showAndWait();
+                tablePayroll.getItems().clear();
+                loadAllPayrollsToTable();
+                clearPayrollFields();
+            } catch (SQLException e) {
+                System.err.println("Payroll save failed: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
+
+    public void clearPayrollFields() {
+        suppressDatePickerEvent = true;
+        comboBoxEmp.getSelectionModel().clearSelection();
+        comboBoxStatus.getSelectionModel().clearSelection();
+        payDatePicker.setValue(null);
+        suppressDatePickerEvent = false;
+        txtOvertimeHour.clear();
+        txtBaseSalary.clear();
+        txtFullSalary.clear();
+        employeeTM=null;
+        payrollTM=null;
+    }
+
+    public void calculateFullSalary(int selected_empID){
+
+        try {
+            Double TOTAL_OT_time=attendanceInterface.getEmployeeTotalOTHours(selected_empID,selected_date.getMonthValue(),selected_date.getYear());
+            if(TOTAL_OT_time>=0.0){
+                Double base_salary=Double.parseDouble(txtBaseSalary.getText());
+                int ot_rate=Integer.parseInt(txtOTrate.getText());
+                Double full_salary=base_salary+(ot_rate*TOTAL_OT_time);
+                txtFullSalary.setText(String.valueOf(full_salary));
+            }else{
+                new Alert(Alert.AlertType.ERROR, "not found").showAndWait();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void updatePayroll() {
+        PayrollTM selected = tablePayroll.getSelectionModel().getSelectedItem();
+
+        if (selected != null) {
+            if (comboBoxEmp.getValue() == null ||  payDatePicker.getValue() == null || txtFullSalary.getText().trim().isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "Please fill all required fields").showAndWait();
+                return;
+            }
+
+            try {
+                int emp = selected.getEmployee_id();
+                LocalDate date = payDatePicker.getValue();
+                double base_salary = Double.parseDouble(txtBaseSalary.getText().trim());
+                double full_salary = Double.parseDouble(txtFullSalary.getText().trim());
+                double over_timeHours = Double.parseDouble(txtOvertimeHour.getText().trim());
+                String status=comboBoxStatus.getValue();
+
+
+                PayrollDto dto = new PayrollDto(
+                       emp,date,over_timeHours,base_salary,full_salary,status
+                );
+
+                String resp = payrollInterface.updatePayroll(dto,selected.getPayroll_id());
+                tablePayroll.getItems().clear();
+                loadAllPayrollsToTable();
+                clearPayrollFields();
+                new Alert(Alert.AlertType.INFORMATION, resp).showAndWait();
+
+            } catch (NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid amount. Please enter a valid number.").showAndWait();
+            } catch (SQLException e) {
+                System.err.println("Update failed: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please select a payroll record to update.").showAndWait();
+        }
+    }
+
+    public void deleteAttendance(){
+        PayrollTM selected = tablePayroll.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            try {
+                String resp =payrollInterface.deletePayroll(selected.getPayroll_id());
+                tablePayroll.getItems().clear();
+                loadAllPayrollsToTable();
+                clearPayrollFields();
+                new Alert(Alert.AlertType.INFORMATION, resp).showAndWait();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please select an attendance record to delete.").showAndWait();
+        }
+    }
+
 
 }
