@@ -1,6 +1,6 @@
-package edu.ijse.baketrack.dto;
+package edu.ijse.baketrack.dto.tm;
 
-public class ProductDto {
+public class ProductTM {
     private int product_id;
     private String name;
     private String category;
@@ -8,7 +8,7 @@ public class ProductDto {
     private int quantity;
     private String description;
 
-    public ProductDto(int product_id, String name, String category, double price, int quantity, String description) {
+    public ProductTM(int product_id, String name, String category, double price, int quantity, String description) {
         this.product_id = product_id;
         this.name = name;
         this.category = category;
@@ -17,11 +17,11 @@ public class ProductDto {
         this.description = description;
     }
 
-    public ProductDto(String name, String category, double price, int quantity, String description) {
+    public ProductTM(String name, String category, double price, int quantity, String description) {
         this.name = name;
         this.category = category;
         this.price = price;
-        this.quantity=quantity;
+        this.quantity = quantity;
         this.description = description;
     }
 
@@ -57,19 +57,19 @@ public class ProductDto {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

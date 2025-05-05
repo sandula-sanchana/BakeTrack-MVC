@@ -326,7 +326,7 @@ public class AttendanceCrudPageController implements Initializable {
 
     public void cmbClicked(MouseEvent mouseEvent) {
         btnSAveid.setDisable(false);
-        btnUpid.setDisable(true);
+        btnUpid.setDisable(false);
         btnDelID.setDisable(true);
     }
 }

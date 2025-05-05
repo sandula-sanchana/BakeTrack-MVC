@@ -17,49 +17,40 @@ public class ProductModel implements ProductInterface{
         this.connection= DBobject.getInstance().getConnection();
     }
 
-    public void addProduct(ProductDto productDto) throws SQLException {
-        String sql = "INSERT INTO product (name, category, price, description) VALUES (?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, productDto.getName());
-        statement.setString(2, productDto.getCategory());
-        statement.setDouble(3, productDto.getPrice());
-        statement.setString(4, productDto.getDescription());
+    public String addProduct(ProductDto productDto) throws SQLException {
+        String sql = "INSERT INTO product (name, category, price,total_quantity, description) VALUES (?, ?, ?, ?,?)";
+        Boolean done=SqlExecute.SqlExecute(sql,productDto.getName(),productDto.getCategory(),productDto.getPrice(),productDto.getQuantity(),productDto.getDescription());
 
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Product added successfully");
+        if (done) {
+            return "Product added successfully";
         } else {
-            System.out.println("Failed to add product");
+            return "Failed to add product";
         }
     }
 
-    public void deleteProduct(int productID) throws SQLException {
+    public String deleteProduct(int productID) throws SQLException {
         String sql = "DELETE FROM product WHERE product_id=?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, productID);
+        Boolean done=SqlExecute.SqlExecute(sql,productID);
 
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Product deleted successfully");
+        if (done) {
+            return "Product deleted successfully";
         } else {
-            System.out.println("Failed to delete product");
+            return "Failed to delete product";
         }
     }
 
-    public void updateProduct(ProductDto productDto, int product_id) throws SQLException {
-        String sql = "UPDATE product SET name=?, category = ?, price = ?, description = ? WHERE product_id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, productDto.getName());
-        statement.setString(2, productDto.getCategory());
-        statement.setDouble(3, productDto.getPrice());
-        statement.setString(4, productDto.getDescription());
-        statement.setInt(5, product_id);
+    public String updateProduct(ProductDto productDto) throws SQLException {
+        String sql = "UPDATE product SET name=?, category = ?, price = ?,total_quantity=?, description = ? WHERE product_id = ?";
 
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Product updated successfully");
+
+        Boolean done=SqlExecute.SqlExecute(sql,productDto.getName(),productDto.getCategory(),productDto.getPrice(),
+                productDto.getQuantity(),productDto.getDescription(),productDto.getProduct_id());
+
+
+        if (done) {
+            return "Product updated successfully";
         } else {
-            System.out.println("Failed to update product");
+            return "Failed to update product";
         }
     }
 
@@ -70,7 +61,8 @@ public class ProductModel implements ProductInterface{
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            return new ProductDto(resultSet.getInt("product_id"),resultSet.getString("name"), resultSet.getString("category"),resultSet.getDouble("price"),resultSet.getString("description"));
+            return new ProductDto(resultSet.getInt("product_id"),resultSet.getString("name"), resultSet.getString("category"),resultSet.getDouble("price"),resultSet.getInt("total_quantity"),
+                    resultSet.getString("description"));
         } else {
            return  null;
         }
@@ -102,6 +94,7 @@ public class ProductModel implements ProductInterface{
                         resultSet.getString("name"),
                         resultSet.getString("category"),
                         resultSet.getDouble("price"),
+                        resultSet.getInt("total_quantity"),
                         resultSet.getString("description")
                 );
                 productList.add(product);

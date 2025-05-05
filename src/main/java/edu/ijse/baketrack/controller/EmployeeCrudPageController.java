@@ -201,7 +201,7 @@ public class EmployeeCrudPageController implements Initializable {
     }
 
     public void clickOnText(MouseEvent mouseEvent) {
-        btnUpid.setDisable(true);
+        btnUpid.setDisable(false);
         btnDelID.setDisable(true);
         btnSAveid.setDisable(false);
     }

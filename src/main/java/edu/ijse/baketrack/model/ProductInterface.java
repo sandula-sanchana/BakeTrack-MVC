@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import edu.ijse.baketrack.dto.ProductDto;
 
 public interface ProductInterface {
-    void addProduct(ProductDto productDto) throws SQLException;
+    String addProduct(ProductDto productDto) throws SQLException;
 
-    void deleteProduct(int productID) throws SQLException;
+    String deleteProduct(int productID) throws SQLException;
 
-    void updateProduct(ProductDto productDto, int productID) throws SQLException;
+    String updateProduct(ProductDto productDto) throws SQLException;
 
     ProductDto getProductDetailsByProductID(int productID) throws SQLException;
 
