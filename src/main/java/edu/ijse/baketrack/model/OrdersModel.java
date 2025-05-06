@@ -8,7 +8,9 @@ import java.util.List;
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
+import edu.ijse.baketrack.dto.tm.IngredientTM;
 import edu.ijse.baketrack.util.SqlExecute;
+import javafx.collections.ObservableList;
 
 import java.sql.Types.*;
 
@@ -229,6 +231,74 @@ public class OrdersModel implements OrderInterface{
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    public ArrayList<OrderDto> getAllPendingOrders() {
+        String query = "SELECT * FROM orders WHERE status=?";
+        ArrayList<OrderDto> ordersList = new ArrayList<>();
+
+        try {
+          ResultSet rs=SqlExecute.SqlExecute(query,"pending");
+
+            while (rs.next()) {
+                OrderDto order = new OrderDto(
+                        rs.getInt("order_id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("delivery_id"),
+                        rs.getDate("order_date").toLocalDate(),
+                        rs.getDouble("total_price"),
+                        rs.getString("status")// my database status need to be ENUM , I will fix it later :)
+                );
+                ordersList.add(order);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return ordersList;
+    }
+
+    public boolean startProductionAndDeductIng(ObservableList<IngredientTM> ingredientTMObservableList,int order_id){
+
+        try {
+            connection.setAutoCommit(false);
+            String sql="UPDATE orders SET status=? WHERE order_id=?";
+
+            Boolean done=SqlExecute.SqlExecute(sql,"processing",order_id);
+
+            if(done){
+
+                String ingSql="UPDATE ingredient SET stock_amount=(stock_amount-?) WHERE ingredient_id=?";
+
+
+                for (IngredientTM ingredientTM: ingredientTMObservableList){
+                    int ingredient_id=ingredientTM.getIngredient_id();
+                    int needed_stock=ingredientTM.getTotal_amount_need();
+
+                    Boolean doneUpdate=SqlExecute.SqlExecute(ingSql,needed_stock,ingredient_id);
+
+                    if(!doneUpdate){
+                        connection.rollback();
+                        return false;
+                    }
+                }
+                     connection.commit();
+                    return true;
+
+            }else {
+                connection.rollback();
+                return false;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 }

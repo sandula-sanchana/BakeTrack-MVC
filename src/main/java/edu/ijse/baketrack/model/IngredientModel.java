@@ -100,5 +100,36 @@ public class IngredientModel implements IngredientInterface {
         return getall;
     }
 
+    public String getIngredientNameById(int ingredientId) throws SQLException {
+        String sql = "SELECT name FROM ingredient WHERE ingredient_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, ingredientId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("name");
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
+    public int getStockById(int ingredientId) throws SQLException {
+        String sql = "SELECT stock_amount FROM ingredient WHERE ingredient_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, ingredientId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("stock_amount");
+                } else {
+                    System.out.println("Ingredient not found");
+                    return -1;
+                }
+            }
+        }
+    }
+
+
+
 
 }

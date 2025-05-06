@@ -12,6 +12,13 @@ public class OrderDetailTM {
         this.priceAtOrder = priceAtOrder;
     }
 
+    public OrderDetailTM(int orderId,int productId,  int quantity, double priceAtOrder) {
+        this.productId = productId;
+        this.orderId = orderId;
+        this.quantity = quantity;
+        this.priceAtOrder = priceAtOrder;
+    }
+
     public int getProductId() {  // <-- camelCase getter
         return productId;
     }

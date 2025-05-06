@@ -27,6 +27,13 @@ public class OrderTM {
         this.status = status;
     }
 
+    public OrderTM(int order_id, int customer_id, LocalDate order_date, double total_price) {
+        this.order_id = order_id;
+        this.customer_id = customer_id;
+        this.order_date = order_date;
+        this.total_price = total_price;
+    }
+
     public int getOrder_id() {
         return order_id;
     }
@@ -73,5 +80,16 @@ public class OrderTM {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    @Override
+    public String toString() {
+        return ">>>"+
+                "order_id=" + order_id +
+                ", customer_id=" + customer_id +
+                ", order_date=" + order_date +
+                ", total_price=" + total_price +
+                '}';
     }
 }

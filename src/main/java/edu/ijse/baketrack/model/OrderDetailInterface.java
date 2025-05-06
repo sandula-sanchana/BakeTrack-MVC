@@ -12,7 +12,7 @@ public interface OrderDetailInterface {
 
     void deleteOrderDetail(int order_id, int product_id) throws SQLException;
 
-    void printOrderDetailsByOrderID(int order_id) throws SQLException;
+    ArrayList<OrderDetailDto> getOrderDetailsByOrderID(int order_id) throws SQLException;
 
     ArrayList<OrderDetailDto> getAllOrderDetails() throws  SQLException;
 }

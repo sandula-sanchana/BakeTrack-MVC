@@ -19,4 +19,6 @@ public interface ProductInterface {
     public double getPriceAtOrder(int product_id) throws SQLException;
 
     public int getQtyByPid(int ProductID) throws SQLException;
+
+    String getProductNameById(int productId) throws SQLException;
 }

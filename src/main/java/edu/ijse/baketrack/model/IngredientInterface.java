@@ -12,4 +12,6 @@ public interface IngredientInterface {
     void updateIngredient(int ingredientId, IngredientDto ingredientDto) throws SQLException;
     void getIngredientById(int ingredientId) throws SQLException;
     ArrayList<IngredientDto> getAllIngredients() throws SQLException;
+    String getIngredientNameById(int ingredientId) throws SQLException;
+   int getStockById(int ingredientId) throws SQLException;
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
+import edu.ijse.baketrack.dto.tm.IngredientTM;
+import javafx.collections.ObservableList;
 
 public interface OrderInterface {
  void addOrders(OrderDto orders) throws SQLException;
@@ -13,5 +15,8 @@ public interface OrderInterface {
     ArrayList<OrderDto> getAllOrders() throws SQLException;
     String placeOrder(OrderDto orderDto, ArrayList<OrderDetailDto> orderDetailDtos) throws SQLException;
     ArrayList<OrderDto> getOrderByID(int orderID) throws SQLException;
-   public ArrayList<OrderDto> getOrderByDelID(String delID)throws SQLException;
+    public ArrayList<OrderDto> getOrderByDelID(String delID)throws SQLException;
+    ArrayList<OrderDto> getAllPendingOrders()throws SQLException;
+
+   boolean startProductionAndDeductIng(ObservableList<IngredientTM> ingredientTMObservableList, int order_id)throws SQLException;
 }

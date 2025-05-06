@@ -126,4 +126,19 @@ public class ProductModel implements ProductInterface{
         }
         return 0.0;
     }
+
+    public String getProductNameById(int productId) throws SQLException {
+        String sql = "SELECT name FROM product WHERE product_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, productId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("name");
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
 }

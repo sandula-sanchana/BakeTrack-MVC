@@ -52,20 +52,25 @@ public class OrderDetailModel implements OrderDetailInterface {
     }
 
 
-     public void printOrderDetailsByOrderID(int order_id) throws SQLException {
-        String sql = "SELECT * FROM order_details WHERE order_id=?";
+    public ArrayList<OrderDetailDto> getOrderDetailsByOrderID(int order_id) throws SQLException {
+        ArrayList<OrderDetailDto> orderDetailsList = new ArrayList<>();
+
+        String sql = "SELECT * FROM order_detail WHERE order_id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, order_id);
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
             int productId = resultSet.getInt("product_id");
+            int order_id_selected=resultSet.getInt("order_id");
             int quantity = resultSet.getInt("quantity");
             double priceAtOrder = resultSet.getDouble("price_at_order");
 
-            System.out.println("Order ID: " + order_id + ", Product ID: " + productId +
-                    ", Quantity: " + quantity + ", Price at Order: " + priceAtOrder);
+            OrderDetailDto orderDetail = new OrderDetailDto(order_id_selected,productId, quantity, priceAtOrder);
+            orderDetailsList.add(orderDetail);
         }
+
+        return orderDetailsList;
     }
 
     public ArrayList<OrderDetailDto> getAllOrderDetails() {
