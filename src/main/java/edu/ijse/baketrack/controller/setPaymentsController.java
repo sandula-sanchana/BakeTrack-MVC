@@ -2,13 +2,17 @@ package edu.ijse.baketrack.controller;
 
 import edu.ijse.baketrack.dto.OrderDto;
 import edu.ijse.baketrack.dto.PaymentsDto;
+import edu.ijse.baketrack.dto.tm.OrderTM;
+import edu.ijse.baketrack.dto.tm.PaymentsTM;
 import edu.ijse.baketrack.model.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,6 +36,8 @@ public class setPaymentsController implements Initializable {
     private PaymentsDto paymentsDto;
     private int vehicle_id;
     private DeliveryInterface deliveryInterface;
+    private ObservableList<OrderTM> orderTMObservableList=FXCollections.observableArrayList();
+    private ObservableList<PaymentsTM> paymentsTMObservableList=FXCollections.observableArrayList();
 
     public setPaymentsController(){
         try {
@@ -44,46 +50,46 @@ public class setPaymentsController implements Initializable {
     }
 
     @FXML
-    private TableView<OrderDto> TableOrder;
+    private TableView<OrderTM> TableOrder;
 
     @FXML
-    private TableView<PaymentsDto> TablePayment;
+    private TableView<PaymentsTM> TablePayment;
 
     @FXML
-    private TableColumn<OrderDto, Integer> clmnCusID;
+    private TableColumn<OrderTM, Integer> clmnCusID;
 
     @FXML
-    private TableColumn<OrderDto, Integer> clmnDelID;
+    private TableColumn<OrderTM, Integer> clmnDelID;
 
     @FXML
-    private TableColumn<OrderDto, Integer> clmnOIDcus;
+    private TableColumn<OrderTM, Integer> clmnOIDcus;
 
     @FXML
-    private TableColumn<PaymentsDto,Integer> clmnOIDpay;
+    private TableColumn<PaymentsTM,Integer> clmnOIDpay;
 
     @FXML
-    private TableColumn<OrderDto, LocalDate> clmnOrderDate;
+    private TableColumn<OrderTM, LocalDate> clmnOrderDate;
 
     @FXML
-    private TableColumn<PaymentsDto,LocalDate> clmnPaymentDAte;
+    private TableColumn<PaymentsTM,LocalDate> clmnPaymentDAte;
 
     @FXML
-    private TableColumn<PaymentsDto,String> clmnPaymentMethod;
+    private TableColumn<PaymentsTM,String> clmnPaymentMethod;
 
     @FXML
-    private TableColumn<PaymentsDto, Integer> clmnPid;
+    private TableColumn<PaymentsTM, Integer> clmnPid;
 
     @FXML
-    private TableColumn<PaymentsDto,Double> clmnPricepay;
+    private TableColumn<PaymentsTM,Double> clmnPricepay;
 
     @FXML
-    private TableColumn<OrderDto, String> clmnStatus;
+    private TableColumn<OrderTM, String> clmnStatus;
 
     @FXML
-    private TableColumn<PaymentsDto,String> clmnStatusPAy;
+    private TableColumn<PaymentsTM,String> clmnStatusPAy;
 
     @FXML
-    private TableColumn<OrderDto, Double>clmnTotalPrice;
+    private TableColumn<OrderTM, Double>clmnTotalPrice;
 
     @FXML
     private DatePicker datePicker;
@@ -140,54 +146,50 @@ public class setPaymentsController implements Initializable {
     }
 
     public  void loadOrderToTable(ArrayList<OrderDto> orderDtos){
-        TableOrder.getItems().clear();
-        TableOrder.getItems().addAll(orderDtos);
+        for (OrderDto orderDto: orderDtos){
+            OrderTM orderTM=new OrderTM(orderDto.getOrder_id(),orderDto.getCustomerID(),orderDto.getDeliveryID(),orderDto.getOrderDate(),orderDto.getTotalPrice(),orderDto.getStatus());
+            orderTMObservableList.add(orderTM);
+        }
+
+
     }
     public void loadPaymentToTable(ArrayList<PaymentsDto> paymentsDtos){
-        TablePayment.getItems().clear();
-        TablePayment.getItems().addAll(paymentsDtos);
+       for(PaymentsDto paymentsDto : paymentsDtos){
+           PaymentsTM paymentsTM=new PaymentsTM(paymentsDto.getPayment_id(),paymentsDto.getOrderID(),paymentsDto.getPrice(),paymentsDto.getPaymentMethod(),paymentsDto.getPaymentDate(),paymentsDto.getStatus());
+           paymentsTMObservableList.add(paymentsTM);
+       }
+
     }
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       orderDtos=new ArrayList<>();
-       paymentsDtos=new ArrayList<>();
+        orderDtos = new ArrayList<>();
+        paymentsDtos = new ArrayList<>();
 
 
-        clmnCusID.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getCustomerID()));
-        clmnOIDcus.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getOrder_id()));
-        clmnDelID.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getDeliveryID()));
-        clmnOrderDate.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getOrderDate()));
-        clmnTotalPrice.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getTotalPrice()));
-        clmnStatus.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getStatus()));
+        clmnCusID.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
+        clmnOIDcus.setCellValueFactory(new PropertyValueFactory<>("order_id"));
+        clmnDelID.setCellValueFactory(new PropertyValueFactory<>("delivery_id"));
+        clmnOrderDate.setCellValueFactory(new PropertyValueFactory<>("order_date"));
+        clmnTotalPrice.setCellValueFactory(new PropertyValueFactory<>("total_price"));
+        clmnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        TableOrder.setItems(FXCollections.observableArrayList(orderDtos));
-
-        clmnPid.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getPayment_id()));
-        clmnOIDpay.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getOrderID()));
-        clmnPricepay.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getPrice()));
-        clmnPaymentMethod.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getPaymentMethod()));
-        clmnPaymentDAte.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getPaymentDate()));
-        clmnStatusPAy.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getStatus()));
-
-        TablePayment.setItems(FXCollections.observableArrayList(paymentsDtos));
-
-        PaymentStatusGroup.selectedToggleProperty().addListener((observable,oldToggle,newToggle) ->{getSelectedStatus();} );
+        TableOrder.setItems(orderTMObservableList);
 
 
+        clmnPid.setCellValueFactory(new PropertyValueFactory<>("payment_id"));
+        clmnOIDpay.setCellValueFactory(new PropertyValueFactory<>("order_id"));
+        clmnPricepay.setCellValueFactory(new PropertyValueFactory<>("price"));
+        clmnPaymentMethod.setCellValueFactory(new PropertyValueFactory<>("payment_method"));
+        clmnPaymentDAte.setCellValueFactory(new PropertyValueFactory<>("payment_date"));
+        clmnStatusPAy.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        TablePayment.setItems(paymentsTMObservableList);
+
+
+        PaymentStatusGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> getSelectedStatus());
     }
+
 
     public void getSelectedStatus(){
         RadioButton selectedOne=(RadioButton)PaymentStatusGroup.getSelectedToggle();

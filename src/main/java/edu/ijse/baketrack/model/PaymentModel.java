@@ -82,7 +82,8 @@ public class PaymentModel implements PaymentInterface{
                          resultSet.getInt("order_id"),
                          resultSet.getDouble("price"),
                          resultSet.getString("payment_method"),
-                         null,resultSet.getString("status"));
+                         resultSet.getDate("payment_date").toLocalDate(),
+                         resultSet.getString("status"));
                  paymentsDtos.add(paymentsDto);
                  return paymentsDtos;
 

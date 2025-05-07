@@ -57,11 +57,11 @@ public class UsersModel implements UsersInterface {
             if (sp.equals(user_password)) {
                 return results.getString("roles");
             } else {
-                return "invalid password";
+                return null;
             }
 
         }
-        return "invalid";
+        return null;
     }
 
 }

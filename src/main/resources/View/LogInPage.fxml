@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="apLoginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #2C3E50;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.LogInPageController">
+<AnchorPane fx:id="apLoginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #2C3E50;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.LogInPageController">
    <children>
       <VBox alignment="CENTER" layoutX="284.0" layoutY="286.0" prefHeight="252.0" prefWidth="332.0" spacing="30.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="284.0" AnchorPane.topAnchor="286.0">
          <children>
@@ -20,7 +20,7 @@
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLogInloginPage" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: #3498DB;" text="log in" />
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="361.0" layoutY="75.0" prefHeight="174.0" prefWidth="159.0" AnchorPane.bottomAnchor="351.0" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="75.0">
+      <VBox alignment="CENTER" layoutX="361.0" layoutY="75.0" prefHeight="334.0" prefWidth="539.0" AnchorPane.bottomAnchor="391.0" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="75.0">
          <children>
             <ImageView fitHeight="250.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
@@ -29,16 +29,13 @@
             </ImageView>
          </children>
       </VBox>
-      <Hyperlink layoutX="653.0" layoutY="412.0" onAction="#hlForgotPwdLPage" text="forgot password?" />
-      <HBox layoutX="668.0" layoutY="45.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-         <children>
-            <Label text="not a user?" textFill="#7f8c8d">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#btnSignUploginPage" style="-fx-background-color: #3498DB;" text="sign up" />
-         </children>
-      </HBox>
+      <Hyperlink layoutX="1023.0" layoutY="506.0" onAction="#hlForgotPwdLPage" text="forgot password?" />
+      <HBox layoutX="668.0" layoutY="45.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0" />
+      <Button layoutX="1155.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnSignUploginPage" style="-fx-background-color: #3498DB;" text="sign up" />
+      <Label layoutX="1050.0" layoutY="49.0" text="not a user?" textFill="#7f8c8d">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

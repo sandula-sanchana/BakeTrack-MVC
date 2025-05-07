@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.CustomersDto;
+import edu.ijse.baketrack.util.SqlExecute;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -17,33 +18,40 @@ public class CustomerModel implements CustomerInterface {
         this.connection= DBobject.getInstance().getConnection();
     }
 
-    public void addCustomer(CustomersDto customersDto) throws SQLException {
+    public String addCustomer(CustomersDto customersDto) throws SQLException {
         String addSql = "INSERT INTO customer (name,contact_no,address) VALUES (?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(addSql);
-        statement.setString(1, customersDto.getName());
-        statement.setString(2, customersDto.getContact());
-        statement.setString(3, customersDto.getAddress());
+       Boolean done= SqlExecute.SqlExecute(addSql,customersDto.getName(),customersDto.getContact(),customersDto.getAddress());
 
-        int rowsAffected = statement.executeUpdate();
-
-        if (rowsAffected > 0) {
-            System.out.println("updated successfully");
+        if (done) {
+           return "updated successfully";
         } else {
-            System.out.println("failed");
+           return "failed";
         }
 
     }
 
-    public void deleteCustomer(int customer_id) throws SQLException {
-        String deleteSql = "DELETE FROM customer WHERE customer_id=?";
-        PreparedStatement statement = connection.prepareStatement(deleteSql);
-        statement.setInt(1, customer_id);
-        int rowsAffected = statement.executeUpdate();
+    public String updateCustomer(CustomersDto customersDto) throws SQLException {
+        String addSql = "UPDATE customer SET name=?,address=?,contact_no=? WHERE customer_id=?";
+        Boolean done= SqlExecute.SqlExecute(addSql,customersDto.getName(),customersDto.getAddress(),customersDto.getContact(),customersDto.getCustomerID());
 
-        if (rowsAffected > 0) {
-            System.out.println("deleted successfully");
+        if (done) {
+            return "updated successfully";
         } else {
-            System.out.println("failed to delete");
+            return "failed";
+        }
+
+    }
+
+
+
+    public String deleteCustomer(int customer_id) throws SQLException {
+        String deleteSql = "DELETE FROM customer WHERE customer_id=?";
+        Boolean done=SqlExecute.SqlExecute(deleteSql,customer_id);
+
+        if (done) {
+            return "deleted successfully";
+        } else {
+           return "failed to delete";
         }
 
     }

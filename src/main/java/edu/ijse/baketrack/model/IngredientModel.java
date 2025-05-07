@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.EmployeeDto;
 import edu.ijse.baketrack.dto.IngredientDto;
+import edu.ijse.baketrack.util.SqlExecute;
 
 public class IngredientModel implements IngredientInterface {
      
@@ -20,56 +21,46 @@ public class IngredientModel implements IngredientInterface {
         this.connection= DBobject.getInstance().getConnection();
     }
 
-     public void addIngredient(IngredientDto ingredientDto) throws SQLException {
-        String sql = "INSERT INTO ingredients (name, stock_amount, unit, buying_price, expire_date) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, ingredientDto.getName());
-        statement.setInt(2, ingredientDto.getStockAmount());
-        statement.setString(3, ingredientDto.getUnit());
-        statement.setDouble(4, ingredientDto.getBuyingPrice());
-        statement.setDate(5, Date.valueOf(ingredientDto.getExpireDate()));
+     public String addIngredient(IngredientDto ingredientDto) throws SQLException {
+        String sql = "INSERT INTO ingredient (name, stock_amount, unit, buying_price, expire_date) VALUES (?, ?, ?, ?, ?)";
 
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Ingredient added successfully");
+        Boolean done= SqlExecute.SqlExecute(sql,ingredientDto.getName(),ingredientDto.getStockAmount(),ingredientDto.getUnit(),
+                ingredientDto.getBuyingPrice(),Date.valueOf(ingredientDto.getExpireDate()));
+
+        if (done) {
+            return "Ingredient added successfully";
         } else {
-            System.out.println("Failed to add ingredient");
+            return "Failed to add ingredient";
         }
     }
 
-    public void deleteIngredient(int ingredientId) throws SQLException {
-        String sql = "DELETE FROM ingredients WHERE ingredient_id = ?";
+    public String deleteIngredient(int ingredientId) throws SQLException {
+        String sql = "DELETE FROM ingredient WHERE ingredient_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, ingredientId);
 
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Ingredient deleted successfully");
+            return "Ingredient deleted successfully";
         } else {
-            System.out.println("Failed to delete ingredient");
+            return "Failed to delete ingredient";
         }
     }
 
-    public void updateIngredient(int ingredientId, IngredientDto ingredientDto) throws SQLException {
-        String sql = "UPDATE ingredients SET name = ?, stock_amount = ?, unit = ?, buying_price = ?, expire_date = ? WHERE ingredient_id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, ingredientDto.getName());
-        statement.setInt(2, ingredientDto.getStockAmount());
-        statement.setString(3, ingredientDto.getUnit());
-        statement.setDouble(4, ingredientDto.getBuyingPrice());
-        statement.setDate(5, Date.valueOf(ingredientDto.getExpireDate()));
-        statement.setInt(6, ingredientId);
+    public String updateIngredient( IngredientDto ingredientDto) throws SQLException {
+        String sql = "UPDATE ingredient SET name = ?, stock_amount = ?, unit = ?, buying_price = ?, expire_date = ? WHERE ingredient_id = ?";
 
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Ingredient updated successfully");
+        Boolean done= SqlExecute.SqlExecute(sql,ingredientDto.getName(),ingredientDto.getStockAmount(),ingredientDto.getUnit(),
+                ingredientDto.getBuyingPrice(),Date.valueOf(ingredientDto.getExpireDate()),ingredientDto.getIngredient_id());
+        if (done) {
+            return "Ingredient updated successfully";
         } else {
-            System.out.println("Failed to update ingredient");
+            return "Failed to update ingredient";
         }
     }
 
     public void getIngredientById(int ingredientId) throws SQLException {
-        String sql = "SELECT * FROM ingredients WHERE ingredient_id = ?";
+        String sql = "SELECT * FROM ingredient WHERE ingredient_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, ingredientId);
         ResultSet resultSet = statement.executeQuery();
@@ -88,9 +79,9 @@ public class IngredientModel implements IngredientInterface {
             PreparedStatement statement=connection.prepareStatement(allSql);
             ResultSet resultSet=statement.executeQuery();
 
-            LocalDate localDate_expire =resultSet.getDate("expire_date").toLocalDate();
+
             while (resultSet.next()){
-               IngredientDto ingredientDto= new IngredientDto(  resultSet.getInt("employee_id"),resultSet.getString("emp_name"), resultSet.getInt("employee_id"),resultSet.getString("emp_name"), resultSet.getDouble("salary"),localDate_expire);
+               IngredientDto ingredientDto= new IngredientDto(  resultSet.getInt("ingredient_id"),resultSet.getString("name"), resultSet.getInt("stock_amount"),resultSet.getString("unit"), resultSet.getDouble("buying_price"),resultSet.getDate("expire_date").toLocalDate());
                 getall.add(ingredientDto);
             }
         } catch (SQLException e) {

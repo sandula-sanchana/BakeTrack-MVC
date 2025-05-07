@@ -117,7 +117,17 @@ public class DeliveryModel implements DeliveryInterface {
 
     @Override
     public int getVehicleIDbyDelID(int delivery_id) throws SQLException {
-        return 0;
+        String sql = "SELECT vehicle_id FROM delivery WHERE delivery_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, delivery_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("vehicle_id");
+                } else {
+                    throw new SQLException("No delivery found with ID: " + delivery_id);
+                }
+            }
+        }
     }
 
     public ArrayList<DeliveryDto> getAllDelivery()  {

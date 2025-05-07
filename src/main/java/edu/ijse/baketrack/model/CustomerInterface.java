@@ -7,9 +7,9 @@ import edu.ijse.baketrack.dto.CustomersDto;
 
 public interface CustomerInterface {
 
-    void addCustomer(CustomersDto customer) throws SQLException;
+   String addCustomer(CustomersDto customer) throws SQLException;
 
-    void deleteCustomer(int customerId) throws SQLException;
+    String deleteCustomer(int customerId) throws SQLException;
 
     void updateName(int customerId, String name) throws SQLException;
 
@@ -20,4 +20,6 @@ public interface CustomerInterface {
     ArrayList<CustomersDto> getAllCustomers() throws SQLException;
 
     public CustomersDto getCustomerByID(int cusID) throws SQLException;
+
+    String updateCustomer(CustomersDto customersDto) throws SQLException;
 }

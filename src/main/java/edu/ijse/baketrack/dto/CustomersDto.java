@@ -16,7 +16,13 @@ public class CustomersDto {
      this.address=address;
    }
 
-   public int getCustomerID(){
+    public CustomersDto(String name, String contact, String address) {
+        this.name = name;
+        this.contact = contact;
+        this.address = address;
+    }
+
+    public int getCustomerID(){
      return this.id;
    }
     public String getName(){

@@ -20,6 +20,14 @@ public class IngredientDto {
         this.expire_date = expire_date;
     }
 
+    public IngredientDto(String name, int stock_amount, String unit, double buying_price, LocalDate expire_date) {
+        this.name = name;
+        this.stock_amount = stock_amount;
+        this.unit = unit;
+        this.buying_price = buying_price;
+        this.expire_date = expire_date;
+    }
+
     public int getIngredient_id() {
         return ingredient_id;
     }
