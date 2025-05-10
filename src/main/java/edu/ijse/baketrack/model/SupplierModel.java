@@ -17,7 +17,7 @@ public class SupplierModel implements SupplierInterface{
         this.connection= DBobject.getInstance().getConnection();
     }
 
-     public void addSupplier(SupplierDto supplierDto) throws SQLException {
+     public String addSupplier(SupplierDto supplierDto) throws SQLException {
         String sql = "INSERT INTO supplier (name, contact, address) VALUES (?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, supplierDto.getName());
@@ -26,38 +26,38 @@ public class SupplierModel implements SupplierInterface{
         
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Supplier added successfully");
+            return "Supplier added successfully";
         } else {
-            System.out.println("Failed to add supplier");
+            return "Failed to add supplier";
         }
     }
 
-    public void deleteSupplier(int supplierId) throws SQLException {
+    public String deleteSupplier(int supplierId) throws SQLException {
         String sql = "DELETE FROM supplier WHERE supplier_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, supplierId);
         
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Supplier deleted successfully");
+            return "Supplier deleted successfully";
         } else {
-            System.out.println("Failed to delete supplier");
+            return "Failed to delete supplier";
         }
     }
 
-    public void updateSupplier(int supplierId, SupplierDto supplierDto) throws SQLException {
+    public String updateSupplier( SupplierDto supplierDto) throws SQLException {
         String sql = "UPDATE supplier SET name = ?, contact = ?, address = ? WHERE supplier_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, supplierDto.getName());
         statement.setString(2, supplierDto.getContact());
         statement.setString(3, supplierDto.getAddress());
-        statement.setInt(4, supplierId);
+        statement.setInt(4, supplierDto.getSupplier_id());
         
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Supplier updated successfully");
+            return "Supplier updated successfully";
         } else {
-            System.out.println("Failed to update supplier");
+            return "Failed to update supplier";
         }
     }
 

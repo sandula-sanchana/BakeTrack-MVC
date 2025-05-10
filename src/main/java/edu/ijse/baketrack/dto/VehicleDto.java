@@ -13,6 +13,12 @@ public class VehicleDto {
         this.status=status;
     }
 
+    public VehicleDto(String type, String license_plate, String status) {
+        this.type = type;
+        this.license_plate = license_plate;
+        this.status = status;
+    }
+
     public int getVehicle_id() {
         return vehicle_id;
     }

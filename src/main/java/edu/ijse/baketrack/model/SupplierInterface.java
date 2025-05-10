@@ -4,11 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface SupplierInterface {
-    void addSupplier(SupplierDto supplierDto) throws SQLException;
+    String addSupplier(SupplierDto supplierDto) throws SQLException;
 
-    void deleteSupplier(int supplierId) throws SQLException;
+    String deleteSupplier(int supplierId) throws SQLException;
 
-    void updateSupplier(int supplierId, SupplierDto supplierDto) throws SQLException;
+    String updateSupplier( SupplierDto supplierDto) throws SQLException;
 
     void getSupplierById(int supplierId) throws SQLException;
 

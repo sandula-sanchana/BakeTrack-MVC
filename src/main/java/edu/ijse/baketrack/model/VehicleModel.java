@@ -16,7 +16,7 @@ public class VehicleModel implements VehicleInterface {
         this.connection= DBobject.getInstance().getConnection();
     }
 
-    public void addVehicle(VehicleDto vehicleDto) throws SQLException {
+    public String addVehicle(VehicleDto vehicleDto) throws SQLException {
         String sql = "INSERT INTO vehicle (type, license_plate) VALUES (?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, vehicleDto.getType());
@@ -24,37 +24,38 @@ public class VehicleModel implements VehicleInterface {
 
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Vehicle added successfully");
+            return "Vehicle added successfully";
         } else {
-            System.out.println("Failed to add vehicle");
+            return "Failed to add vehicle";
         }
     }
 
-    public void deleteVehicle(int vehicleId) throws SQLException {
+    public String deleteVehicle(int vehicleId) throws SQLException {
         String sql = "DELETE FROM vehicle WHERE vehicle_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, vehicleId);
 
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Vehicle deleted successfully");
+            return "Vehicle deleted successfully";
         } else {
-            System.out.println("Failed to delete vehicle");
+            return "Failed to delete vehicle";
         }
     }
 
-    public void updateVehicle(VehicleDto vehicleDto, int vehicle_id) throws SQLException {
-        String sql = "UPDATE vehicle SET type = ?, license_plate = ? WHERE vehicle_id = ?";
+    public String updateVehicle(VehicleDto vehicleDto) throws SQLException {
+        String sql = "UPDATE vehicle SET type = ?, license_plate = ?,status=? WHERE vehicle_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, vehicleDto.getType());
         statement.setString(2, vehicleDto.getLicensePlate());
-        statement.setInt(3, vehicle_id);
+        statement.setString(3, vehicleDto.getStatus());
+        statement.setInt(4,vehicleDto.getVehicle_id());
 
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Vehicle updated successfully");
+            return "Vehicle updated successfully";
         } else {
-            System.out.println("Failed to update vehicle");
+            return "Failed to update vehicle";
         }
     }
 

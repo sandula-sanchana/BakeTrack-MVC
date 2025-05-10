@@ -1,19 +1,20 @@
-package edu.ijse.baketrack.dto;
+package edu.ijse.baketrack.dto.tm;
 
-public class SupplierDto {
+public class SupplierTM {
+
     private int supplier_id;
     private String name;
     private String contact;
     private String address;
 
-    public SupplierDto(int supplier_id, String name, String contact, String address) {
+    public SupplierTM(int supplier_id, String name, String contact, String address) {
         this.supplier_id = supplier_id;
         this.name = name;
         this.contact = contact;
         this.address = address;
     }
 
-    public SupplierDto(String name, String contact, String address) {
+    public SupplierTM(String name, String contact, String address) {
         this.name = name;
         this.contact = contact;
         this.address = address;
