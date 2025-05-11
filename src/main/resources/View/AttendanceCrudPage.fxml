@@ -28,42 +28,42 @@
                                 <ComboBox fx:id="comboBoxEmp" onMouseClicked="#cmbClicked" prefHeight="26.0" prefWidth="213.0" />
                             </children>
                         </HBox>
-                  <HBox prefHeight="44.0" prefWidth="322.0" spacing="30.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="82.0" text="Status" textFill="#f39c12" />
-                        <ComboBox fx:id="comboBoxStatus" prefHeight="26.0" prefWidth="212.0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="46.0" prefWidth="322.0" spacing="20.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="186.0" text="Check in Time(HH:mm)" textFill="#f39c12" />
-                        <TextField fx:id="txtCinHOur" prefHeight="26.0" prefWidth="101.0" />
-                        <Label text=":" textFill="#f39c12">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtCinMIn" prefHeight="26.0" prefWidth="91.0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="46.0" prefWidth="322.0" spacing="20.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="202.0" text="Check out Time(HH:mm)" textFill="#f39c12" />
-                        <TextField fx:id="txtCoutHour" prefHeight="26.0" prefWidth="101.0" />
-                        <Label text=":" textFill="#f39c12">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtCoutMIn" prefHeight="26.0" prefWidth="91.0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="102.0" text="Attend Date" textFill="#f39c12" />
-                        <DatePicker fx:id="datePicker" />
-                     </children>
-                  </HBox>
+                        <HBox prefHeight="44.0" prefWidth="322.0" spacing="30.0">
+                            <children>
+                                <Label prefHeight="18.0" prefWidth="82.0" text="Status" textFill="#f39c12" />
+                                <ComboBox fx:id="comboBoxStatus" prefHeight="26.0" prefWidth="212.0" />
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="46.0" prefWidth="322.0" spacing="20.0">
+                            <children>
+                                <Label prefHeight="18.0" prefWidth="186.0" text="Check in Time(HH:mm)" textFill="#f39c12" />
+                                <TextField fx:id="txtCinHOur" prefHeight="26.0" prefWidth="101.0" />
+                                <Label text=":" textFill="#f39c12">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtCinMIn" prefHeight="26.0" prefWidth="91.0" />
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="46.0" prefWidth="322.0" spacing="20.0">
+                            <children>
+                                <Label prefHeight="18.0" prefWidth="202.0" text="Check out Time(HH:mm)" textFill="#f39c12" />
+                                <TextField fx:id="txtCoutHour" prefHeight="26.0" prefWidth="101.0" />
+                                <Label text=":" textFill="#f39c12">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtCoutMIn" prefHeight="26.0" prefWidth="91.0" />
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                            <children>
+                                <Label prefHeight="18.0" prefWidth="102.0" text="Attend Date" textFill="#f39c12" />
+                                <DatePicker fx:id="datePicker" />
+                            </children>
+                        </HBox>
                     </children>
                 </VBox>
                 <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="97.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">

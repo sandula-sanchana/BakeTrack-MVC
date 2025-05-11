@@ -50,4 +50,14 @@ public class SupplierDto {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return
+                "supplier_id=" + supplier_id +
+                ", name='" + name + '\'' +
+                ", contact='" + contact + '\'' +
+                ", address='" + address + '\''
+                ;
+    }
 }

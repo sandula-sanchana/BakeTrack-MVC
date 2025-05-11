@@ -90,78 +90,17 @@ public class CustomerCrudPageController implements Initializable {
 
     @FXML
     void btnSaveAction(ActionEvent event) {
-        String name = txtCustomerName.getText();
-        String address = txtCustomerAddress.getText();
-        String contact = txtCustomerContact.getText();
-
-        boolean validName = name.matches(namePattern);
-        boolean validAddress = address.matches(addressPattern);
-        boolean validContact = contact.matches(phonePattern);
-
-        if (!validName) txtCustomerName.setStyle("-fx-border-color: red;");
-        if (!validAddress) txtCustomerAddress.setStyle("-fx-border-color: red;");
-        if (!validContact) txtCustomerContact.setStyle("-fx-border-color: red;");
-
-        if (validName && validAddress && validContact) {
-            CustomersDto dto = new CustomersDto(name, address, contact);
-            try {
-                String response = customerInterface.addCustomer(dto);
-                new Alert(Alert.AlertType.INFORMATION, response).showAndWait();
-                refreshTable();
-                clearFields();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Please enter valid data!").showAndWait();
-        }
+       saveCustomer();
     }
 
     @FXML
     void btnUpdateAction(ActionEvent event) {
-        CustomersTM selected = customerTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            CustomersDto dto = new CustomersDto(
-                    selected.getId(),
-                    txtCustomerName.getText(),
-                    txtCustomerAddress.getText(),
-                    txtCustomerContact.getText()
-            );
-            try {
-                String response = customerInterface.updateCustomer(dto);
-                new Alert(Alert.AlertType.INFORMATION, response).showAndWait();
-                refreshTable();
-                clearFields();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Please select a customer to update.").showAndWait();
-        }
+       updateCustomer();
     }
 
     @FXML
     void btnDeleteAction(ActionEvent event) {
-        CustomersTM selected = customerTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Confirm Deletion", ButtonType.YES, ButtonType.NO);
-            confirm.setHeaderText("Are you sure you want to delete this customer?");
-            confirm.setContentText("This action cannot be undone.");
-
-            Optional<ButtonType> result = confirm.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.YES) {
-                try {
-                    String response = customerInterface.deleteCustomer(selected.getId());
-                    new Alert(Alert.AlertType.INFORMATION, response).showAndWait();
-                    refreshTable();
-                    clearFields();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Please select a customer to delete.").showAndWait();
-        }
+       deleteCustomer();
     }
 
     @FXML
@@ -205,5 +144,79 @@ public class CustomerCrudPageController implements Initializable {
     @FXML
     void btnGoBack(ActionEvent event) {
 
+    }
+
+    public void deleteCustomer(){
+        CustomersTM selected = customerTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Confirm Deletion", ButtonType.YES, ButtonType.NO);
+            confirm.setHeaderText("Are you sure you want to delete this customer?");
+            confirm.setContentText("This action cannot be undone.");
+
+            Optional<ButtonType> result = confirm.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                try {
+                    String response = customerInterface.deleteCustomer(selected.getId());
+                    new Alert(Alert.AlertType.INFORMATION, response).showAndWait();
+                    refreshTable();
+                    clearFields();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please select a customer to delete.").showAndWait();
+        }
+
+    }
+
+    public  void updateCustomer(){
+        CustomersTM selected = customerTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            CustomersDto dto = new CustomersDto(
+                    selected.getId(),
+                    txtCustomerName.getText(),
+                    txtCustomerAddress.getText(),
+                    txtCustomerContact.getText()
+            );
+            try {
+                String response = customerInterface.updateCustomer(dto);
+                new Alert(Alert.AlertType.INFORMATION, response).showAndWait();
+                refreshTable();
+                clearFields();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please select a customer to update.").showAndWait();
+        }
+    }
+
+    public void saveCustomer(){
+        String name = txtCustomerName.getText();
+        String address = txtCustomerAddress.getText();
+        String contact = txtCustomerContact.getText();
+
+        boolean validName = name.matches(namePattern);
+        boolean validAddress = address.matches(addressPattern);
+        boolean validContact = contact.matches(phonePattern);
+
+        if (!validName) txtCustomerName.setStyle("-fx-border-color: red;");
+        if (!validAddress) txtCustomerAddress.setStyle("-fx-border-color: red;");
+        if (!validContact) txtCustomerContact.setStyle("-fx-border-color: red;");
+
+        if (validName && validAddress && validContact) {
+            CustomersDto dto = new CustomersDto(name, address, contact);
+            try {
+                String response = customerInterface.addCustomer(dto);
+                new Alert(Alert.AlertType.INFORMATION, response).showAndWait();
+                refreshTable();
+                clearFields();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Please enter valid data!").showAndWait();
+        }
     }
 }

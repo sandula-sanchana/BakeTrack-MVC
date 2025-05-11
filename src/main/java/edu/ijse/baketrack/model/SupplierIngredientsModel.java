@@ -17,42 +17,43 @@ public class SupplierIngredientsModel implements SupplierIngredientInterface {
         this.connection= DBobject.getInstance().getConnection();
     }
 
-    public void addSupplierIngredient(SupplierIngredientDto supplierIngredientDto) throws SQLException {
-        String sql = "INSERT INTO supplier_ingredient (ingredient_id, supplier_id, price_per_unit, unit, last_order_date) VALUES (?, ?, ?, ?, ?)";
+    public String addSupplierIngredient(SupplierIngredientDto supplierIngredientDto) throws SQLException {
+        String sql = "INSERT INTO supplier_ingredient (supplier_id, ingredient_id, price_per_unit, unit, last_order_date) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, supplierIngredientDto.getIngredientID());
-        statement.setInt(2, supplierIngredientDto.getSupplierID());
-        statement.setDouble(3, supplierIngredientDto.getPricePerUnit());
+        statement.setInt(1, supplierIngredientDto.getSupplier_id());
+        statement.setInt(2, supplierIngredientDto.getIngredient_id());
+        statement.setDouble(3, supplierIngredientDto.getPrice_per_unit());
         statement.setString(4, supplierIngredientDto.getUnit());
-        statement.setDate(5, Date.valueOf(supplierIngredientDto.getLastOrderDate()));
+        statement.setDate(5, Date.valueOf(supplierIngredientDto.getOrder_date()));
 
         int rowsAffected = statement.executeUpdate();
-        System.out.println(
-                rowsAffected > 0 ? "Supplier-Ingredient added successfully" : "Failed to add Supplier-Ingredient");
+
+        return rowsAffected > 0 ? "Supplier-Ingredient added successfully" : "Failed to add Supplier-Ingredient";
     }
 
-    public void updateSupplierIngredient(SupplierIngredientDto supplierIngredientDto) throws SQLException {
+
+    public String updateSupplierIngredient(SupplierIngredientDto supplierIngredientDto) throws SQLException {
         String sql = "UPDATE supplier_ingredient SET price_per_unit = ?, unit = ?, last_order_date = ? WHERE ingredient_id = ? AND supplier_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setDouble(1, supplierIngredientDto.getPricePerUnit());
+        statement.setDouble(1, supplierIngredientDto.getPrice_per_unit());
         statement.setString(2, supplierIngredientDto.getUnit());
-        statement.setDate(3, Date.valueOf(supplierIngredientDto.getLastOrderDate()));
-        statement.setInt(4, supplierIngredientDto.getIngredientID());
-        statement.setInt(5, supplierIngredientDto.getSupplierID());
+        statement.setDate(3, Date.valueOf(supplierIngredientDto.getOrder_date()));
+        statement.setInt(4, supplierIngredientDto.getIngredient_id());
+        statement.setInt(5, supplierIngredientDto.getSupplier_id());
 
         int rowsAffected = statement.executeUpdate();
-        System.out.println(
-                rowsAffected > 0 ? "Supplier-Ingredient updated successfully" : "Failed to update Supplier-Ingredient");
+
+               return rowsAffected > 0 ? "Supplier-Ingredient updated successfully" : "Failed to update Supplier-Ingredient";
     }
 
-    public void deleteSupplierIngredient(int ingredientId, int supplierId) throws SQLException {
+    public String deleteSupplierIngredient(int ingredientId, int supplierId) throws SQLException {
         String sql = "DELETE FROM supplier_ingredient WHERE ingredient_id = ? AND supplier_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, ingredientId);
         statement.setInt(2, supplierId);
 
         int rowsAffected = statement.executeUpdate();
-        System.out.println(rowsAffected > 0 ? "Supplier-Ingredient deleted successfully" : "Failed to delete Supplier-Ingredient");
+        return rowsAffected > 0 ? "Supplier-Ingredient deleted successfully" : "Failed to delete Supplier-Ingredient";
     }
 
       public void getSupplierIngredientByID(int ingredientId, int supplierId) throws SQLException {
@@ -83,8 +84,8 @@ public class SupplierIngredientsModel implements SupplierIngredientInterface {
 
             while (resultSet.next()) {
                 SupplierIngredientDto supplierIngredient = new SupplierIngredientDto(
-                        resultSet.getInt("ingredient_id"),
                         resultSet.getInt("supplier_id"),
+                        resultSet.getInt("ingredient_id"),
                         resultSet.getDouble("price_per_unit"),
                         resultSet.getString("unit"),
                         resultSet.getDate("last_order_date").toLocalDate()

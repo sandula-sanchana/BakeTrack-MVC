@@ -123,6 +123,9 @@ public class IngredientCrudPageController implements Initializable {
     @FXML
     void onTableClick(MouseEvent event) {
           loadSelectedToTable();
+        btnUpdate.setDisable(false);
+        btnDelete.setDisable(false);
+        btnSave.setDisable(true);
     }
 
     @Override
@@ -138,6 +141,9 @@ public class IngredientCrudPageController implements Initializable {
         loadIngredientToTable();
         ingredientTable.setItems(ingredientTMObservableList);
 
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+
 
     }
 
@@ -147,8 +153,8 @@ public class IngredientCrudPageController implements Initializable {
             ArrayList<IngredientDto> ingredientDtoArrayList=ingredientInterface.getAllIngredients();
             if(ingredientDtoArrayList!=null){
                  for(IngredientDto ingredientDto :ingredientDtoArrayList){
-                     ingredientTM=new IngredientTM(ingredientDto.getIngredient_id(),ingredientDto.getName(),ingredientDto.getStockAmount(),
-                             ingredientDto.getUnit(),ingredientDto.getBuyingPrice(),ingredientDto.getExpireDate());
+                     ingredientTM=new IngredientTM(ingredientDto.getIngredient_id(),ingredientDto.getName(),ingredientDto.getStock_amount(),
+                             ingredientDto.getUnit(),ingredientDto.getBuying_price(),ingredientDto.getExpire_date());
 
                      ingredientTMObservableList.add(ingredientTM);
                  }
@@ -267,4 +273,5 @@ public class IngredientCrudPageController implements Initializable {
         btnUpdate.setDisable(false);
         btnDelete.setDisable(true);
     }
+
 }

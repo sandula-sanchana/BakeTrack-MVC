@@ -24,8 +24,8 @@ public class IngredientModel implements IngredientInterface {
      public String addIngredient(IngredientDto ingredientDto) throws SQLException {
         String sql = "INSERT INTO ingredient (name, stock_amount, unit, buying_price, expire_date) VALUES (?, ?, ?, ?, ?)";
 
-        Boolean done= SqlExecute.SqlExecute(sql,ingredientDto.getName(),ingredientDto.getStockAmount(),ingredientDto.getUnit(),
-                ingredientDto.getBuyingPrice(),Date.valueOf(ingredientDto.getExpireDate()));
+        Boolean done= SqlExecute.SqlExecute(sql,ingredientDto.getName(),ingredientDto.getStock_amount(),ingredientDto.getUnit(),
+                ingredientDto.getBuying_price(),Date.valueOf(ingredientDto.getExpire_date()));
 
         if (done) {
             return "Ingredient added successfully";
@@ -50,8 +50,8 @@ public class IngredientModel implements IngredientInterface {
     public String updateIngredient( IngredientDto ingredientDto) throws SQLException {
         String sql = "UPDATE ingredient SET name = ?, stock_amount = ?, unit = ?, buying_price = ?, expire_date = ? WHERE ingredient_id = ?";
 
-        Boolean done= SqlExecute.SqlExecute(sql,ingredientDto.getName(),ingredientDto.getStockAmount(),ingredientDto.getUnit(),
-                ingredientDto.getBuyingPrice(),Date.valueOf(ingredientDto.getExpireDate()),ingredientDto.getIngredient_id());
+        Boolean done= SqlExecute.SqlExecute(sql,ingredientDto.getName(),ingredientDto.getStock_amount(),ingredientDto.getUnit(),
+                ingredientDto.getBuying_price(),Date.valueOf(ingredientDto.getExpire_date()),ingredientDto.getIngredient_id());
         if (done) {
             return "Ingredient updated successfully";
         } else {

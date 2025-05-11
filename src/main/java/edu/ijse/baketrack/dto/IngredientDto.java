@@ -28,6 +28,12 @@ public class IngredientDto {
         this.expire_date = expire_date;
     }
 
+    public IngredientDto(int ingredient_id, String name, String unit) {
+        this.ingredient_id = ingredient_id;
+        this.name = name;
+        this.unit = unit;
+    }
+
     public int getIngredient_id() {
         return ingredient_id;
     }
@@ -44,11 +50,11 @@ public class IngredientDto {
         this.name = name;
     }
 
-    public int getStockAmount() {
+    public int getStock_amount() {
         return stock_amount;
     }
 
-    public void setStockAmount(int stock_amount) {
+    public void setStock_amount(int stock_amount) {
         this.stock_amount = stock_amount;
     }
 
@@ -60,22 +66,28 @@ public class IngredientDto {
         this.unit = unit;
     }
 
-    public double getBuyingPrice() {
+    public double getBuying_price() {
         return buying_price;
     }
 
-    public void setBuyingPrice(double buying_price) {
+    public void setBuying_price(double buying_price) {
         this.buying_price = buying_price;
     }
 
-    public LocalDate getExpireDate() {
+    public LocalDate getExpire_date() {
         return expire_date;
     }
 
-    public void setExpireDate(String expire_date_String) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate expire_date=LocalDate.parse(expire_date_String,format);
+    public void setExpire_date(LocalDate expire_date) {
         this.expire_date = expire_date;
+    }
 
+    @Override
+    public String toString() {
+        return
+                "ingredient_id=" + ingredient_id +
+                ", name='" + name + '\'' +
+                ", unit='" + unit + '\''
+                ;
     }
 }

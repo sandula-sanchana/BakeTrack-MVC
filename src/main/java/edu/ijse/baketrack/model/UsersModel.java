@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.UsersDto;
@@ -16,32 +17,43 @@ public class UsersModel implements UsersInterface {
         this.connection= DBobject.getInstance().getConnection();
     }
 
-    public void addUser(UsersDto usersDto) throws SQLException {
-        String sql = "INSERT INTO users (user_name,user_password,roles) VALUES user_name=?,user_password=?,roles=?";
+    public String addUser(UsersDto usersDto) throws SQLException {
+        String sql = "INSERT INTO users (user_name, user_password, roles, email) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, usersDto.getUserName());
-        statement.setString(2, usersDto.getUserPassword());
+        statement.setString(1, usersDto.getUser_name());
+        statement.setString(2, usersDto.getUser_password());
         statement.setString(3, usersDto.getRoles());
+        statement.setString(4, usersDto.getEmail());
 
         int updates = statement.executeUpdate();
         if (updates > 0) {
-            System.out.println("user added");
+            return "user added";
         } else {
-            System.out.println("fail");
+            return "fail";
         }
     }
 
-    //public void updateUser() throws SQLException {
 
-    //}
+    public String updateUser(UsersDto usersDto) throws SQLException {
+        String sql = "UPDATE users SET user_name = ?, roles = ?, email = ? WHERE user_id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, usersDto.getUser_name());
+        statement.setString(2, usersDto.getRoles());
+        statement.setString(3, usersDto.getEmail());
+        statement.setInt(4, usersDto.getUser_id());
 
-    public void deleteUser(int userId) throws SQLException {
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0 ? "User updated successfully." : "Failed to update user.";
+    }
+
+
+    public String deleteUser(int userId) throws SQLException {
         String sql = "DELETE FROM users WHERE user_id=?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, userId);
         int rowsAffected = statement.executeUpdate();
-        System.out.println(rowsAffected > 0 ? "User deleted successfully." : "Failed to delete user.");
+        return rowsAffected > 0 ? "User deleted successfully." : "Failed to delete user.";
     }
 
     public String authenticater(String user_name, String user_password) throws SQLException {
@@ -63,5 +75,28 @@ public class UsersModel implements UsersInterface {
         }
         return null;
     }
+
+    public ArrayList<UsersDto> getAllUsers() throws SQLException {
+        ArrayList<UsersDto> usersList = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+
+            UsersDto user = new UsersDto(
+                    resultSet.getInt("user_id"),
+                    resultSet.getString("user_name"),
+                    resultSet.getString("user_password"),
+                    resultSet.getString("roles"),
+                    resultSet.getString("email")
+            );
+
+            usersList.add(user);
+        }
+        return usersList;
+    }
+
+
 
 }
