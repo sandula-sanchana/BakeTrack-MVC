@@ -10,12 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -143,7 +145,16 @@ public class CustomerCrudPageController implements Initializable {
 
     @FXML
     void btnGoBack(ActionEvent event) {
-
+        try {
+            apCustomerPage.getChildren().clear();
+            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/OwnerDashboard.fxml"));
+            apCustomerPage.getChildren().add(ap);
+        } catch (IOException e) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("not found");
+            alert.showAndWait();
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteCustomer(){
@@ -195,7 +206,7 @@ public class CustomerCrudPageController implements Initializable {
     public void saveCustomer(){
         String name = txtCustomerName.getText();
         String address = txtCustomerAddress.getText();
-        String contact = txtCustomerContact.getText();
+        String contact = txtCustomerContact.getText().trim();
 
         boolean validName = name.matches(namePattern);
         boolean validAddress = address.matches(addressPattern);

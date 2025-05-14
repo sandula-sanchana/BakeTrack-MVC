@@ -75,12 +75,7 @@
                     </image>
                 </ImageView>
             <Button layoutX="53.0" layoutY="28.0" mnemonicParsing="false" onAction="#OrderPageGoBackButton" text="go back" />
-            <VBox layoutX="69.0" layoutY="641.0" prefHeight="157.0" prefWidth="414.0" spacing="40.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="UPDATE" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" text="DELETE" />
-               </children>
-            </VBox>
+            <Button layoutX="248.0" layoutY="691.0" mnemonicParsing="false" onAction="#getAllEdit" prefHeight="26.0" prefWidth="230.0" text="get All orders &amp; Edit" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="484.0" layoutY="189.0" prefHeight="800.0" prefWidth="796.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="484.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

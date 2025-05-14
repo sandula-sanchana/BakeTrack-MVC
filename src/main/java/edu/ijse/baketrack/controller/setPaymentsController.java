@@ -10,10 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -27,6 +30,7 @@ public class setPaymentsController implements Initializable {
     public RadioButton RadioCancelled;
     public TextField txtPayid;
     public TextField txtPayMethod;
+    public AnchorPane setPayAp;
     private OrderInterface orderInterface;
     private ArrayList<OrderDto> orderDtos;
     private int orderID;
@@ -106,12 +110,27 @@ public class setPaymentsController implements Initializable {
     @FXML
     void OrderPageGoBackButton(ActionEvent event) {
 
+        try {
+             setPayAp.getChildren().clear();
+            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/OwnerDashboard.fxml"));
+            setPayAp.getChildren().add(ap);
+        } catch (IOException e) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("not found");
+            alert.showAndWait();
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
     void btnDelIDSearch(ActionEvent event) throws SQLException {
-         getOrderandPaymentByDelID();
-         getVehicleID();
+        orderTMObservableList.clear();
+         paymentsTMObservableList.clear();
+         boolean done=getOrderandPaymentByDelID();
+         if (done) {
+             getVehicleID();
+         }
 
 
     }
@@ -120,28 +139,32 @@ public class setPaymentsController implements Initializable {
      @FXML
      void btnPAymentDone(ActionEvent event) throws SQLException{
          setPayment();
-         getOrderandPaymentByDelID();
+         paymentsTMObservableList.clear();
+         orderTMObservableList.clear();
      }
 
 
-    public void  getOrderandPaymentByDelID() throws SQLException {
-        orderDtos=orderInterface.getOrderByDelID(txtPaymentPageDelID.getText());
-        if(orderDtos!=null){
+    public boolean getOrderandPaymentByDelID() throws SQLException {
+        orderDtos = orderInterface.getOrderByDelID(txtPaymentPageDelID.getText());
+
+        if (orderDtos != null && !orderDtos.isEmpty()) {
             loadOrderToTable(orderDtos);
-            orderID=orderDtos.getFirst().getOrder_id();
-            paymentsDtos=paymentInterface.getPaymentDetailsByOrderId(orderID);
-            if (paymentsDtos!=null){
+            orderID = orderDtos.getFirst().getOrder_id();
+            paymentsDtos = paymentInterface.getPaymentDetailsByOrderId(orderID);
+
+            if (paymentsDtos != null && !paymentsDtos.isEmpty()) {
                 loadPaymentToTable(paymentsDtos);
-            }else{
-                Alert alert=new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("payment not found");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Payment not found");
                 alert.showAndWait();
             }
-
-        }else{
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("not found");
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Orders not found");
             alert.showAndWait();
+            return false;
         }
     }
 
@@ -163,9 +186,6 @@ public class setPaymentsController implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        orderDtos = new ArrayList<>();
-        paymentsDtos = new ArrayList<>();
-
 
         clmnCusID.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
         clmnOIDcus.setCellValueFactory(new PropertyValueFactory<>("order_id"));

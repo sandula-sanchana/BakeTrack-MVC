@@ -49,9 +49,9 @@ public class LogInPageController {
             if(role!=null){
                 if(role.equals("Admin")){
                     fxmlPath="/View/OwnerDashboard.fxml";
-                }else if (role.equals("hr")){
+                }else if (role.equals("HRManager")){
                     fxmlPath="/View/HRManagerDashboard.fxml";
-                }else if(role.equals("storekeeper")){
+                }else if(role.equals("StoreManager")){
                     fxmlPath="/View/StorekeeperDashboard.fxml";
                 }
 
@@ -79,14 +79,14 @@ public class LogInPageController {
 
     @FXML
     void btnSignUploginPage(ActionEvent event) {
-        try {
-            apLoginPage.getChildren().clear();
-            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/SignupPage.fxml"));
-            apLoginPage.getChildren().add(ap);
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR,"can't find signup page").show();
-            e.printStackTrace();
-        }
+//        try {
+//            apLoginPage.getChildren().clear();
+//            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/SignupPage.fxml"));
+//            apLoginPage.getChildren().add(ap);
+//        } catch (Exception e) {
+//            new Alert(Alert.AlertType.ERROR,"can't find signup page").show();
+//            e.printStackTrace();
+//        }
     }
 
     @FXML

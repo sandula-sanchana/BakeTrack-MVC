@@ -107,6 +107,7 @@ public class setDeliveryPageController implements Initializable {
     @FXML
     void btnSetDelivery(ActionEvent event) throws SQLException {
         setDelivery();
+        OrderTmOB.clear();
         setValuesToTable();
     }
 
@@ -188,6 +189,26 @@ public class setDeliveryPageController implements Initializable {
          alert.showAndWait();
 
 
+
+    }
+
+    public void btnGetAllandEdit(ActionEvent actionEvent) {
+          setPages("/View/DeliveryCrudPage.fxml");
+    }
+
+    public void setPages(String pageLocation){
+        try {
+            setDelPageAP.getChildren().clear();
+            AnchorPane ap= FXMLLoader.load(getClass().getResource(pageLocation));
+            setDelPageAP.getChildren().add(ap);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Page Load Error");
+            alert.setHeaderText("Could not load page: " + pageLocation);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
 
     }
 }

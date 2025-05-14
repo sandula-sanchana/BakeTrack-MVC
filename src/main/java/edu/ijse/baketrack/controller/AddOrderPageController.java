@@ -29,19 +29,18 @@ import edu.ijse.baketrack.dto.tm.OrderDetailTM;
 public class AddOrderPageController implements Initializable {
 
     public Label lblPriceAtOrder;
-    public TableColumn<OrderDetailTM,Integer> clmnPID;
-    public TableColumn<OrderDetailTM,Integer> clmnQty;
-    public TableColumn<OrderDetailTM,Double> clmnPatOrder;
+    public TableColumn<OrderDetailTM, Integer> clmnPID;
+    public TableColumn<OrderDetailTM, Integer> clmnQty;
+    public TableColumn<OrderDetailTM, Double> clmnPatOrder;
     public Label lblTotalPrice;
     public AnchorPane apOrderPage;
-    private CustomerInterface customerInterface=new CustomerModel();
-    private ProductInterface productInterface=new ProductModel();
-    private OrderInterface orderInterface=new OrdersModel();
+    private CustomerInterface customerInterface = new CustomerModel();
+    private ProductInterface productInterface = new ProductModel();
+    private OrderInterface orderInterface = new OrdersModel();
     private ArrayList<OrderDetailDto> orderDetailDtoList = new ArrayList<>();
-    private Double total_price=0.0;
+    private Double total_price = 0.0;
     private ObservableList<OrderDetailTM> orderDetailTMs = FXCollections.observableArrayList();
     OrderDetailTM newItem;
-
 
 
     @FXML
@@ -73,10 +72,10 @@ public class AddOrderPageController implements Initializable {
     void OrderPageGoBackButton(ActionEvent event) {
         try {
             apOrderPage.getChildren().clear();
-            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/OwnerDashboard.fxml"));
+            AnchorPane ap = FXMLLoader.load(getClass().getResource("/View/OwnerDashboard.fxml"));
             apOrderPage.getChildren().add(ap);
         } catch (IOException e) {
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("not found");
             alert.showAndWait();
             throw new RuntimeException(e);
@@ -95,13 +94,13 @@ public class AddOrderPageController implements Initializable {
 
     @FXML
     void btnSearchCid(ActionEvent event) throws SQLException {
-         getCustomerByID();
+        getCustomerByID();
     }
 
     @FXML
     void btnSearchPid(ActionEvent event) throws SQLException {
-         getProductByID();
-         getPriceAtOrder();
+        getProductByID();
+        getPriceAtOrder();
     }
 
     public void btnPlaceOrder(ActionEvent actionEvent) throws SQLException {
@@ -109,26 +108,24 @@ public class AddOrderPageController implements Initializable {
     }
 
     public void getCustomerByID() throws SQLException {
-        int id_input=Integer.parseInt(txtOrderPageCusID.getText());
-        CustomersDto customer= customerInterface.getCustomerByID(id_input);
-        if(customer!=null){
-            lblCusData.setText(customer.getName()+"-"+customer.getAddress()+"-"+customer.getContact());
-        }
-        else {
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+        int id_input = Integer.parseInt(txtOrderPageCusID.getText());
+        CustomersDto customer = customerInterface.getCustomerByID(id_input);
+        if (customer != null) {
+            lblCusData.setText(customer.getName() + "-" + customer.getAddress() + "-" + customer.getContact());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("customer not found");
             alert.showAndWait();
         }
     }
 
     public void getProductByID() throws SQLException {
-        int id_input_product=Integer.parseInt(txtOrderPagePid.getText());
-        ProductDto productDto=productInterface.getProductDetailsByProductID(id_input_product);
-        if(productDto!=null){
-            lblProductData.setText(productDto.getName()+"--"+productDto.getCategory()+"--"+productDto.getDescription()+"--"+productDto.getPrice());
-        }
-        else {
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+        int id_input_product = Integer.parseInt(txtOrderPagePid.getText());
+        ProductDto productDto = productInterface.getProductDetailsByProductID(id_input_product);
+        if (productDto != null) {
+            lblProductData.setText(productDto.getName() + "--" + productDto.getCategory() + "--" + productDto.getDescription() + "--" + productDto.getPrice());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("product not found");
             alert.showAndWait();
         }
@@ -167,9 +164,8 @@ public class AddOrderPageController implements Initializable {
     }
 
 
-
     public void getPriceAtOrder() throws SQLException {
-        double price_at_order=productInterface.getPriceAtOrder(Integer.parseInt(txtOrderPagePid.getText()));
+        double price_at_order = productInterface.getPriceAtOrder(Integer.parseInt(txtOrderPagePid.getText()));
         lblPriceAtOrder.setText(Double.toString(price_at_order));
 
     }
@@ -195,13 +191,15 @@ public class AddOrderPageController implements Initializable {
             orderDetailDtoList.add(new OrderDetailDto(tm.getProductId(), tm.getQuantity(), tm.getPriceAtOrder()));
         }
 
-        LocalDate today_date=LocalDate.now();
-        OrderDto orderDto=new OrderDto(Integer.parseInt(txtOrderPageCusID.getText()),today_date,total_price,"pending");
-        String resp=orderInterface.placeOrder(orderDto,orderDetailDtoList);
+        LocalDate today_date = LocalDate.now();
+        OrderDto orderDto = new OrderDto(Integer.parseInt(txtOrderPageCusID.getText()), today_date, total_price, "pending");
+        String resp = orderInterface.placeOrder(orderDto, orderDetailDtoList);
 
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(resp);
         alert.showAndWait();
+
+        orderDetailTMs.clear();
 
 
     }
@@ -215,9 +213,26 @@ public class AddOrderPageController implements Initializable {
     }
 
 
-
     public void lblPriceAtOrder(MouseEvent mouseEvent) {
     }
 
 
+    public void getAllEdit(ActionEvent actionEvent) {
+        setPages("/View/OrderCrudPage.fxml");
+    }
+
+    public void setPages(String pageLocation) {
+        try {
+            apOrderPage.getChildren().clear();
+            AnchorPane ap = FXMLLoader.load(getClass().getResource(pageLocation));
+            apOrderPage.getChildren().add(ap);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Page Load Error");
+            alert.setHeaderText("Could not load page: " + pageLocation);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
 }

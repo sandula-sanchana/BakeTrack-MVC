@@ -11,9 +11,8 @@ import java.awt.*;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent parent= FXMLLoader.load(getClass().getResource("/View/UserCrudPage.fxml"));
+        Parent parent= FXMLLoader.load(getClass().getResource("/View/LogInPage.fxml"));
         Scene scene=new Scene(parent);
-        //Image icon=new Image("/images/logo_no_bg.png");
 
         stage.setScene(scene);
         stage.setTitle("baketrack v 1.0");

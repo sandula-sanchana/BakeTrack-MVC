@@ -9,14 +9,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -25,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class SetMobileSellerController implements Initializable {
     public TextField txtEidInput;
+    public AnchorPane setMSellerap;
     private ArrayList<EmployeeDto> employeeDtoArrayList;
     private ArrayList<DeliveryDto> deliveryDtoArrayList;
     private ObservableList<EmployeeTM> employeeTMObservableList= FXCollections.observableArrayList();
@@ -89,6 +93,14 @@ public class SetMobileSellerController implements Initializable {
     @FXML
     void OrderPageGoBackButton(ActionEvent event) {
 
+        setMSellerap.getChildren().clear();
+        try {
+            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/HRManagerDashboard.fxml"));
+            setMSellerap.getChildren().add(ap);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
@@ -148,7 +160,7 @@ public class SetMobileSellerController implements Initializable {
 
         DeliveryTable.setItems(deliveryTMObservableList);
 
-        clmnEidE.setCellValueFactory(new PropertyValueFactory<>("employee_id"));
+        clmnEidE.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
         clmnNAme.setCellValueFactory(new PropertyValueFactory<>("name"));
         clmnCno.setCellValueFactory(new PropertyValueFactory<>("contact"));
         clmnRole.setCellValueFactory(new PropertyValueFactory<>("role"));

@@ -64,38 +64,39 @@ public class PaymentModel implements PaymentInterface{
             System.out.println("Failed to update payment");
         }
     }
-
-     public ArrayList<PaymentsDto> getPaymentDetailsByOrderId(int orderId) {
+    public ArrayList<PaymentsDto> getPaymentDetailsByOrderId(int orderId) {
         String sql = "SELECT * FROM payments WHERE order_id = ?";
-        ArrayList<PaymentsDto> paymentsDtos=new ArrayList<>();
+        ArrayList<PaymentsDto> paymentsDtos = new ArrayList<>();
 
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, orderId);
+            ResultSet resultSet = statement.executeQuery();
 
-         try {
-             PreparedStatement statement = connection.prepareStatement(sql);
-             statement.setInt(1, orderId);
-             ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Date sqlDate = resultSet.getDate("payment_date");
+                LocalDate payDate = (sqlDate != null) ? sqlDate.toLocalDate() : null;
 
+                PaymentsDto paymentsDto = new PaymentsDto(
+                        resultSet.getInt("payment_id"),
+                        resultSet.getInt("order_id"),
+                        resultSet.getDouble("price"),
+                        resultSet.getString("payment_method"),
+                        payDate,
+                        resultSet.getString("status")
+                );
 
-             if (resultSet.next()) {
-                 LocalDate pay_date=null;
-                 PaymentsDto paymentsDto=new PaymentsDto(resultSet.getInt("payment_id"),
-                         resultSet.getInt("order_id"),
-                         resultSet.getDouble("price"),
-                         resultSet.getString("payment_method"),
-                         resultSet.getDate("payment_date").toLocalDate(),
-                         resultSet.getString("status"));
-                 paymentsDtos.add(paymentsDto);
-                 return paymentsDtos;
-
-
+                paymentsDtos.add(paymentsDto);
+                return paymentsDtos;
 
             } else {
-               return  null;
+                return null;
             }
-         } catch (SQLException e) {
-             throw new RuntimeException(e);
-         }
-     }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public double getTotRevenue() throws SQLException {
         Double no_sales=0.0;

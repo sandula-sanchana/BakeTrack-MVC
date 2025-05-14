@@ -14,12 +14,12 @@ public class OwnerDashboardController {
 
     @FXML
     void btnCus(ActionEvent event) {
-
+        setPages("/View/CustomerCrudPage.fxml");
     }
 
     @FXML
     void btnEmp(ActionEvent event) {
-
+        setPages("/View/EmployeeCrudPage.fxml");
     }
 
     @FXML
@@ -29,7 +29,7 @@ public class OwnerDashboardController {
 
     @FXML
     void btnPay(ActionEvent event) {
-
+        setPages("/View/setPayments.fxml");
     }
 
     @FXML
@@ -43,12 +43,12 @@ public class OwnerDashboardController {
 
     @FXML
     void btnSup(ActionEvent event) {
-
+        setPages("/View/SupplierCrudPage.fxml");
     }
 
     @FXML
     void btnVehicle(ActionEvent event) {
-
+        setPages("/View/VehicleCrudPage.fxml");
     }
 
     public void setPages(String pageLocation){
@@ -57,14 +57,27 @@ public class OwnerDashboardController {
             AnchorPane ap= FXMLLoader.load(getClass().getResource(pageLocation));
             apOwnerDB.getChildren().add(ap);
         } catch (IOException e) {
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("not found");
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Page Load Error");
+            alert.setHeaderText("Could not load page: " + pageLocation);
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
-            throw new RuntimeException(e);
-
         }
+
     }
 
 
+    public void btnUser(ActionEvent actionEvent) {
 
+        setPages("/View/UserCrudPage.fxml");
+    }
+
+    public void btnSetProduction(ActionEvent actionEvent) {
+        setPages("/View/setProductionCrudPage.fxml");
+    }
+
+    public void btnLogout(ActionEvent actionEvent) {
+        setPages("/View/LogInPage.fxml");
+    }
 }

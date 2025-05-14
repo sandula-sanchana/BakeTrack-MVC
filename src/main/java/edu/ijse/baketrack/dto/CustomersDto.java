@@ -16,7 +16,7 @@ public class CustomersDto {
      this.address=address;
    }
 
-    public CustomersDto(String name, String contact, String address) {
+    public CustomersDto(String name, String address, String contact) {
         this.name = name;
         this.contact = contact;
         this.address = address;

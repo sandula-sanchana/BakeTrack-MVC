@@ -12,7 +12,7 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="270.0" style="-fx-background-color: #37474F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="630.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_CENTER" layoutX="17.0" layoutY="203.0" prefHeight="391.0" prefWidth="236.0" spacing="20.0">
+            <VBox alignment="TOP_CENTER" layoutX="17.0" layoutY="203.0" prefHeight="483.0" prefWidth="236.0" spacing="20.0">
                <children>
                   <HBox alignment="TOP_RIGHT" spacing="13.0">
                      <children>
@@ -39,7 +39,7 @@
                   <HBox prefHeight="35.0" prefWidth="236.0" spacing="12.0">
                      <children>
                         <FontAwesomeIconView fill="#f39c12" glyphName="CREDIT_CARD" size="30" />
-                        <Button mnemonicParsing="false" onAction="#btnPay" prefHeight="30.0" prefWidth="191.0" text="Payments" />
+                        <Button mnemonicParsing="false" onAction="#btnPay" prefHeight="30.0" prefWidth="191.0" text="Set Payments" />
                      </children>
                   </HBox>
                   <HBox prefHeight="36.0" prefWidth="236.0" spacing="15.0">
@@ -57,10 +57,16 @@
                   <HBox prefHeight="38.0" prefWidth="236.0" spacing="20.0">
                      <children>
                         <FontAwesomeIconView fill="#f39c12" glyphName="TRUCK" size="30" />
-                        <Button mnemonicParsing="false" onAction="#btnDelivery" prefHeight="30.0" prefWidth="191.0" text="Deliveries" />
+                        <Button mnemonicParsing="false" onAction="#btnDelivery" prefHeight="30.0" prefWidth="191.0" text="Set Deliveries" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="23.0">
+                  <HBox prefHeight="38.0" prefWidth="200.0" spacing="23.0">
+                     <children>
+                        <FontAwesomeIconView fill="#f39c12" glyphName="CAR" size="30" text="" />
+                        <Button mnemonicParsing="false" onAction="#btnSetProduction" prefHeight="30.0" prefWidth="191.0" text="set Production" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="200.0" spacing="23.0">
                      <children>
                         <FontAwesomeIconView fill="#f39c12" glyphName="FILE_ALT" size="30" />
                         <Button mnemonicParsing="false" onAction="#btnReports" prefHeight="30.0" prefWidth="191.0" text="Reports" />
@@ -73,6 +79,8 @@
                   <Image url="@../images/logo_no_bg.png" />
                </image>
             </ImageView>
+            <Button layoutX="92.0" layoutY="725.0" mnemonicParsing="false" onAction="#btnUser" prefHeight="30.0" prefWidth="174.0" text="Manage Users" />
+            <Button layoutX="17.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnLogout" text="Log out" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="270.0" layoutY="189.0" prefHeight="200.0" prefWidth="630.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -146,14 +146,16 @@ public void updateSalary(int id,Double salary) throws SQLException{
 
     public ArrayList<EmployeeDto> getAllAvailableAndNonAssinEmp() throws SQLException {
         ArrayList<EmployeeDto> arrayList=new ArrayList<>();
-        String searchSQl="SELECT * \n" +
+        String searchSQl= "SELECT * \n" +
                 "FROM employee e \n" +
-                "JOIN attendance a ON e.employee_id = a.employee_id  \n" +
-                "LEFT JOIN delivery d ON e.employee_id = d.employee_id \n" +
+                "JOIN attendance a ON e.employee_id = a.employee_id \n" +
+                "LEFT JOIN delivery d \n" +
+                "  ON e.employee_id = d.employee_id \n" +
+                "  AND d.delivery_date = CURRENT_DATE \n" +
                 "WHERE a.status = 'present' \n" +
-                "AND a.attend_date = CURRENT_DATE\n" +
+                "AND a.attend_date = CURRENT_DATE \n" +
                 "AND e.roles = 'Mobile_sellers' \n" +
-                "AND d.employee_id IS NULL;\n";
+                "AND d.employee_id IS NULL;";
 
         ResultSet resultSet= null;
         try {

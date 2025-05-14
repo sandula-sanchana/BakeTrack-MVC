@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -17,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -78,6 +80,17 @@ public class DeliveryCrudController implements Initializable {
 
     @FXML
     void btnGOback(ActionEvent event) {
+
+        try {
+            apOwnerDB.getChildren().clear();
+            AnchorPane ap = FXMLLoader.load(getClass().getResource("/View/setDeliveryPage.fxml"));
+            apOwnerDB.getChildren().add(ap);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("not found");
+            alert.showAndWait();
+            throw new RuntimeException(e);
+        }
 
     }
 

@@ -148,11 +148,9 @@
                </font>
             </Label>
                   <HBox layoutX="-65.0" layoutY="533.0" prefHeight="51.0" prefWidth="236.0" spacing="25.0" />
-            <VBox layoutX="122.0" layoutY="484.0" prefHeight="200.0" prefWidth="243.0" spacing="48.0">
+            <VBox layoutX="35.0" layoutY="549.0" prefHeight="200.0" prefWidth="243.0" spacing="48.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#btnDelUpdate" prefHeight="40.0" prefWidth="234.0" text="UPDATE DELIVERY" />
-                  <Button mnemonicParsing="false" onAction="#btnDelete" prefHeight="38.0" prefWidth="236.0" text="DELETE Delivery" />
-                  <Button mnemonicParsing="false" onAction="#btnGetAll" prefHeight="43.0" prefWidth="236.0" text="GET ALL Deliveries" />
+                  <Button mnemonicParsing="false" onAction="#btnGetAllandEdit" prefHeight="43.0" prefWidth="236.0" text="GET ALL Deliveries and Edit" />
                </children>
             </VBox>
             </children></AnchorPane>
