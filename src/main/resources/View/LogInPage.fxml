@@ -2,23 +2,40 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="apLoginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #2C3E50;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.LogInPageController">
    <children>
-      <VBox alignment="CENTER" layoutX="284.0" layoutY="286.0" prefHeight="252.0" prefWidth="332.0" spacing="30.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="284.0" AnchorPane.topAnchor="286.0">
+      <!-- Clean horizontal line (top-left) -->
+      <Rectangle arcHeight="2" arcWidth="2" fill="#ECF0F1" height="3.0" layoutX="20.0" layoutY="20.0" width="120.0" />
+
+      <!-- Clean vertical line (top-left) -->
+      <Rectangle arcHeight="2" arcWidth="2" fill="#ECF0F1" height="80.0" layoutX="20.0" layoutY="20.0" width="3.0" />
+
+
+      <VBox alignment="CENTER" layoutX="295.0" layoutY="334.0" prefHeight="252.0" prefWidth="332.0" spacing="30.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="334.0">
          <children>
+            <Label prefHeight="28.0" prefWidth="573.0" text="&quot;Welcome to BakeTrack – Streamline Your Bakery Operations&quot;" textFill="#e8dfdf">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
             <TextField fx:id="txtUserNameSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Username.." style="-fx-border-radius: 10; -fx-background-color: #ECF0F1; -fx-background-radius: 10;" />
             <TextField fx:id="txtUserPasswordSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Password.." style="-fx-background-radius: 10; -fx-background-color: #ECF0F1; -fx-border-radius: 10;" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLogInloginPage" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: #3498DB;" text="log in" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLogInloginPage" prefHeight="59.0" prefWidth="232.0" style="-fx-background-color: #3498DB;" text="LOG IN">
+               <font>
+                  <Font size="22.0" />
+               </font></Button>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="361.0" layoutY="75.0" prefHeight="334.0" prefWidth="539.0" AnchorPane.bottomAnchor="391.0" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="75.0">
+      <VBox alignment="CENTER" layoutX="371.0" layoutY="81.0" prefHeight="334.0" prefWidth="539.0" AnchorPane.bottomAnchor="385.0" AnchorPane.leftAnchor="371.0" AnchorPane.rightAnchor="370.0" AnchorPane.topAnchor="81.0">
          <children>
             <ImageView fitHeight="250.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
@@ -28,6 +45,11 @@
          </children>
       </VBox>
       <Hyperlink layoutX="1023.0" layoutY="506.0" onAction="#hlForgotPwdLPage" text="forgot password?" />
-      <HBox layoutX="668.0" layoutY="45.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0" />
+      <Button layoutX="1096.0" layoutY="45.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="147.0" text="SING UP" />
+      <Label layoutX="996.0" layoutY="57.0" text="Not a user?" textFill="#f5efef">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

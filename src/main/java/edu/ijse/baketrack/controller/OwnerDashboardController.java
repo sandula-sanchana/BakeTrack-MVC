@@ -24,7 +24,7 @@ public class OwnerDashboardController {
 
     @FXML
     void btnOrder(ActionEvent event) {
-       setPages("/View/AddOrderPage.fxml");
+        setPages("/View/AddOrderPage.fxml");
     }
 
     @FXML

@@ -13,51 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="apCustomerPage" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.CustomerCrudPageController">
+<AnchorPane fx:id="apCustomerPage" prefHeight="748.0" prefWidth="1334.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.CustomerCrudPageController">
     <children>
 
-        <AnchorPane prefHeight="800.0" prefWidth="343.0" style="-fx-background-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane layoutY="0.0" prefHeight="748.0" prefWidth="1334.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox alignment="TOP_CENTER" layoutX="11.0" layoutY="172.0" prefHeight="391.0" prefWidth="322.0" spacing="20.0">
-                    <children>
-                        <HBox spacing="50.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="84.0" text="Name" textFill="#f39c12" />
-                                <TextField fx:id="txtCustomerName" prefHeight="26.0" prefWidth="243.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="85.0" text="Address" textFill="#f39c12" />
-                                <TextField fx:id="txtCustomerAddress" prefWidth="225.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="78.0" text="Contact No" textFill="#f39c12" />
-                                <TextField fx:id="txtCustomerContact" prefWidth="225.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0" />
-                    </children>
-                </VBox>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="97.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/logo_no_bg.png" />
-                    </image>
-                </ImageView>
-                <Button layoutX="17.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnGoBack" text="Go Back" />
-            </children>
-        </AnchorPane>
-
-        <AnchorPane layoutX="344.0" layoutY="0.0" prefHeight="800.0" prefWidth="936.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Label layoutX="68.0" layoutY="26.0" text="Customers">
-                    <font>
-                        <Font size="34.0" />
-                    </font>
-                </Label>
-                <TableView fx:id="customerTable" layoutX="0.0" layoutY="178.0" onMouseClicked="#onTableClick" prefHeight="288.0" prefWidth="936.0">
+                <TableView fx:id="customerTable" layoutY="459.0" onMouseClicked="#onTableClick" prefHeight="271.0" prefWidth="1334.0">
                     <columns>
                         <TableColumn fx:id="colCustomerId" prefWidth="100.0" text="Customer ID" />
                         <TableColumn fx:id="colCustomerName" prefWidth="150.0" text="Name" />
@@ -68,14 +29,82 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-                <Separator layoutX="0.0" layoutY="107.0" prefHeight="18.0" prefWidth="936.0" style="-fx-background-color: #000;" />
-                <HBox layoutX="500.0" layoutY="583.0" spacing="50.0">
+                <Separator layoutY="147.0" prefHeight="18.0" prefWidth="1334.0" style="-fx-background-color: #000;" />
+                <HBox layoutX="500.0" layoutY="583.0" spacing="50.0" />
+                <VBox alignment="TOP_CENTER" layoutX="29.0" layoutY="193.0" prefHeight="245.0" prefWidth="749.0" spacing="20.0">
                     <children>
-                        <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="55.0" prefWidth="144.0" text="UPDATE" />
-                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="55.0" prefWidth="137.0" text="DELETE" />
+                        <HBox spacing="50.0">
+                            <children>
+                                <Label prefHeight="31.0" prefWidth="104.0" text="Name :">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtCustomerName" prefHeight="44.0" prefWidth="473.0" style="-fx-background-radius: 5;">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                            </children>
+                        </HBox>
+                        <HBox spacing="30.0">
+                            <children>
+                                <Label prefHeight="31.0" prefWidth="125.0" text="Address :">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtCustomerAddress" prefHeight="44.0" prefWidth="585.0" style="-fx-background-radius: 5;">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                            </children>
+                        </HBox>
+                        <HBox spacing="30.0">
+                            <children>
+                                <Label prefHeight="31.0" prefWidth="125.0" text="Contact No :">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtCustomerContact" prefHeight="44.0" prefWidth="323.0" style="-fx-background-radius: 5;">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                            </children>
+                        </HBox>
+                        <HBox spacing="30.0" />
                     </children>
-                </HBox>
-                <Button fx:id="btnSave" layoutX="302.0" layoutY="587.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="55.0" prefWidth="137.0" text="SAVE" />
+                </VBox>
+            <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="150.0" prefWidth="1334.0" style="-fx-background-color: #2C3E50;">
+               <children>
+                      <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#btnGoBack" prefHeight="31.0" prefWidth="79.0" text="Go Back">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
+                      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="275.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/logo_no_bg.png" />
+                          </image>
+                      </ImageView>
+                      <Label layoutX="473.0" layoutY="41.0" text="Customer Management" textFill="#f39c12">
+                          <font>
+                              <Font size="51.0" />
+                          </font>
+                      </Label>
+               </children>
+            </AnchorPane>
+                  <Button fx:id="btnDelete" layoutX="952.0" layoutY="364.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="55.0" prefWidth="137.0" style="-fx-background-radius: 5;" text="DELETE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+                  <Button fx:id="btnUpdate" layoutX="1118.0" layoutY="364.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="55.0" prefWidth="137.0" style="-fx-background-radius: 5;" text="UPDATE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+                <Button fx:id="btnSave" layoutX="786.0" layoutY="364.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="55.0" prefWidth="137.0" style="-fx-background-radius: 5;" text="SAVE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
     </children>

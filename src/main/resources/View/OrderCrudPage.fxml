@@ -16,84 +16,120 @@
 <AnchorPane fx:id="apOrderPage" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.OrderCrudPageController">
     <children>
 
-        <AnchorPane prefHeight="800.0" prefWidth="343.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+        <AnchorPane layoutX="-3.0" layoutY="0.0" prefHeight="800.0" prefWidth="1283.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox alignment="TOP_CENTER" layoutX="17.0" layoutY="203.0" spacing="20.0" prefHeight="391.0" prefWidth="322.0">
+                <TableView fx:id="orderTable" layoutY="505.0" onMouseClicked="#tableMouseClick" prefHeight="288.0" prefWidth="1283.0">
+                    <columns>
+                        <TableColumn fx:id="colOrderId" prefWidth="100.0" text="Order ID" />
+                        <TableColumn fx:id="colCustomerId" prefWidth="100.0" text="Customer ID" />
+                        <TableColumn fx:id="colDeliveryId" prefWidth="100.0" text="Delivery ID" />
+                        <TableColumn fx:id="colOrderDate" prefWidth="150.0" text="Order Date" />
+                        <TableColumn fx:id="colTotalPrice" prefWidth="100.0" text="Total Price" />
+                        <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+                <Separator layoutX="0.0" layoutY="107.0" prefHeight="18.0" prefWidth="1283.0" style="-fx-background-color: #000;" />
+                <HBox layoutX="500.0" layoutY="583.0" spacing="50.0" />
+                <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="155.0" prefHeight="346.0" prefWidth="697.0" spacing="20.0">
                     <children>
                         <HBox spacing="30.0">
                             <children>
-                                <Label text="Order ID" textFill="#f39c12"/>
-                                <TextField fx:id="txtOrderId" prefWidth="225.0"/>
+                                <Label prefHeight="31.0" prefWidth="129.0" text="Order ID" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtOrderId" prefHeight="47.0" prefWidth="481.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font></TextField>
                             </children>
                         </HBox>
                         <HBox spacing="30.0">
                             <children>
-                                <Label text="Customer ID" textFill="#f39c12"/>
-                                <TextField fx:id="txtCustomerId" prefWidth="225.0"/>
+                                <Label prefHeight="31.0" prefWidth="128.0" text="Customer ID" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtCustomerId" prefHeight="47.0" prefWidth="480.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font></TextField>
                             </children>
                         </HBox>
                         <HBox spacing="30.0">
                             <children>
-                                <Label text="Delivery ID" textFill="#f39c12"/>
-                                <TextField fx:id="txtDeliveryId" prefWidth="225.0"/>
+                                <Label prefHeight="31.0" prefWidth="126.0" text="Delivery ID" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtDeliveryId" prefHeight="47.0" prefWidth="484.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font></TextField>
                             </children>
                         </HBox>
                         <HBox spacing="30.0">
                             <children>
-                                <Label text="Order Date" textFill="#f39c12"/>
-                                <TextField fx:id="txtOrderDate" prefWidth="225.0"/>
+                                <Label prefHeight="31.0" prefWidth="127.0" text="Order Date" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                                <TextField fx:id="txtOrderDate" prefHeight="47.0" prefWidth="481.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </TextField>
                             </children>
                         </HBox>
                         <HBox spacing="30.0">
                             <children>
-                                <Label text="Total Price" textFill="#f39c12"/>
-                                <TextField fx:id="txtTotalPrice" prefWidth="225.0"/>
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label text="Status" textFill="#f39c12"/>
-                                <TextField fx:id="txtStatus" prefWidth="225.0"/>
+                                <Label prefHeight="31.0" prefWidth="129.0" text="Total Price" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtTotalPrice" prefHeight="47.0" prefWidth="485.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font></TextField>
                             </children>
                         </HBox>
                     </children>
                 </VBox>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="97.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/logo_no_bg.png"/>
-                    </image>
-                </ImageView>
-                <Button layoutX="17.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnGOback" text="go back"/>
-            </children>
-        </AnchorPane>
-
-        <AnchorPane layoutX="344.0" layoutY="0.0" prefHeight="800.0" prefWidth="936.0" style="-fx-background-color: #F5F5DC;" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="344.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-            <children>
-                <Label layoutX="68.0" layoutY="26.0" text="Orders">
-                    <font>
-                        <Font size="34.0"/>
-                    </font>
-                </Label>
-                <TableView fx:id="orderTable" layoutX="0.0" layoutY="178.0" prefHeight="288.0" prefWidth="936.0" onMouseClicked="#tableMouseClick">
-                    <columns>
-                        <TableColumn fx:id="colOrderId" prefWidth="100.0" text="Order ID"/>
-                        <TableColumn fx:id="colCustomerId" prefWidth="100.0" text="Customer ID"/>
-                        <TableColumn fx:id="colDeliveryId" prefWidth="100.0" text="Delivery ID"/>
-                        <TableColumn fx:id="colOrderDate" prefWidth="150.0" text="Order Date"/>
-                        <TableColumn fx:id="colTotalPrice" prefWidth="100.0" text="Total Price"/>
-                        <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status"/>
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                    </columnResizePolicy>
-                </TableView>
-                <Separator layoutX="0.0" layoutY="107.0" prefHeight="18.0" prefWidth="936.0" style="-fx-background-color: #000;"/>
-                <HBox layoutX="500.0" layoutY="583.0" spacing="50.0">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#btnUpdate" prefHeight="55.0" prefWidth="144.0" text="UPDATE"/>
-                        <Button mnemonicParsing="false" onAction="#btnDelete" prefHeight="55.0" prefWidth="137.0" text="DELETE"/>
-                    </children>
-                </HBox>
+                  <Button layoutX="858.0" layoutY="328.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="55.0" prefWidth="144.0" style="-fx-font-size: 20; -fx-background-color: #3498DB;" text="UPDATE" />
+                  <Button layoutX="1027.0" layoutY="328.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="55.0" prefWidth="137.0" style="-fx-font-size: 20; -fx-background-color: #3498DB;" text="DELETE" />
+                  <HBox layoutX="729.0" layoutY="147.0" spacing="30.0">
+                      <children>
+                          <Label text="Status" textFill="#f39c12">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                          <TextField fx:id="txtStatus" prefHeight="47.0" prefWidth="453.0">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </TextField>
+                      </children>
+                  </HBox>
+            <AnchorPane layoutX="1.0" layoutY="-3.0" prefHeight="112.0" prefWidth="1280.0" style="-fx-background-color: #2C3E50;">
+               <children>
+                      <ImageView fitHeight="124.0" fitWidth="107.0" layoutX="288.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/logo_no_bg.png" />
+                          </image>
+                      </ImageView>
+                      <Label layoutX="509.0" layoutY="27.0" text="Order Management" textFill="#f39c12">
+                          <font>
+                              <Font size="34.0" />
+                          </font>
+                      </Label>
+                      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnGOback" prefHeight="43.0" prefWidth="96.0" text="go back" />
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </children>

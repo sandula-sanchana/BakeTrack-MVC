@@ -92,25 +92,25 @@
                     </children>
                 </HBox>
                 <Button fx:id="btnSaveID" layoutX="302.0" layoutY="587.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="55.0" prefWidth="137.0" text="Save" />
-            <HBox layoutX="25.0" layoutY="561.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-               <children>
-                  <Label text="OT RATE">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Label>
-                  <Label text=":">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="txtOTrate">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
+                <HBox layoutX="25.0" layoutY="561.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                    <children>
+                        <Label text="OT RATE">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Label>
+                        <Label text=":">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="txtOTrate">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
             </children>
         </AnchorPane>
     </children>
