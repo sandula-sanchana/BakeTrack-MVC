@@ -17,62 +17,11 @@
 
 <AnchorPane fx:id="apPayrollPage" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.PayrollCrudPageController">
     <children>
-        <AnchorPane prefHeight="800.0" prefWidth="343.0" style="-fx-background-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox alignment="TOP_CENTER" layoutX="11.0" layoutY="219.0" prefHeight="391.0" prefWidth="322.0" spacing="50.0">
-                    <children>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="120.0" text="Select Employee" textFill="#f39c12" />
-                                <ComboBox fx:id="comboBoxEmp" onAction="#empSelected" onMouseClicked="#cmbClicked" prefHeight="26.0" prefWidth="180.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="120.0" text="Pay Date" textFill="#f39c12" />
-                                <DatePicker fx:id="payDatePicker" onAction="#dateSelected" prefHeight="26.0" prefWidth="180.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="120.0" text="Overtime Hours" textFill="#f39c12" />
-                                <TextField fx:id="txtOvertimeHour" prefHeight="26.0" prefWidth="171.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="120.0" text="Base Salary" textFill="#f39c12" />
-                                <TextField fx:id="txtBaseSalary" prefWidth="180.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="120.0" text="Full Salary" textFill="#f39c12" />
-                                <TextField fx:id="txtFullSalary" editable="false" prefWidth="180.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="120.0" text="Status" textFill="#f39c12" />
-                                <ComboBox fx:id="comboBoxStatus" prefHeight="26.0" prefWidth="180.0" />
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="97.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                    <image><Image url="@../images/logo_no_bg.png" /></image>
-                </ImageView>
-                <Button layoutX="17.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnGoBack" text="go back" />
-            </children>
-        </AnchorPane>
 
         <!-- Main Content -->
-        <AnchorPane layoutX="344.0" layoutY="0.0" prefHeight="800.0" prefWidth="936.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane layoutY="0.0" prefHeight="814.0" prefWidth="1280.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label layoutX="68.0" layoutY="26.0" text="Payroll Management">
-                    <font><Font size="34.0" /></font>
-                </Label>
-                <TableView fx:id="tablePayroll" layoutX="0.0" layoutY="178.0" onMouseClicked="#tableMouseClick" prefHeight="288.0" prefWidth="936.0">
+                <TableView fx:id="tablePayroll" layoutY="505.0" onMouseClicked="#tableMouseClick" prefHeight="294.0" prefWidth="1280.0">
                     <columns>
                         <TableColumn fx:id="colPayrollID" prefWidth="80.0" text="Payroll ID" />
                         <TableColumn fx:id="colEmpID" prefWidth="100.0" text="Employee ID" />
@@ -84,33 +33,114 @@
                     </columns>
                     <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
                 </TableView>
-                <Separator layoutX="0.0" layoutY="107.0" prefHeight="18.0" prefWidth="936.0" style="-fx-background-color: #000;" />
-                <HBox layoutX="500.0" layoutY="583.0" spacing="50.0">
+                <Separator layoutY="139.0" prefHeight="18.0" prefWidth="1280.0" style="-fx-background-color: #000;" />
+                <HBox layoutX="920.0" layoutY="382.0" spacing="50.0">
                     <children>
-                        <Button fx:id="btnUpdateID" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="55.0" prefWidth="144.0" text="UPDATE" />
-                        <Button fx:id="btnDeleteID" mnemonicParsing="false" onAction="#btnDelete" prefHeight="55.0" prefWidth="137.0" text="DELETE" />
+                        <Button fx:id="btnUpdateID" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="55.0" prefWidth="144.0" style="-fx-font-size: 20;" text="UPDATE" />
+                        <Button fx:id="btnDeleteID" mnemonicParsing="false" onAction="#btnDelete" prefHeight="55.0" prefWidth="137.0" style="-fx-font-size: 20;" text="DELETE" />
                     </children>
                 </HBox>
-                <Button fx:id="btnSaveID" layoutX="302.0" layoutY="587.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="55.0" prefWidth="137.0" text="Save" />
-                <HBox layoutX="25.0" layoutY="561.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                <Button fx:id="btnSaveID" layoutX="744.0" layoutY="382.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="55.0" prefWidth="137.0" style="-fx-font-size: 20;" text="Save" />
+                <HBox layoutX="1040.0" layoutY="43.0" prefHeight="82.0" prefWidth="200.0" spacing="30.0">
                     <children>
-                        <Label text="OT RATE">
-                            <font>
-                                <Font size="17.0" />
-                            </font>
-                        </Label>
                         <Label text=":">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="txtOTrate">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
                     </children>
                 </HBox>
+                <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="180.0" prefHeight="319.0" prefWidth="610.0" spacing="30.0">
+                    <children>
+                        <HBox prefHeight="60.0" prefWidth="502.0" spacing="30.0">
+                            <children>
+                                <Label prefHeight="29.0" prefWidth="189.0" text="Select Employee" textFill="#f39c12">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Label>
+                                <ComboBox fx:id="comboBoxEmp" onAction="#empSelected" onMouseClicked="#cmbClicked" prefHeight="34.0" prefWidth="284.0" />
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="502.0" spacing="30.0">
+                            <children>
+                                <Label prefHeight="29.0" prefWidth="190.0" text="Pay Date" textFill="#f39c12">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Label>
+                                <DatePicker fx:id="payDatePicker" onAction="#dateSelected" prefHeight="37.0" prefWidth="269.0" />
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="502.0" spacing="30.0">
+                            <children>
+                                <Label prefHeight="29.0" prefWidth="188.0" text="Overtime Hours" textFill="#f39c12">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Label>
+                                <TextField fx:id="txtOvertimeHour" prefHeight="39.0" prefWidth="306.0" />
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="610.0" spacing="30.0">
+                            <children>
+                                <Label prefHeight="29.0" prefWidth="184.0" text="Base Salary" textFill="#f39c12">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Label>
+                                <TextField fx:id="txtBaseSalary" prefHeight="38.0" prefWidth="315.0" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            <HBox layoutX="624.0" layoutY="180.0" prefHeight="49.0" prefWidth="470.0" spacing="30.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="120.0" text="Status" textFill="#f39c12">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="comboBoxStatus" prefHeight="33.0" prefWidth="288.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="624.0" layoutY="264.0" prefHeight="45.0" prefWidth="445.0" spacing="30.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="120.0" text="Full Salary" textFill="#f39c12">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFullSalary" editable="false" prefHeight="33.0" prefWidth="293.0" />
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="139.0" prefWidth="1280.0" style="-fx-background-color: #2C3E50;">
+               <children>
+                      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="315.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                        <Image url="@../images/logo_no_bg.png" />
+                     </image>
+                      </ImageView>
+                      <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnGoBack" prefHeight="45.0" prefWidth="96.0" style="-fx-font-size: 16;" text="go back" />
+                      <Label layoutX="491.0" layoutY="32.0" text="Payroll Management" textFill="#f39c12">
+                          <font>
+                        <Font size="48.0" />
+                     </font>
+                      </Label>
+                  <AnchorPane layoutX="1023.0" layoutY="32.0" prefHeight="69.0" prefWidth="200.0">
+                     <children>
+                              <Label layoutX="40.0" layoutY="22.0" text="OT RATE" textFill="#f39c12">
+                                  <font>
+                                      <Font size="17.0" />
+                                  </font>
+                              </Label>
+                        <Label layoutX="108.0" layoutY="26.0" text="::" textFill="#f39c12" />
+                        <Label fx:id="txtOTrate" layoutX="119.0" layoutY="14.0" prefHeight="32.0" prefWidth="68.0" textFill="#f39c12">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <Separator layoutX="1007.0" layoutY="-17.0" orientation="VERTICAL" prefHeight="157.0" prefWidth="4.0" />
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </children>

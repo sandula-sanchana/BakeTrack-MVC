@@ -17,60 +17,10 @@
 <AnchorPane fx:id="apOrderPage" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.EmployeeCrudPageController">
     <children>
 
-        <AnchorPane prefHeight="800.0" prefWidth="343.0" style="-fx-background-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox alignment="TOP_CENTER" layoutX="11.0" layoutY="172.0" prefHeight="391.0" prefWidth="322.0" spacing="20.0">
-                    <children>
-                        <HBox spacing="50.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="84.0" text="name" textFill="#f39c12" />
-                                <TextField fx:id="txtNAme" onMouseClicked="#clickOnText" prefHeight="26.0" prefWidth="243.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="85.0" text="Address" textFill="#f39c12" />
-                                <TextField fx:id="txtAdder" prefWidth="225.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="83.0" text="Salary" textFill="#f39c12" />
-                                <TextField fx:id="txtSalary" prefWidth="225.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="78.0" text="Contact_no" textFill="#f39c12" />
-                                <TextField fx:id="txtConNo" prefWidth="225.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="18.0" prefWidth="84.0" text="Role" textFill="#f39c12" />
-                        <ComboBox fx:id="comboBox" prefHeight="26.0" prefWidth="167.0" />
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="97.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/logo_no_bg.png" />
-                    </image>
-                </ImageView>
-                <Button layoutX="17.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnGOback" text="go back" />
-            </children>
-        </AnchorPane>
 
-
-        <AnchorPane layoutX="344.0" layoutY="0.0" prefHeight="800.0" prefWidth="936.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="867.0" prefWidth="1280.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label layoutX="68.0" layoutY="26.0" text="Employees">
-                    <font>
-                        <Font size="34.0" />
-                    </font>
-                </Label>
-                <TableView fx:id="EmpTable" layoutX="0.0" layoutY="178.0" onMouseClicked="#tableMouseClick" prefHeight="288.0" prefWidth="936.0">
+                <TableView fx:id="EmpTable" layoutY="506.0" onMouseClicked="#tableMouseClick" prefHeight="294.0" prefWidth="1280.0">
                     <columns>
                         <TableColumn fx:id="colEmpID" prefWidth="100.0" text="Employee ID" />
                         <TableColumn fx:id="colName" prefWidth="100.0" text="name" />
@@ -83,14 +33,78 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-                <Separator layoutX="0.0" layoutY="107.0" prefHeight="18.0" prefWidth="936.0" style="-fx-background-color: #000;" />
-                <HBox layoutX="500.0" layoutY="583.0" spacing="50.0">
+                <Separator layoutY="134.0" prefHeight="18.0" prefWidth="1280.0" style="-fx-background-color: #000;" />
+                <HBox layoutX="936.0" layoutY="379.0" spacing="50.0">
                     <children>
                         <Button fx:id="btnUpid" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="55.0" prefWidth="144.0" text="UPDATE" />
                         <Button fx:id="btnDelID" mnemonicParsing="false" onAction="#btnDelete" prefHeight="55.0" prefWidth="137.0" text="DELETE" />
                     </children>
                 </HBox>
-            <Button fx:id="btnSAveid" layoutX="302.0" layoutY="587.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="55.0" prefWidth="137.0" text="Save" />
+            <Button fx:id="btnSAveid" layoutX="759.0" layoutY="379.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="55.0" prefWidth="137.0" text="Save" />
+                <VBox alignment="TOP_CENTER" layoutX="27.0" layoutY="187.0" prefHeight="318.0" prefWidth="695.0" spacing="20.0">
+                    <children>
+                        <HBox spacing="50.0">
+                            <children>
+                                <Label prefHeight="18.0" prefWidth="84.0" text="name" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtNAme" onMouseClicked="#clickOnText" prefHeight="42.0" prefWidth="519.0" />
+                            </children>
+                        </HBox>
+                        <HBox spacing="30.0">
+                            <children>
+                                <Label prefHeight="31.0" prefWidth="101.0" text="Address" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtAdder" prefHeight="43.0" prefWidth="523.0" />
+                            </children>
+                        </HBox>
+                        <HBox spacing="30.0">
+                            <children>
+                                <Label prefHeight="31.0" prefWidth="99.0" text="Salary" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                        <TextField fx:id="txtSalary" prefHeight="43.0" prefWidth="525.0" />
+                            </children>
+                        </HBox>
+                        <HBox spacing="30.0">
+                            <children>
+                                <Label prefHeight="31.0" prefWidth="99.0" text="Contact_no" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                                <TextField fx:id="txtConNo" prefHeight="43.0" prefWidth="528.0" />
+                            </children>
+                        </HBox>
+                        <HBox spacing="30.0">
+                            <children>
+                                <Label prefHeight="31.0" prefWidth="101.0" text="Role" textFill="#f39c12">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                        <ComboBox fx:id="comboBox" prefHeight="36.0" prefWidth="293.0" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            <AnchorPane prefHeight="134.0" prefWidth="1280.0" style="-fx-background-color: #2C3E50;">
+               <children>
+                      <ImageView fitHeight="127.0" fitWidth="150.0" layoutX="343.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/logo_no_bg.png" />
+                          </image>
+                      </ImageView>
+                      <Label layoutX="540.0" layoutY="36.0" text="Employee Management" textFill="#f39c12">
+                          <font>
+                              <Font size="34.0" />
+                          </font>
+                      </Label>
+                      <Button layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnGOback" prefHeight="36.0" prefWidth="84.0" text="go back" />
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </children>

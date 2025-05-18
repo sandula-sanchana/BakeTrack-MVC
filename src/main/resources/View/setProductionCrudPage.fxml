@@ -3,12 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -18,32 +18,23 @@
 
         <AnchorPane prefHeight="800.0" prefWidth="343.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="20.0" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="97.0" layoutY="96.0" preserveRatio="true">
                     <image>
                         <Image url="@../images/logo_no_bg.png" />
                     </image>
                 </ImageView>
 
-                <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#btnGoBack" text="Go Back" />
+                <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnGoBack" prefHeight="42.0" prefWidth="96.0" style="-fx-font-size: 16;" text="Go Back" />
 
-                <VBox layoutX="20.0" layoutY="200.0" prefHeight="384.0" prefWidth="280.0" spacing="40.0">
+                <VBox layoutX="32.0" layoutY="303.0" prefHeight="384.0" prefWidth="280.0" spacing="40.0">
                     <children>
-                        <Label text="Select Order ID" textFill="#f39c12" />
-                        <ComboBox fx:id="comboOrderId" prefWidth="280.0" />
-                  <HBox prefHeight="37.0" prefWidth="280.0" spacing="30.0">
-                     <children>
-                        <Label text="Customer Name" textFill="#f39c12" />
-                        <Label fx:id="lblCusName" prefHeight="18.0" prefWidth="151.0" text="Label" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="37.0" prefWidth="280.0" spacing="30.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="110.0" text="Contact no." textFill="#f39c12" />
-                        <Label fx:id="lblNo" prefHeight="18.0" prefWidth="182.0" text="Label" />
-                     </children>
-                  </HBox>
+                        <Label text="Select Order ID" textFill="#f39c12">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Label>
+                        <ComboBox fx:id="comboOrderId" prefHeight="42.0" prefWidth="280.0" />
       
-                        <Button onAction="#btnLoadOdetails" prefWidth="280.0" text="Load OrderDetails" />
+                        <Button onAction="#btnLoadOdetails" prefHeight="69.0" prefWidth="280.0" style="-fx-font-size: 20;" text="Load OrderDetails" />
                     </children>
                 </VBox>
             </children>
@@ -53,13 +44,13 @@
         <AnchorPane layoutX="343.0" layoutY="0.0" prefHeight="800.0" prefWidth="937.0" style="-fx-background-color: #F5F5DC;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
 
-                <Label layoutX="50.0" layoutY="30.0" text="Production Ingredient Viewer">
+                <Label layoutX="117.0" layoutY="22.0" text="Production Ingredient Viewer">
                     <font>
-                        <Font size="32.0" />
+                        <Font size="45.0" />
                     </font>
                 </Label>
 
-                <TableView fx:id="tblIngredients" layoutX="30.0" layoutY="100.0" prefHeight="162.0" prefWidth="880.0">
+                <TableView fx:id="tblIngredients" layoutX="29.0" layoutY="127.0" prefHeight="162.0" prefWidth="880.0">
                     <columns>
                   <TableColumn fx:id="colPName" prefWidth="75.0" text="product_name" />
                         <TableColumn fx:id="colIngId" prefWidth="150.0" text="Ingredient ID" />
@@ -70,13 +61,6 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
                 </TableView>
-
-                <HBox layoutX="558.0" layoutY="604.0" spacing="40.0">
-                    <children>
-                        <Button fx:id="btnStartProduction" onAction="#btnStartProductionAction" prefHeight="50.0" prefWidth="160.0" text="Start Production" />
-                        <Button fx:id="btnClear" onAction="#btnClearAction" prefHeight="50.0" prefWidth="120.0" text="Clear" />
-                    </children>
-                </HBox>
             <TableView fx:id="tableOrderDetail" layoutX="28.0" layoutY="310.0" prefHeight="200.0" prefWidth="886.0">
               <columns>
                 <TableColumn fx:id="colODetailOid" prefWidth="75.0" text="order id" />
@@ -88,7 +72,10 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button layoutX="162.0" layoutY="605.0" onAction="#btnGetReqAmount" prefHeight="50.0" prefWidth="168.0" text="get Required Amount" />
+            <Button layoutX="79.0" layoutY="599.0" onAction="#btnGetReqAmount" prefHeight="86.0" prefWidth="242.0" style="-fx-font-size: 20;" text="get Required Amount" />
+                  <Button fx:id="btnClear" layoutX="778.0" layoutY="603.0" onAction="#btnClearAction" prefHeight="77.0" prefWidth="120.0" style="-fx-font-size: 20;" text="Clear" />
+                  <Button fx:id="btnStartProduction" layoutX="480.0" layoutY="603.0" onAction="#btnStartProductionAction" prefHeight="77.0" prefWidth="228.0" style="-fx-font-size: 20; -fx-background-color: #3498DB;" text="Start Production" />
+            <Separator layoutX="1.0" layoutY="102.0" prefHeight="11.0" prefWidth="937.0" style="-fx-background-color: #000;" />
 
             </children>
         </AnchorPane>

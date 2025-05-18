@@ -124,7 +124,7 @@ public class EmployeeCrudPageController implements Initializable {
 
     @FXML
     void btnSave(ActionEvent event) {
-        saveCustomer();
+        saveEMp();
 
     }
 
@@ -179,7 +179,7 @@ public class EmployeeCrudPageController implements Initializable {
         }
     }
 
-    public void saveCustomer(){
+    public void saveEMp(){
         String cusName=txtNAme.getText();
         String cusAddress=txtAdder.getText();
         String cusSalary=txtSalary.getText();
@@ -199,6 +199,7 @@ public class EmployeeCrudPageController implements Initializable {
             try {
                 String resp=employeeInterface.addEmployee(employeeDto);
                 new Alert(Alert.AlertType.INFORMATION,resp).showAndWait();
+                employeeTMObservableList.clear();
                 loadAllEmpToTable();
                 clearText();
             } catch (SQLException e) {

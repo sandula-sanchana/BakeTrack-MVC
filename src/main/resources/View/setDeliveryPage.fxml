@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -28,32 +29,32 @@
                                         <Insets left="10.0" />
                                     </HBox.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="20.0" />
                            </font>
                                 </Label>
-                                <TextField fx:id="txtDelPageOID" prefHeight="38.0" prefWidth="237.0" promptText="enter order id..." />
-                                <Button mnemonicParsing="false" onAction="#btnOidSearch" prefHeight="38.0" prefWidth="83.0" style="-fx-background-color: #3498DB;" text="search" />
+                        <ComboBox fx:id="cmbOrderID" prefHeight="40.0" prefWidth="230.0" />
+                                <Button mnemonicParsing="false" onAction="#btnOidSearch" prefHeight="38.0" prefWidth="101.0" style="-fx-background-color: #3498DB; -fx-font-size: 16;" text="search" />
                             </children>
                         </HBox>
-                        <HBox prefHeight="51.0" prefWidth="236.0" spacing="60.0">
+                        <HBox prefHeight="51.0" prefWidth="236.0" spacing="5.0">
                             <children>
-                                <Label prefHeight="18.0" prefWidth="205.0" text="get Available Vehicle Details &gt;&gt;&gt;" textFill="#f39c12">
+                                <Label prefHeight="35.0" prefWidth="482.0" text="get Available Vehicle Details &gt;&gt;&gt;" textFill="#f39c12">
                                     <HBox.margin>
                                         <Insets left="10.0" />
                                     </HBox.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="20.0" />
                            </font>
                                 </Label>
-                                <Button mnemonicParsing="false" onAction="#btnGetVehicleDetails" prefHeight="38.0" prefWidth="172.0" style="-fx-background-color: #3498DB;" text="search" />
+                                <Button mnemonicParsing="false" onAction="#btnGetVehicleDetails" prefHeight="38.0" prefWidth="279.0" style="-fx-background-color: #3498DB; -fx-font-size: 20;" text="search" />
                             </children>
                         </HBox>
                   <Separator prefWidth="200.0" style="-fx-background-color: #FFF;" />
                   <HBox prefHeight="49.0" prefWidth="484.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="286.0" text="\@Set Delivery" textFill="#f39c12">
+                        <Label prefHeight="18.0" prefWidth="286.0" text="\@Set Delivery Now" textFill="#f39c12">
                            <font>
-                              <Font size="22.0" />
+                              <Font size="28.0" />
                            </font>
                         </Label>
                      </children>
@@ -67,9 +68,11 @@
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="19.0" />
+                           </font>
                         </Label>
-                        <TextField fx:id="txtInputVid" prefHeight="30.0" prefWidth="195.0" />
-                        <Button mnemonicParsing="false" onAction="#btnSetVehicleID" prefHeight="26.0" prefWidth="64.0" text="set" />
+                        <TextField fx:id="txtInputVid" prefHeight="41.0" prefWidth="289.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="44.0" prefWidth="484.0" spacing="40.0">
@@ -78,8 +81,11 @@
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="19.0" />
+                           </font>
                         </Label>
-                        <DatePicker fx:id="datePicker" editable="false" />
+                        <DatePicker fx:id="datePicker" editable="false" prefHeight="32.0" prefWidth="248.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="44.0" prefWidth="484.0" spacing="40.0">
@@ -88,9 +94,11 @@
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="19.0" />
+                           </font>
                         </Label>
-                        <TextField fx:id="txtAreaInput" prefHeight="30.0" prefWidth="195.0" />
-                        <Button mnemonicParsing="false" onAction="#btnSetArea" prefHeight="26.0" prefWidth="64.0" text="set" />
+                        <TextField fx:id="txtAreaInput" prefHeight="38.0" prefWidth="390.0" />
                      </children>
                   </HBox>
                     </children>
@@ -100,7 +108,7 @@
                         <Image url="@../images/logo_no_bg.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="53.0" layoutY="28.0" mnemonicParsing="false" onAction="#OrderPageGoBackButton" text="go back" />
+                <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderPageGoBackButton" prefHeight="38.0" prefWidth="94.0" style="-fx-font-size: 16;" text="go back" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="484.0" layoutY="189.0" prefHeight="800.0" prefWidth="796.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="484.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -110,7 +118,7 @@
                         <Separator prefHeight="19.0" prefWidth="570.0" style="-fx-background-color: #1A252F;" />
                   <Label text="Order :::">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="34.0" />
                      </font>
                   </Label>
                       <TableView fx:id="tableOrderDetail" prefHeight="100.0" prefWidth="796.0">
@@ -127,10 +135,10 @@
                       </TableView>
                     </children>
                 </VBox>
-                <Button layoutX="523.0" layoutY="680.0" mnemonicParsing="false" onAction="#btnSetDelivery" prefHeight="51.0" prefWidth="191.0" style="-fx-background-color: #3498DB;" text="set Delivery" />
+                <Button layoutX="517.0" layoutY="589.0" mnemonicParsing="false" onAction="#btnSetDelivery" prefHeight="66.0" prefWidth="236.0" style="-fx-background-color: #3498DB; -fx-font-size: 20;" text="set Delivery" />
             <VBox layoutY="287.0" prefHeight="133.0" prefWidth="796.0">
                <children>
-                  <TableView fx:id="VehicleDetailTable" prefHeight="134.0" prefWidth="796.0">
+                  <TableView fx:id="VehicleDetailTable" onMouseClicked="#tableClick" prefHeight="134.0" prefWidth="796.0">
                     <columns>
                       <TableColumn fx:id="clmnVheicleID" prefWidth="75.0" text="vehicle ID" />
                       <TableColumn fx:id="clmnTYpe" prefWidth="75.0" text="Type" />
@@ -142,17 +150,13 @@
                   </TableView>
                </children>
             </VBox>
-            <Label layoutX="14.0" layoutY="250.0" text="Available Vehicles">
+            <Label layoutX="12.0" layoutY="238.0" text="Available Vehicles :::">
                <font>
-                  <Font size="19.0" />
+                  <Font size="34.0" />
                </font>
             </Label>
                   <HBox layoutX="-65.0" layoutY="533.0" prefHeight="51.0" prefWidth="236.0" spacing="25.0" />
-            <VBox layoutX="35.0" layoutY="549.0" prefHeight="200.0" prefWidth="243.0" spacing="48.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#btnGetAllandEdit" prefHeight="43.0" prefWidth="236.0" text="GET ALL Deliveries and Edit" />
-               </children>
-            </VBox>
+            <Button layoutX="54.0" layoutY="585.0" mnemonicParsing="false" onAction="#btnGetAllandEdit" prefHeight="66.0" prefWidth="269.0" style="-fx-font-size: 20;" text="UPDATE &amp; DELETE" />
             </children></AnchorPane>
     </children>
 </AnchorPane>

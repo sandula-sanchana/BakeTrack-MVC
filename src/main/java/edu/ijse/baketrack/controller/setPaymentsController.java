@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -28,9 +29,9 @@ public class setPaymentsController implements Initializable {
     public RadioButton RadioPaid;
     public ToggleGroup PaymentStatusGroup;
     public RadioButton RadioCancelled;
-    public TextField txtPayid;
-    public TextField txtPayMethod;
+    public TextField txtPayid;;
     public AnchorPane setPayAp;
+    public ComboBox<String> cmbPayMethod;
     private OrderInterface orderInterface;
     private ArrayList<OrderDto> orderDtos;
     private int orderID;
@@ -99,12 +100,6 @@ public class setPaymentsController implements Initializable {
     private DatePicker datePicker;
 
     @FXML
-    private TextField txtAreaInput;
-
-    @FXML
-    private TextField txtInputVid;
-
-    @FXML
     private TextField txtPaymentPageDelID;
 
     @FXML
@@ -141,6 +136,8 @@ public class setPaymentsController implements Initializable {
          setPayment();
          paymentsTMObservableList.clear();
          orderTMObservableList.clear();
+         getOrderandPaymentByDelID();
+         cleatTxt();
      }
 
 
@@ -166,6 +163,10 @@ public class setPaymentsController implements Initializable {
             alert.showAndWait();
             return false;
         }
+    }
+    public void cleatTxt(){
+        txtPaymentPageDelID.clear();
+        txtPayid.clear();
     }
 
     public  void loadOrderToTable(ArrayList<OrderDto> orderDtos){
@@ -206,6 +207,8 @@ public class setPaymentsController implements Initializable {
 
         TablePayment.setItems(paymentsTMObservableList);
 
+        cmbPayMethod.getItems().addAll("cash","card");
+
 
         PaymentStatusGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> getSelectedStatus());
     }
@@ -224,8 +227,16 @@ public class setPaymentsController implements Initializable {
 
     }
 
+    public void loadSelectedPaytoFIelds(){
+       PaymentsTM selected=TablePayment.getSelectionModel().getSelectedItem();
+
+       if(selected!=null){
+           txtPayid.setText(String.valueOf(selected.getPayment_id()));
+       }
+    }
+
     public void setPayment() throws SQLException {
-         paymentsDto=new PaymentsDto(Integer.parseInt(txtPayid.getText()),orderID,txtPayMethod.getText(),datePicker.getValue(),paymentStatus);
+         paymentsDto=new PaymentsDto(Integer.parseInt(txtPayid.getText()),orderID,cmbPayMethod.getValue(),datePicker.getValue(),paymentStatus);
          String resp=paymentInterface.setPayments(paymentsDto,vehicle_id);
          Alert alert=new Alert(Alert.AlertType.INFORMATION);
          alert.setTitle(resp);
@@ -242,5 +253,9 @@ public class setPaymentsController implements Initializable {
             alert.showAndWait();
         }
 
+    }
+
+    public void tableMosueClick(MouseEvent mouseEvent) {
+        loadSelectedPaytoFIelds();
     }
 }

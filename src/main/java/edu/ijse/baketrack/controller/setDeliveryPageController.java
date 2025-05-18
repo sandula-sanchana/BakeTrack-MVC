@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -41,8 +42,8 @@ public class setDeliveryPageController implements Initializable {
     public TextField txtAreaInput;
     public DatePicker datePicker;
     public TextField txtInputVid;
-    public TextField txtDelPageOID;
     public AnchorPane setDelPageAP;
+    public ComboBox <OrderTM>cmbOrderID;
 
 
     private OrderDto orderDto=new OrderDto();
@@ -55,6 +56,8 @@ public class setDeliveryPageController implements Initializable {
     private ObservableList<OrderTM> OrderTmOB=FXCollections.observableArrayList();
     private ObservableList<VehicleTM> vehicleTMS=FXCollections.observableArrayList();
     private VehicleTM vehicleTM;
+    private ObservableList<OrderTM> orderOBLforCMB=FXCollections.observableArrayList();
+    private  OrderTM orderTM;
 
     @FXML
     private TableView<?> addOrderPageTable;
@@ -109,17 +112,11 @@ public class setDeliveryPageController implements Initializable {
         setDelivery();
         OrderTmOB.clear();
         setValuesToTable();
+        txtInputVid.clear();
+        orderOBLforCMB.clear();
+        cmbOrderID.setItems(null);
     }
 
-    @FXML
-    void btnSetVehicleID(ActionEvent event) {
-
-    }
-
-    @FXML
-    void datePicker(ActionEvent event) {
-
-    }
 
 
 
@@ -147,19 +144,28 @@ public class setDeliveryPageController implements Initializable {
 
         VehicleDetailTable.setItems(vehicleTMS);
 
+        loadOrdersToCmb();
+        cmbOrderID.setItems(orderOBLforCMB);
+
     }
 
     public void setValuesToTable() throws SQLException {
-        orderDtos=orderInterface.getOrderByID(Integer.parseInt(txtDelPageOID.getText()));
+        OrderTM selected=cmbOrderID.getValue();
+        if(selected!=null) {
+            int oID = selected.getOrder_id();
+            orderDtos = orderInterface.getOrderByID(oID);
 
-        if(orderDtos!=null){
-            OrderTM orderTM=new OrderTM(orderDtos.getFirst().getCustomerID(),orderDtos.getFirst().getDeliveryID(),orderDtos.getFirst().getOrderDate(),
-                    orderDtos.getFirst().getTotalPrice(),orderDtos.getFirst().getStatus());
-            OrderTmOB.add(orderTM);
+            if (orderDtos != null) {
+                OrderTM orderTM = new OrderTM(orderDtos.getFirst().getCustomerID(), orderDtos.getFirst().getDeliveryID(), orderDtos.getFirst().getOrderDate(),
+                        orderDtos.getFirst().getTotalPrice(), orderDtos.getFirst().getStatus());
+                OrderTmOB.add(orderTM);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Not found");
+                alert.showAndWait();
+            }
         }else{
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Not found");
-            alert.showAndWait();
+            new Alert(Alert.AlertType.ERROR,"select a order first").showAndWait();
         }
 
     }
@@ -180,13 +186,29 @@ public class setDeliveryPageController implements Initializable {
 
     }
 
-    public void setDelivery() throws SQLException {
-         deliveryDto=new DeliveryDto(Integer.parseInt(txtInputVid.getText()),datePicker.getValue(),txtAreaInput.getText());
-         String resp=deliveryInterface.setDelivery(deliveryDto,txtDelPageOID.getText());
+    public void loadOrdersToCmb(){
+        try {
+            ArrayList<OrderDto> orderList=orderInterface.getAllOrders();
+            for(OrderDto dto :orderList){
+               orderOBLforCMB.add(new OrderTM(dto.getOrder_id(),dto.getCustomerID(),dto.getOrderDate(),dto.getTotalPrice()));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-         Alert alert=new Alert(Alert.AlertType.INFORMATION);
-         alert.setTitle(resp);
-         alert.showAndWait();
+    }
+
+    public void setDelivery() throws SQLException {
+        OrderTM selected=cmbOrderID.getValue();
+        if(selected!=null) {
+            int oID = selected.getOrder_id();
+            deliveryDto = new DeliveryDto(Integer.parseInt(txtInputVid.getText()), datePicker.getValue(), txtAreaInput.getText());
+            String resp = deliveryInterface.setDelivery(deliveryDto, String.valueOf(oID));
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(resp);
+            alert.showAndWait();
+        }
 
 
 
@@ -210,5 +232,13 @@ public class setDeliveryPageController implements Initializable {
             alert.showAndWait();
         }
 
+    }
+
+    public void tableClick(MouseEvent mouseEvent) {
+        VehicleTM selected=VehicleDetailTable.getSelectionModel().getSelectedItem();
+
+        if(selected!=null){
+            txtInputVid.setText(String.valueOf(selected.getVehicle_id()));
+        }
     }
 }
