@@ -123,12 +123,12 @@ public class CustomerModel implements CustomerInterface {
         return getall;
     }
 
-    public CustomersDto getCustomerByID(int cusID) throws SQLException {
+    public CustomersDto getCustomerByCOn(int cus_no) throws SQLException {
         connection=DBobject.getInstance().getConnection();
-        String sql="SELECT * FROM customer WHERE customer_id=?";
+        String sql="SELECT * FROM customer WHERE contact_no=?";
         PreparedStatement statement=connection.prepareStatement(sql);
 
-        statement.setInt(1,cusID);
+        statement.setInt(1,cus_no);
 
         ResultSet resultSet=statement.executeQuery();
 

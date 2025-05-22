@@ -19,7 +19,7 @@ public interface CustomerInterface {
 
     ArrayList<CustomersDto> getAllCustomers() throws SQLException;
 
-    public CustomersDto getCustomerByID(int cusID) throws SQLException;
+ CustomersDto getCustomerByCOn(int cus_no) throws SQLException;
 
-    String updateCustomer(CustomersDto customersDto) throws SQLException;
+ String updateCustomer(CustomersDto customersDto) throws SQLException;
 }

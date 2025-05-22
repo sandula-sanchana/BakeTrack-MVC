@@ -34,6 +34,7 @@ public class AddOrderPageController implements Initializable {
     public TableColumn<OrderDetailTM, Double> clmnPatOrder;
     public Label lblTotalPrice;
     public AnchorPane apOrderPage;
+    public ComboBox<ProductDto> cmbProduct;
     private CustomerInterface customerInterface = new CustomerModel();
     private ProductInterface productInterface = new ProductModel();
     private OrderInterface orderInterface = new OrdersModel();
@@ -41,6 +42,8 @@ public class AddOrderPageController implements Initializable {
     private Double total_price = 0.0;
     private ObservableList<OrderDetailTM> orderDetailTMs = FXCollections.observableArrayList();
     OrderDetailTM newItem;
+    private ObservableList<ProductDto> productDtoObservableList = FXCollections.observableArrayList();
+    private int cus_id;
 
 
     @FXML
@@ -57,9 +60,6 @@ public class AddOrderPageController implements Initializable {
 
     @FXML
     private TextField txtOrderPageCusID;
-
-    @FXML
-    private TextField txtOrderPagePid;
 
     @FXML
     private TextField txtOrderPageQty;
@@ -97,21 +97,17 @@ public class AddOrderPageController implements Initializable {
         getCustomerByID();
     }
 
-    @FXML
-    void btnSearchPid(ActionEvent event) throws SQLException {
-        getProductByID();
-        getPriceAtOrder();
-    }
 
     public void btnPlaceOrder(ActionEvent actionEvent) throws SQLException {
         placeOrder();
     }
 
     public void getCustomerByID() throws SQLException {
-        int id_input = Integer.parseInt(txtOrderPageCusID.getText());
-        CustomersDto customer = customerInterface.getCustomerByID(id_input);
+        int con_input = Integer.parseInt(txtOrderPageCusID.getText());
+        CustomersDto customer = customerInterface.getCustomerByCOn(con_input);
         if (customer != null) {
             lblCusData.setText(customer.getName() + "-" + customer.getAddress() + "-" + customer.getContact());
+            cus_id=customer.getCustomerID();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("customer not found");
@@ -119,11 +115,11 @@ public class AddOrderPageController implements Initializable {
         }
     }
 
-    public void getProductByID() throws SQLException {
-        int id_input_product = Integer.parseInt(txtOrderPagePid.getText());
-        ProductDto productDto = productInterface.getProductDetailsByProductID(id_input_product);
-        if (productDto != null) {
-            lblProductData.setText(productDto.getName() + "--" + productDto.getCategory() + "--" + productDto.getDescription() + "--" + productDto.getPrice());
+    public void getAllProducts() throws SQLException {
+        ArrayList<ProductDto> productDtoArrayList = productInterface.getAllProducts();
+        if (productDtoArrayList != null) {
+            productDtoObservableList.clear();
+            productDtoObservableList.addAll(productDtoArrayList);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("product not found");
@@ -134,7 +130,7 @@ public class AddOrderPageController implements Initializable {
     @FXML
     void btnAddOrderDetail(ActionEvent event) {
         try {
-            int pid = Integer.parseInt(txtOrderPagePid.getText());
+            int pid = cmbProduct.getValue().getProduct_id();
             int qty = Integer.parseInt(txtOrderPageQty.getText());
             double price = Double.parseDouble(lblPriceAtOrder.getText());
 
@@ -161,14 +157,10 @@ public class AddOrderPageController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
             e.printStackTrace();
         }
-    }
-
-
-    public void getPriceAtOrder() throws SQLException {
-        double price_at_order = productInterface.getPriceAtOrder(Integer.parseInt(txtOrderPagePid.getText()));
-        lblPriceAtOrder.setText(Double.toString(price_at_order));
 
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -182,6 +174,12 @@ public class AddOrderPageController implements Initializable {
         addOrderPageTable.getItems().clear();
         addOrderPageTable.setItems(orderDetailTMs);
         addOrderPageTable.refresh();
+        try {
+            getAllProducts();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        cmbProduct.getItems().addAll(productDtoObservableList);
     }
 
     public void placeOrder() throws SQLException {
@@ -192,14 +190,16 @@ public class AddOrderPageController implements Initializable {
         }
 
         LocalDate today_date = LocalDate.now();
-        OrderDto orderDto = new OrderDto(Integer.parseInt(txtOrderPageCusID.getText()), today_date, total_price, "pending");
-        String resp = orderInterface.placeOrder(orderDto, orderDetailDtoList);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(resp);
-        alert.showAndWait();
+            OrderDto orderDto = new OrderDto(cus_id, today_date, total_price, "pending");
+            String resp = orderInterface.placeOrder(orderDto, orderDetailDtoList);
 
-        orderDetailTMs.clear();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(resp);
+            alert.showAndWait();
+
+            orderDetailTMs.clear();
+
 
 
     }
@@ -234,5 +234,12 @@ public class AddOrderPageController implements Initializable {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    public void clickONcmb(ActionEvent actionEvent) {
+        ProductDto productDto=cmbProduct.getValue();
+        double price_at_order = productDto.getPrice();
+        lblPriceAtOrder.setText(Double.toString(price_at_order));
+        lblProductData.setText(productDto.getProduct_id()+"+++"+productDto.getName()+"+++"+productDto.getPrice());
     }
 }

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,25 +18,25 @@
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="484.0" style="-fx-background-color: #2C3E50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="796.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox layoutY="212.0" prefHeight="391.0" prefWidth="484.0" spacing="20.0">
+                <VBox layoutY="212.0" prefHeight="250.0" prefWidth="484.0" spacing="20.0">
                     <children>
                         <HBox prefHeight="51.0" prefWidth="236.0" spacing="15.0">
                             <children>
-                                <Label prefHeight="20.0" prefWidth="207.0" text="get Deliveries and Sellers" textFill="#f39c12">
+                                <Label prefHeight="31.0" prefWidth="260.0" text="get Deliveries and Sellers" textFill="#f39c12">
                                     <HBox.margin>
                                         <Insets left="10.0" />
                                     </HBox.margin>
                                     <font>
-                                        <Font size="14.0" />
+                                        <Font size="21.0" />
                                     </font>
                                 </Label>
-                                <Button mnemonicParsing="false" onAction="#btnGetDelAndEmp" prefHeight="38.0" prefWidth="167.0" style="-fx-background-color: #3498DB;" text="search" />
+                                <Button mnemonicParsing="false" onAction="#btnGetDelAndEmp" prefHeight="51.0" prefWidth="196.0" style="-fx-background-color: #3498DB; -fx-font-size: 20;" text="search" />
                             </children>
                         </HBox>
                         <Separator prefWidth="200.0" style="-fx-background-color: #FFF;" />
                         <HBox prefHeight="49.0" prefWidth="484.0">
                             <children>
-                                <Label prefHeight="35.0" prefWidth="371.0" text="\@set seller for the delivery" textFill="#f39c12">
+                                <Label prefHeight="35.0" prefWidth="371.0" text="\@set seller for the delivery Now" textFill="#f39c12">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
@@ -49,17 +50,18 @@
                      <children>
                               <HBox prefHeight="51.0" prefWidth="484.0" spacing="40.0">
                                   <children>
-                                      <Label prefHeight="18.0" prefWidth="264.0" text="select a employee here &gt;&gt;&gt;&gt;&gt;" textFill="#f39c12">
+                                      <Label alignment="TOP_RIGHT" prefHeight="24.0" prefWidth="449.0" text="select a employee here &gt;&gt;&gt;&gt;&gt;" textFill="#f39c12">
                                           <HBox.margin>
                                               <Insets left="10.0" />
                                           </HBox.margin>
                                  <font>
-                                    <Font size="17.0" />
+                                    <Font size="20.0" />
                                  </font>
                                       </Label>
                                   </children>
                               </HBox>
                      </children></HBox>
+                  <Separator prefWidth="200.0" />
                     </children>
                 </VBox>
                 <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="155.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
@@ -67,20 +69,42 @@
                         <Image url="@../images/logo_no_bg.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="33.0" layoutY="29.0" mnemonicParsing="false" onAction="#OrderPageGoBackButton" text="go back" />
+                <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderPageGoBackButton" prefHeight="47.0" prefWidth="103.0" text="go back">
+               <font>
+                  <Font size="17.0" />
+               </font></Button>
+            <HBox layoutX="24.0" layoutY="471.0" prefHeight="35.0" prefWidth="459.0">
+               <children>
+                  <Label prefHeight="29.0" prefWidth="377.0" text="Whatsapp no( Selected Employee)  :::" textFill="#f39c12">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="33.0" layoutY="530.0" prefHeight="49.0" prefWidth="434.0">
+               <children>
+                  <TextField fx:id="txtWappNo" prefHeight="47.0" prefWidth="432.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <Button layoutX="77.0" layoutY="643.0" mnemonicParsing="false" onAction="#btnSendWappMsg" prefHeight="62.0" prefWidth="330.0" style="-fx-font-size: 20; -fx-background-radius: 5; -fx-background-color: #3498DB;" text="Send Delivery Details" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="484.0" layoutY="189.0" prefHeight="800.0" prefWidth="796.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="484.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox layoutX="6.0" layoutY="2.0" prefHeight="200.0" prefWidth="796.0" spacing="30.0" AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox layoutX="6.0" layoutY="2.0" prefHeight="242.0" prefWidth="796.0" spacing="30.0" AnchorPane.bottomAnchor="558.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Separator prefHeight="0.0" prefWidth="796.0" style="-fx-background-color: #1A252F;" />
                         <Label text="Deliveries that need a Mobile Seller :::">
                             <font>
-                                <Font size="22.0" />
+                                <Font size="28.0" />
                             </font>
                         </Label>
-                        <TableView fx:id="DeliveryTable" prefHeight="137.0" prefWidth="796.0">
+                        <TableView fx:id="DeliveryTable" prefHeight="165.0" prefWidth="796.0">
                             <columns>
                                 <TableColumn fx:id="clmnDelid" prefWidth="75.0" text="Delivery ID" />
                                 <TableColumn fx:id="clmnVid" prefWidth="75.0" text="Vehicle ID" />
@@ -109,13 +133,12 @@
                         </TableView>
                     </children>
                 </VBox>
-                <Label layoutX="14.0" layoutY="250.0" text="Available Mobile Sellers:::">
+                <Label layoutX="14.0" layoutY="250.0" text="Available Mobile Sellers Today:::">
                     <font>
-                        <Font size="19.0" />
+                        <Font size="25.0" />
                     </font>
                 </Label>
-                <HBox layoutX="-65.0" layoutY="533.0" prefHeight="51.0" prefWidth="236.0" spacing="25.0" />
-                <Button layoutX="520.0" layoutY="656.0" mnemonicParsing="false" onAction="#btnSetSeller" prefHeight="49.0" prefWidth="200.0" text="set Seller" />
+                <Button layoutX="460.0" layoutY="620.0" mnemonicParsing="false" onAction="#btnSetSeller" prefHeight="85.0" prefWidth="260.0" style="-fx-background-color: #3498DB; -fx-font-size: 23; -fx-background-radius: 6;" text="set Seller" />
             </children></AnchorPane>
     </children>
 </AnchorPane>

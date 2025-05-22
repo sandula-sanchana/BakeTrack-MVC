@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
 public class SetMobileSellerController implements Initializable {
     public TextField txtEidInput;
     public AnchorPane setMSellerap;
+    public TextField txtWappNo;
     private ArrayList<EmployeeDto> employeeDtoArrayList;
     private ArrayList<DeliveryDto> deliveryDtoArrayList;
     private ObservableList<EmployeeTM> employeeTMObservableList= FXCollections.observableArrayList();
@@ -190,5 +191,8 @@ public class SetMobileSellerController implements Initializable {
             alert.setTitle("select delivery and a employee first");
             alert.showAndWait();
         }
+    }
+
+    public void btnSendWappMsg(ActionEvent actionEvent) {
     }
 }

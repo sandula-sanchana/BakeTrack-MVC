@@ -79,7 +79,7 @@
                   <Image url="@../images/logo_no_bg.png" />
                </image>
             </ImageView>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnLogout" prefHeight="38.0" prefWidth="105.0" style="-fx-background-radius: 7; -fx-font-size: 16px;" text="LOG OUT" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnLogout" prefHeight="51.0" prefWidth="105.0" style="-fx-background-radius: 20; -fx-font-size: 16px;" text="LOG OUT" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="366.0" layoutY="189.0" prefHeight="800.0" prefWidth="914.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="366.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

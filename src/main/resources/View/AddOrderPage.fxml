@@ -19,7 +19,7 @@
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="484.0" style="-fx-background-color: #2C3E50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="796.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox layoutX="6.0" layoutY="179.0" prefHeight="452.0" prefWidth="484.0" spacing="20.0">
+                <VBox layoutX="6.0" layoutY="179.0" prefHeight="391.0" prefWidth="484.0" spacing="30.0">
                <children>
                   <HBox prefHeight="51.0" prefWidth="236.0" spacing="15.0">
                      <children>
@@ -31,7 +31,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtOrderPageCusID" prefHeight="45.0" prefWidth="278.0" promptText="enter customer id..">
+                        <TextField fx:id="txtOrderPageCusID" prefHeight="45.0" prefWidth="278.0" promptText="enter customer  contact_no..">
                            <font>
                               <Font size="21.0" />
                            </font></TextField>
@@ -52,12 +52,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox prefHeight="42.0" prefWidth="274.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="484.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnSearchPid" prefHeight="43.0" prefWidth="152.0" style="-fx-background-color: #3498DB; -fx-font-size: 20;" text="search" />
+                        <ComboBox fx:id="cmbProduct" onAction="#clickONcmb" prefHeight="42.0" prefWidth="274.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="51.0" prefWidth="236.0" spacing="25.0">
@@ -106,7 +101,7 @@
                   <Font size="18.0" />
                </font></Button>
             <Button layoutX="38.0" layoutY="713.0" mnemonicParsing="false" onAction="#getAllEdit" prefHeight="60.0" prefWidth="374.0" style="-fx-font-size: 20;" text="get All orders &amp; Edit" />
-            <Button contentDisplay="CENTER" layoutX="242.0" layoutY="647.0" mnemonicParsing="false" onAction="#btnAddOrderDetail" prefHeight="41.0" prefWidth="242.0" style="-fx-background-color: #3498DB; -fx-font-size: 20;" text="ADD" />
+            <Button contentDisplay="CENTER" layoutX="242.0" layoutY="590.0" mnemonicParsing="false" onAction="#btnAddOrderDetail" prefHeight="69.0" prefWidth="242.0" style="-fx-background-color: #3498DB; -fx-font-size: 20;" text="ADD" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="484.0" layoutY="189.0" prefHeight="800.0" prefWidth="796.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="484.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
