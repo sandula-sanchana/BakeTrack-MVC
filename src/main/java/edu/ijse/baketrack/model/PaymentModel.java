@@ -11,6 +11,8 @@ import edu.ijse.baketrack.dto.PaymentsDto;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PaymentModel implements PaymentInterface{
 
@@ -201,6 +203,27 @@ public class PaymentModel implements PaymentInterface{
                   throw new RuntimeException(e);
               }
           }
+    }
+
+    public Map<String,Integer> getPaymentCount(){
+        String sql="SELECT status,COUNT(*) as count FROM payments GROUP BY status";
+
+        Map<String,Integer> countMap=new HashMap<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                String status = rs.getString("status");
+                int count = rs.getInt("count");
+                countMap.put(status,count);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return countMap;
+
     }
 
 }

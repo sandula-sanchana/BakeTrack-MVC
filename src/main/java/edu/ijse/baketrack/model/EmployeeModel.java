@@ -11,6 +11,8 @@ import edu.ijse.baketrack.util.SqlExecute;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EmployeeModel implements EmployeeInterface{
     private Connection connection;
@@ -203,6 +205,26 @@ public void updateSalary(int id,Double salary) throws SQLException{
         }
     }
 
+    public Map<String,Integer> getEmpCount(){
+        String sql="SELECT roles,COUNT(*) as count FROM employee GROUP BY roles";
+
+        Map<String,Integer> countMap=new HashMap<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                String status = rs.getString("roles");
+                int count = rs.getInt("count");
+                countMap.put(status,count);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return countMap;
+
+    }
 
 
 

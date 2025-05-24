@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="apOwnerDB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.OwnerDashboardController">
    <children>
@@ -63,13 +70,13 @@
                   <HBox prefHeight="53.0" prefWidth="313.0" spacing="23.0">
                      <children>
                         <FontAwesomeIconView fill="#f39c12" glyphName="CAR" size="30" text="" wrappingWidth="52.714284896850586" />
-                        <Button mnemonicParsing="false" onAction="#btnSetProduction" prefHeight="61.0" prefWidth="237.0" style="-fx-background-radius: 7; -fx-font-size: 20; -fx-background-color: #3498DB;" text="Set Production" />
+                        <Button mnemonicParsing="false" onAction="#btnSetProduction" prefHeight="54.0" prefWidth="237.0" style="-fx-background-radius: 7; -fx-font-size: 20; -fx-background-color: #3498DB;" text="Set Production" />
                      </children>
                   </HBox>
                   <HBox prefHeight="55.0" prefWidth="313.0" spacing="23.0">
                      <children>
                         <FontAwesomeIconView fill="#f39c12" glyphName="FILE_ALT" size="30" wrappingWidth="52.714284896850586" />
-                        <Button mnemonicParsing="false" onAction="#btnReports" prefHeight="65.0" prefWidth="238.0" style="-fx-background-radius: 7; -fx-font-size: 20; -fx-background-color: #3498DB;" text="Reports" />
+                        <Button mnemonicParsing="false" onAction="#btnUser" prefHeight="55.0" prefWidth="237.0" style="-fx-background-radius: 7; -fx-font-size: 20; -fx-background-color: #3498DB;" text="Manage Users" />
                      </children>
                   </HBox>
                </children>
@@ -80,13 +87,33 @@
                </image>
             </ImageView>
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnLogout" prefHeight="51.0" prefWidth="105.0" style="-fx-background-radius: 20; -fx-font-size: 16px;" text="LOG OUT" />
+            <Separator layoutX="355.0" layoutY="1.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="12.0" style="-fx-background-color: #000;" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="366.0" layoutY="189.0" prefHeight="800.0" prefWidth="914.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="366.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox layoutX="284.8999938964844" layoutY="204.89999389648438" />
-            <Button layoutX="718.0" layoutY="64.0" mnemonicParsing="false" onAction="#btnUser" prefHeight="30.0" prefWidth="174.0" style="-fx-background-radius: 7; -fx-font-size: 16px;" text="Manage Users" />
             <HBox layoutX="283.0" layoutY="382.0" prefHeight="53.0" prefWidth="313.0" spacing="23.0" />
+            <LineChart fx:id="lineChart" layoutX="-2.0" layoutY="461.0" prefHeight="333.0" prefWidth="914.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <PieChart fx:id="paymentPieChart" layoutX="14.0" layoutY="153.0" prefHeight="308.0" prefWidth="331.0" />
+            <PieChart fx:id="employeePieChart" layoutX="489.0" layoutY="147.0" prefHeight="322.0" prefWidth="394.0" />
+            <AnchorPane prefHeight="150.0" prefWidth="914.0" style="-fx-background-color: #2C3E50;">
+               <children>
+                  <Separator layoutY="130.0" prefHeight="13.0" prefWidth="914.0" style="-fx-background-color: #000;" />
+                  <Label layoutX="226.0" layoutY="38.0" prefHeight="18.0" prefWidth="447.0" text="OWNER DASHBOARD" textFill="#f39c12">
+                     <font>
+                        <Font size="42.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

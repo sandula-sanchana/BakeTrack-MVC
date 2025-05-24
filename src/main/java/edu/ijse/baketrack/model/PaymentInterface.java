@@ -2,6 +2,7 @@ package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 import edu.ijse.baketrack.dto.PaymentsDto;
@@ -14,4 +15,5 @@ public interface PaymentInterface {
     double getTotRevenue() throws SQLException;
     ArrayList<PaymentsDto> getAllPayments() throws SQLException;
    public String setPayments(PaymentsDto paymentsDto,int vehicle_id)throws SQLException;
+    Map<String,Integer> getPaymentCount() throws SQLException;
 }

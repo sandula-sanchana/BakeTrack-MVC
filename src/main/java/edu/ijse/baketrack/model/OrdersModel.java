@@ -8,6 +8,7 @@ import java.util.List;
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.OrderDetailDto;
 import edu.ijse.baketrack.dto.OrderDto;
+import edu.ijse.baketrack.dto.OrderTrendDto;
 import edu.ijse.baketrack.dto.tm.IngredientTM;
 import edu.ijse.baketrack.util.SqlExecute;
 import javafx.collections.ObservableList;
@@ -300,5 +301,24 @@ public class OrdersModel implements OrderInterface{
             }
         }
     }
+
+    public List<OrderTrendDto> getOrderTrends() throws SQLException {
+        Connection con = DBobject.getInstance().getConnection();
+        String sql = "SELECT order_date, COUNT(*) AS order_count FROM orders GROUP BY order_date ORDER BY order_date";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        List<OrderTrendDto> trends = new ArrayList<>();
+        while (rs.next()) {
+            trends.add(new OrderTrendDto(
+                    rs.getString("order_date"),
+                    rs.getInt("order_count")
+            ));
+        }
+
+        return trends;
+    }
+
 
 }

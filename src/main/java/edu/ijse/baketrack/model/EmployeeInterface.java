@@ -2,6 +2,7 @@ package edu.ijse.baketrack.model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 import edu.ijse.baketrack.dto.DeliveryDto;
@@ -29,4 +30,6 @@ public interface EmployeeInterface {
     ArrayList<EmployeeDto> getAllEmployeeNamesAndIds() throws SQLException;
 
     Double getSalaryById(int employeeId) throws SQLException;
+
+    Map<String,Integer> getEmpCount() throws SQLException;
 }

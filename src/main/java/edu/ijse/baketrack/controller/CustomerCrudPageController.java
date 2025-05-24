@@ -1,5 +1,6 @@
 package edu.ijse.baketrack.controller;
 
+import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.CustomersDto;
 import edu.ijse.baketrack.dto.CustomersDto;
 import edu.ijse.baketrack.dto.tm.CustomersTM;
@@ -16,13 +17,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.util.*;
 
 public class CustomerCrudPageController implements Initializable {
 
@@ -230,4 +236,29 @@ public class CustomerCrudPageController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Please enter valid data!").showAndWait();
         }
     }
+
+    public void btnReport(ActionEvent actionEvent) {
+        try {
+            JasperReport report = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/report/Customer_report.jrxml")
+            );
+
+            Connection connection = DBobject.getInstance().getConnection();
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("p_date", LocalDate.now().toString());
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    report,
+                    parameters,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

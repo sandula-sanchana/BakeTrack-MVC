@@ -6,6 +6,7 @@ module baketrack.project_bakery_x {
     requires java.sql;
     requires java.desktop;
     requires twilio;
+    requires net.sf.jasperreports.core;
 
     exports edu.ijse.baketrack to javafx.fxml;
     exports edu.ijse.baketrack.controller to javafx.fxml;

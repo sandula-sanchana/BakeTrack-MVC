@@ -106,7 +106,7 @@
                         </HBox>
                   <HBox prefHeight="37.0" prefWidth="484.0" spacing="60.0">
                      <children>
-                        <Label prefHeight="28.0" prefWidth="184.0" text="payment Method">
+                        <Label prefHeight="28.0" prefWidth="184.0" text="payment Method" textFill="#f39c12">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
