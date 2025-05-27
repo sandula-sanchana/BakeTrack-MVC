@@ -5,17 +5,16 @@ import edu.ijse.baketrack.dto.EmployeeDto;
 import edu.ijse.baketrack.dto.tm.DeliveryTM;
 import edu.ijse.baketrack.dto.tm.EmployeeTM;
 import edu.ijse.baketrack.model.*;
+import edu.ijse.baketrack.util.WhatsAppSender;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -29,7 +28,8 @@ import java.util.ResourceBundle;
 public class SetMobileSellerController implements Initializable {
     public TextField txtEidInput;
     public AnchorPane setMSellerap;
-    public TextField txtWappNo;
+    public ComboBox<String> cmbContactNo;
+    public TextField txtContactNO;
     private ArrayList<EmployeeDto> employeeDtoArrayList;
     private ArrayList<DeliveryDto> deliveryDtoArrayList;
     private ObservableList<EmployeeTM> employeeTMObservableList= FXCollections.observableArrayList();
@@ -39,6 +39,7 @@ public class SetMobileSellerController implements Initializable {
     private EmployeeInterface employeeInterface;
     private DeliveryTM deliveryTM;
     private EmployeeTM employeeTM;
+    private VehicleInterface vehicleInterface;
 
 
     public  SetMobileSellerController(){
@@ -46,6 +47,7 @@ public class SetMobileSellerController implements Initializable {
             deliveryInterface=new DeliveryModel();
             employeeInterface=new EmployeeModel();
             orderInterface=new OrdersModel();
+            vehicleInterface=new VehicleModel();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -194,5 +196,44 @@ public class SetMobileSellerController implements Initializable {
     }
 
     public void btnSendWappMsg(ActionEvent actionEvent) {
+
+        DeliveryTM selectedDel=DeliveryTable.getSelectionModel().getSelectedItem();
+        EmployeeTM selectedEmp=TableMobileSeller.getSelectionModel().getSelectedItem();
+
+        if(selectedDel == null || selectedEmp == null || txtContactNO==null) {
+            new Alert(Alert.AlertType.INFORMATION,"select a delivery and A mobile seller first").showAndWait();
+            return;
+        }
+
+        try {
+            String licence_plate=vehicleInterface.getLicensePlateById(selectedDel.getVehicle_id());
+            String del_id=String.valueOf(selectedDel.getDelivery_id());
+            String del_date=selectedDel.getDelivery_date().toString();
+            String area=selectedDel.getArea();
+
+            String message = "🚚 *Delivery Assignment Notice* 🚚\n\n" +
+                    "Hello! You have been assigned a new delivery.\n\n" +
+                    "*Delivery ID:* " + del_id + "\n" +
+                    "*Delivery Date:* " + del_date + "\n" +
+                    "*Assigned Vehicle:* " + licence_plate + "\n" +
+                    "*Delivery Area:* " + area + "\n\n" +
+                    "Please be prepared and ensure the vehicle is ready for dispatch. Contact the HR manager if you have any questions.\n\n" +
+                    "Thank you! 😊";
+
+            WhatsAppSender.sendMessage(txtContactNO.getText(), message);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    public void empTableClick(MouseEvent mouseEvent) {
+        EmployeeTM selected=TableMobileSeller.getSelectionModel().getSelectedItem();
+
+        if(selected!=null){
+            txtContactNO.setText(selected.getContact());
+
+        }
     }
 }

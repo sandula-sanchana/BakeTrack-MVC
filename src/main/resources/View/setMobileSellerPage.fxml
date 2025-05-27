@@ -84,7 +84,7 @@
             </HBox>
             <HBox layoutX="33.0" layoutY="530.0" prefHeight="49.0" prefWidth="434.0">
                <children>
-                  <TextField fx:id="txtWappNo" prefHeight="47.0" prefWidth="432.0">
+                  <TextField fx:id="txtContactNO" prefHeight="44.0" prefWidth="434.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -120,7 +120,7 @@
                 </VBox>
                 <VBox layoutY="287.0" prefHeight="200.0" prefWidth="796.0">
                     <children>
-                        <TableView fx:id="TableMobileSeller" prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="TableMobileSeller" onMouseClicked="#empTableClick" prefHeight="200.0" prefWidth="200.0">
                             <columns>
                                 <TableColumn fx:id="clmnEidE" prefWidth="75.0" text="Employee ID" />
                                 <TableColumn fx:id="clmnNAme" prefWidth="75.0" text="emp_name" />

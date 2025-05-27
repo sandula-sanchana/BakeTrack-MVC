@@ -5,6 +5,7 @@ public class SupplierDto {
     private String name;
     private String contact;
     private String address;
+    private String email;
 
     public SupplierDto(int supplier_id, String name, String contact, String address) {
         this.supplier_id = supplier_id;
@@ -17,6 +18,14 @@ public class SupplierDto {
         this.name = name;
         this.contact = contact;
         this.address = address;
+    }
+
+    public SupplierDto(int supplier_id, String name, String contact, String address, String email) {
+        this.supplier_id = supplier_id;
+        this.name = name;
+        this.contact = contact;
+        this.address = address;
+        this.email = email;
     }
 
     public int getSupplier_id() {
@@ -59,5 +68,13 @@ public class SupplierDto {
                 ", contact='" + contact + '\'' +
                 ", address='" + address + '\''
                 ;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -34,6 +34,21 @@ public class IngredientModel implements IngredientInterface {
         }
     }
 
+    public int countIng() throws SQLException {
+        ResultSet rs= null;
+        try {
+            String sql="SELECT COUNT(*) as count FROM ingredient";
+            rs = SqlExecute.SqlExecute(sql);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        while (rs.next()){
+            return rs.getInt("count");
+        }
+        return -1;
+    }
+
     public String deleteIngredient(int ingredientId) throws SQLException {
         String sql = "DELETE FROM ingredient WHERE ingredient_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);

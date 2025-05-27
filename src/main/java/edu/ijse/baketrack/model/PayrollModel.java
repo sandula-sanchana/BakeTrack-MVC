@@ -13,6 +13,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PayrollModel implements PayrollInterface{
@@ -158,6 +160,27 @@ public class PayrollModel implements PayrollInterface{
         }
 
 
+    }
+
+    public Map<String,Integer> getPayrollStatus(){
+        Map<String,Integer> statusCountMap=new HashMap<>();
+        String sql="SELECT status, COUNT(*) as count\n" +
+                "FROM payroll\n" +
+                "WHERE MONTH(pay_date) = MONTH(CURRENT_DATE())\n" +
+                "  AND YEAR(pay_date) = YEAR(CURRENT_DATE())\n" +
+                "GROUP BY status;\n";
+
+        try {
+            ResultSet rs=SqlExecute.SqlExecute(sql);
+            while (rs.next()){
+                String status=rs.getString("status");
+                Integer count=rs.getInt("count");
+                statusCountMap.put(status,count);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return statusCountMap;
     }
 
 }

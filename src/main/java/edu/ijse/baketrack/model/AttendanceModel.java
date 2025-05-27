@@ -1,6 +1,7 @@
 package edu.ijse.baketrack.model;
 import edu.ijse.baketrack.db.DBobject;
 
+import edu.ijse.baketrack.dto.AttendanceCount;
 import edu.ijse.baketrack.dto.AttendanceDto;
 import edu.ijse.baketrack.model.AttendanceInterface;
 import edu.ijse.baketrack.util.SqlExecute;
@@ -9,6 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AttendanceModel implements AttendanceInterface {
     private final Connection connection;
@@ -148,6 +150,28 @@ public class AttendanceModel implements AttendanceInterface {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<AttendanceCount> getAttendanceEachDay(){
+        List<AttendanceCount> attendanceDtos=new ArrayList<>();
+        try {
+            String sql="SELECT attend_date, COUNT(*) AS count\n" +
+                    "FROM attendance\n" +
+                    "WHERE status = 'present'\n" +
+                    "GROUP BY attend_date\n" +
+                    "ORDER BY attend_date;\n";
+
+            ResultSet rs=SqlExecute.SqlExecute(sql);
+            while (rs.next()){
+                   int count=rs.getInt("count");
+                   LocalDate date=rs.getDate("attend_date").toLocalDate();
+                   AttendanceCount attendanceCount=new AttendanceCount(count,date);
+                   attendanceDtos.add(attendanceCount);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return attendanceDtos;
     }
 
 }

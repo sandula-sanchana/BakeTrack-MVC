@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
+import edu.ijse.baketrack.dto.AttendanceCount;
 import edu.ijse.baketrack.dto.AttendanceDto;
 import edu.ijse.baketrack.dto.CustomersDto;
 
@@ -23,4 +25,6 @@ public interface AttendanceInterface {
     String updateAttendance(AttendanceDto dto) throws SQLException;
 
     double getEmployeeTotalOTHours(int employeeId, int month, int year) throws SQLException;
+
+    List<AttendanceCount> getAttendanceEachDay() throws SQLException;
 }

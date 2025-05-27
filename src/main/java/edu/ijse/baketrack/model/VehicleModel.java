@@ -122,4 +122,18 @@ public class VehicleModel implements VehicleInterface {
 
     }
 
+    public String getLicensePlateById(int vehicleId) throws SQLException {
+        String sql = "SELECT license_plate FROM vehicle WHERE vehicle_id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, vehicleId);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("license_plate");
+        } else {
+            return null;
+        }
+    }
+
+
 }

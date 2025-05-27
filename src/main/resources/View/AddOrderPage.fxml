@@ -165,6 +165,11 @@
                   </Label>
                </children>
             </HBox>
+            <Label layoutX="14.0" layoutY="607.0" text="*double click on rows on the table to remove added order Details">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
             </children></AnchorPane>
     </children>
 </AnchorPane>

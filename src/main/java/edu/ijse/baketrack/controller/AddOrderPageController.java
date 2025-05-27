@@ -180,6 +180,15 @@ public class AddOrderPageController implements Initializable {
             throw new RuntimeException(e);
         }
         cmbProduct.getItems().addAll(productDtoObservableList);
+
+        addOrderPageTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && !addOrderPageTable.getSelectionModel().isEmpty()) {
+                OrderDetailTM selectedItem = addOrderPageTable.getSelectionModel().getSelectedItem();
+                orderDetailTMs.remove(selectedItem);
+                addOrderPageTable.refresh();
+                updateTotalPriceLabel();
+            }
+        });
     }
 
     public void placeOrder() throws SQLException {

@@ -17,4 +17,6 @@ public interface VehicleInterface {
     ArrayList<VehicleDto> getAllVehicles() throws SQLException;
 
     ArrayList<VehicleDto> getAvailableVehicles(String status) throws SQLException;
+
+    String getLicensePlateById(int vehicleId) throws SQLException;
 }

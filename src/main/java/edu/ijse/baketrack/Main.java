@@ -23,7 +23,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
 
-        //WhatsAppSender.sendMessage("+94765371402", "Hello from BakeTrack!");
+        //;
 
     }
 

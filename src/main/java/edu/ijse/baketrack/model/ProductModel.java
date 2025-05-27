@@ -39,6 +39,21 @@ public class ProductModel implements ProductInterface{
         }
     }
 
+    public int countProducts() throws SQLException {
+        ResultSet rs= null;
+        try {
+            String sql="SELECT COUNT(*) as count FROM product";
+            rs = SqlExecute.SqlExecute(sql);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        while (rs.next()){
+            return rs.getInt("count");
+        }
+        return -1;
+    }
+
     public String updateProduct(ProductDto productDto) throws SQLException {
         String sql = "UPDATE product SET name=?, category = ?, price = ?,total_quantity=?, description = ? WHERE product_id = ?";
 

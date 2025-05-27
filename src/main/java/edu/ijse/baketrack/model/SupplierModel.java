@@ -95,4 +95,29 @@ public class SupplierModel implements SupplierInterface{
         }
         return supplierList;
     }
+
+    public ArrayList<SupplierDto> getAllSuppliersWIthEmail() throws SQLException {
+        String sql = "SELECT * FROM supplier";
+        ArrayList<SupplierDto> supplierList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                SupplierDto supplier = new SupplierDto(
+                        resultSet.getInt("supplier_id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("contact"),
+                        resultSet.getString("address"),
+                        resultSet.getString("email")
+                );
+                supplierList.add(supplier);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return supplierList;
+    }
 }

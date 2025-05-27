@@ -13,4 +13,6 @@ public interface SupplierInterface {
     void getSupplierById(int supplierId) throws SQLException;
 
     ArrayList<SupplierDto> getAllSuppliers() throws SQLException;
+
+    ArrayList<SupplierDto> getAllSuppliersWIthEmail() throws SQLException;
 }

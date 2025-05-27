@@ -7,14 +7,20 @@ import edu.ijse.baketrack.model.UsersModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class LogInPageController {
+public class LogInPageController implements Initializable {
+    public Button loginButton;
     private UsersInterface usersInterface;
 
     public  LogInPageController(){
@@ -95,4 +101,14 @@ public class LogInPageController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginButton.setOnMouseEntered(event -> {
+            loginButton.setCursor(Cursor.OPEN_HAND);
+        });
+
+        loginButton.setOnMouseExited(event -> {
+            loginButton.setCursor(Cursor.DEFAULT);
+        });
+    }
 }

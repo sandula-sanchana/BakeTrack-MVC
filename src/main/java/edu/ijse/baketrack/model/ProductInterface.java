@@ -21,4 +21,6 @@ public interface ProductInterface {
     public int getQtyByPid(int ProductID) throws SQLException;
 
     String getProductNameById(int productId) throws SQLException;
+
+    int countProducts() throws SQLException;
 }

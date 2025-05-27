@@ -14,4 +14,5 @@ public interface IngredientInterface {
     ArrayList<IngredientDto> getAllIngredients() throws SQLException;
     String getIngredientNameById(int ingredientId) throws SQLException;
    int getStockById(int ingredientId) throws SQLException;
+    int countIng() throws SQLException;
 }

@@ -16,6 +16,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -27,6 +28,8 @@ import java.util.ResourceBundle;
 
 public class StorekeeperDashboardController implements Initializable {
     public BarChart ingBarChart;
+    public Label totalProducts;
+    public Label totalIng;
     private ProductInterface productInterface=new ProductModel();
 
     public PieChart pieChart;
@@ -94,6 +97,8 @@ public class StorekeeperDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
          loadPieChart();
          loadToBarChart();
+         countProducts();
+         countINg();
     }
 
     public void loadToBarChart(){
@@ -119,6 +124,40 @@ public class StorekeeperDashboardController implements Initializable {
             alert.setHeaderText("Could not load ingredient bar chart.");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+        }
+    }
+
+    public void countProducts(){
+        try {
+            int total=productInterface.countProducts();
+
+            if(total>0){
+                totalProducts.setText(String.valueOf(total));
+            }else{
+                totalProducts.setText("no products");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void countINg(){
+        try {
+            int total= 0;
+            try {
+                IngredientInterface ingredientInterface=new IngredientModel();
+                total =ingredientInterface.countIng();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            if(total>0){
+                totalIng.setText(String.valueOf(total));
+            }else{
+                totalIng.setText("no ingredients");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

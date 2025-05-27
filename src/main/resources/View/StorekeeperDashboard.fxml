@@ -83,7 +83,7 @@
                   </HBox>
                   <HBox prefHeight="57.0" prefWidth="353.0">
                      <children>
-                        <Label prefHeight="31.0" prefWidth="247.0" text="total Ingredinet Types ::">
+                        <Label prefHeight="31.0" prefWidth="247.0" text="total Ingredient Types ::">
                            <font>
                               <Font size="21.0" />
                            </font>
