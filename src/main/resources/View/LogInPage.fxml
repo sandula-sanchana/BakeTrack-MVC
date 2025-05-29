@@ -52,11 +52,14 @@
             </ImageView>
          </children>
       </VBox>
-      <Hyperlink layoutX="1023.0" layoutY="506.0" onAction="#hlForgotPwdLPage" text="forgot password?" />
-      <Button layoutX="1096.0" layoutY="45.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="147.0" text="SING UP" />
-      <Label layoutX="996.0" layoutY="57.0" text="Not a user?" textFill="#f5efef">
+      <Hyperlink layoutX="1024.0" layoutY="567.0" onAction="#hlForgotPwdLPage" text="forgot password?">
          <font>
-            <Font size="17.0" />
+            <Font size="19.0" />
+         </font></Hyperlink>
+      <Button layoutX="1096.0" layoutY="45.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" style="-fx-font-size: 16; -fx-background-radius: 15;" text="Sign Up" />
+      <Label layoutX="970.0" layoutY="56.0" text="Not a user?" textFill="#f5efef">
+         <font>
+            <Font size="20.0" />
          </font>
       </Label>
    </children>
