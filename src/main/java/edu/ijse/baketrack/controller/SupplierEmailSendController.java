@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -23,6 +25,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ import java.util.ResourceBundle;
 
 public class SupplierEmailSendController implements Initializable {
 
+    public AnchorPane apOrderPage;
     private SupplierInterface supplierInterface;
     private ObservableList<SupplierDto> supplierDtoObservableList= FXCollections.observableArrayList();
 
@@ -160,6 +164,13 @@ public class SupplierEmailSendController implements Initializable {
 
     @FXML
     void btnGOback(ActionEvent event) {
+        try {
+            apOrderPage.getChildren().clear();
+            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/StorekeeperDashboard.fxml"));
+            apOrderPage.getChildren().add(ap);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

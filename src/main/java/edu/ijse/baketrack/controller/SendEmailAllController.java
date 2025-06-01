@@ -2,6 +2,7 @@ package edu.ijse.baketrack.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -17,11 +18,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 public class SendEmailAllController {
 
 
+    public AnchorPane apSe;
     private File attachmentFile = null;
 
     @FXML
@@ -57,6 +60,13 @@ public class SendEmailAllController {
 
     @FXML
     void btnGOback(ActionEvent event) {
+        try {
+            apSe.getChildren().clear();
+            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/HRManagerDashboard.fxml"));
+            apSe.getChildren().add(ap);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

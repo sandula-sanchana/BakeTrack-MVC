@@ -160,4 +160,8 @@ public class StorekeeperDashboardController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    public void btnSendEmailSup(ActionEvent actionEvent) {
+        setPages("/View/sendEmailToSuppliers.fxml");
+    }
 }

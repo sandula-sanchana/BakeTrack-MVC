@@ -16,7 +16,7 @@
    <children>
       <AnchorPane layoutY="6.0" prefHeight="600.0" prefWidth="263.0" style="-fx-background-color: #2C3E50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="591.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="196.0" fitWidth="150.0" layoutX="68.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="539.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="471.0" AnchorPane.topAnchor="65.0">
+            <ImageView fitHeight="196.0" fitWidth="150.0" layoutX="83.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0" scaleZ="2.0" AnchorPane.bottomAnchor="514.0" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="456.0" AnchorPane.topAnchor="136.0">
                <image>
                   <Image url="@../images/logo_no_bg.png" />
                </image>

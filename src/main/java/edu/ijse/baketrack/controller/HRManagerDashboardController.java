@@ -140,5 +140,9 @@ public class HRManagerDashboardController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    public void sendEmail(ActionEvent actionEvent) {
+        setPages("/View/SendEmailAll.fxml");
+    }
 }
 

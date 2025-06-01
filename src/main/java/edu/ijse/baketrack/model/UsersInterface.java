@@ -12,4 +12,12 @@ public interface UsersInterface {
     String authenticater(String u_name,String u_password) throws SQLException;
 
     ArrayList<UsersDto> getAllUsers() throws SQLException;
+
+    String getEmailByRole(String role) throws SQLException;
+
+    String getPasswordByRole(String role) throws SQLException;
+
+    String getUserNameByRole(String role) throws SQLException;
+
+    String updatePasswordByRole(String role, String newPassword) throws SQLException;
 }

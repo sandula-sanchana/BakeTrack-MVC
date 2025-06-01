@@ -39,6 +39,12 @@
                         <Button mnemonicParsing="false" onAction="#btnSetMobileSeller" prefHeight="52.0" prefWidth="280.0" style="-fx-background-radius: 9; -fx-background-color: #3498DB; -fx-font-size: 20;" text="Set Mobile sellers" />
                      </children>
                   </HBox>
+                  <HBox prefHeight="61.0" prefWidth="323.0" spacing="16.0">
+                     <children>
+                        <FontAwesomeIconView fill="#f39c12" glyphName="ENVELOPE" size="30" wrappingWidth="51.0" />
+                        <Button mnemonicParsing="false" onAction="#sendEmail" prefHeight="54.0" prefWidth="276.0" style="-fx-font-size: 20; -fx-background-color: #3498DB; -fx-background-radius: 9;" text="Send Emails" />
+                     </children>
+                  </HBox>
                     </children>
                 </VBox>
                 <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="106.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">

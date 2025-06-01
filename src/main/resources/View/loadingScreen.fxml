@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #d0eaff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.loadingScreenController">
+
+    <children>
+        <!-- Spinner (scaled) -->
+        <ProgressIndicator fx:id="spinner" layoutX="593.0" layoutY="340.0" prefHeight="56.0" prefWidth="48.0" scaleX="3.0" scaleY="3.0" scaleZ="3.0" />
+
+        <!-- Label under spinner -->
+        <Label fx:id="lbl" layoutX="500.0" layoutY="490.0" style="-fx-font-size: 24px; -fx-text-fill: #555;" text="Loading BakeTrack..." textFill="#450d0d">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+    </children>
+</AnchorPane>

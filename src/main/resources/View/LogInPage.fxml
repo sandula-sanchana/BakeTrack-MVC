@@ -29,8 +29,14 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUserNameSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Username.." style="-fx-border-radius: 10; -fx-background-color: #ECF0F1; -fx-background-radius: 10;" />
-            <TextField fx:id="txtUserPasswordSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Password.." style="-fx-background-radius: 10; -fx-background-color: #ECF0F1; -fx-border-radius: 10;" />
+            <TextField fx:id="txtUserNameSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Username.." style="-fx-border-radius: 10; -fx-background-color: #ECF0F1; -fx-background-radius: 10;">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="txtUserPasswordSignUpPage" prefHeight="50.0" prefWidth="332.0" promptText="Password.." style="-fx-background-radius: 10; -fx-background-color: #ECF0F1; -fx-border-radius: 10;">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
             <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLogInloginPage" prefHeight="59.0" prefWidth="232.0" style="-fx-background-color: #3498DB;" text="LOG IN">
                <font>
                   <Font size="22.0" />
@@ -43,25 +49,21 @@
                </effect></Button>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="371.0" layoutY="81.0" prefHeight="334.0" prefWidth="539.0" AnchorPane.bottomAnchor="385.0" AnchorPane.leftAnchor="371.0" AnchorPane.rightAnchor="370.0" AnchorPane.topAnchor="81.0">
-         <children>
-            <ImageView fitHeight="250.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-               <image>
-                  <Image url="@../images/logo_no_bg.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
       <Hyperlink layoutX="1024.0" layoutY="567.0" onAction="#hlForgotPwdLPage" text="forgot password?">
          <font>
             <Font size="19.0" />
          </font></Hyperlink>
-      <Button layoutX="1096.0" layoutY="45.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" style="-fx-font-size: 16; -fx-background-radius: 15;" text="Sign Up" />
+      <Button layoutX="1096.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnSignUploginPage" prefHeight="50.0" prefWidth="160.0" style="-fx-font-size: 16; -fx-background-radius: 15;" text="Sign Up" />
       <Label layoutX="970.0" layoutY="56.0" text="Not a user?" textFill="#f5efef">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
+      <ImageView fitHeight="211.0" fitWidth="195.0" layoutX="546.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0" scaleZ="2.0">
+         <image>
+            <Image url="@../images/logo_no_bg.png" />
+         </image>
+      </ImageView>
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

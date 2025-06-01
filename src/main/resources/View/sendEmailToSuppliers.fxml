@@ -17,7 +17,7 @@
 <AnchorPane fx:id="apOrderPage" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.SupplierEmailSendController">
     <children>
 
-        <AnchorPane layoutX="-3.0" layoutY="0.0" prefHeight="800.0" prefWidth="1283.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="apSE" layoutX="-3.0" layoutY="0.0" prefHeight="800.0" prefWidth="1283.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Separator layoutX="0.0" layoutY="107.0" prefHeight="18.0" prefWidth="1283.0" style="-fx-background-color: #000;" />
                 <HBox layoutX="500.0" layoutY="583.0" spacing="50.0" />

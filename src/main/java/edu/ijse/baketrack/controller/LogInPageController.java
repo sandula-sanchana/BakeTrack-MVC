@@ -9,10 +9,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +45,14 @@ public class LogInPageController implements Initializable {
 
     @FXML
     private TextField txtUserPasswordSignUpPage;
+
+    public void setUserName(String userName) {
+        txtUserNameSignUpPage.setText(userName);
+    }
+
+    public void setPassword(String password) {
+        txtUserPasswordSignUpPage.setText(password);
+    }
 
     @FXML
     void btnLogInloginPage(ActionEvent event) {
@@ -85,19 +97,33 @@ public class LogInPageController implements Initializable {
 
     @FXML
     void btnSignUploginPage(ActionEvent event) {
-//        try {
-//            apLoginPage.getChildren().clear();
-//            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/SignupPage.fxml"));
-//            apLoginPage.getChildren().add(ap);
-//        } catch (Exception e) {
-//            new Alert(Alert.AlertType.ERROR,"can't find signup page").show();
-//            e.printStackTrace();
-//        }
+        try {
+            apLoginPage.getChildren().clear();
+            AnchorPane ap= FXMLLoader.load(getClass().getResource("/View/SignupPage.fxml"));
+            apLoginPage.getChildren().add(ap);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,"can't find signup page").show();
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void hlForgotPwdLPage(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/ForgotPassword.fxml"));
+            Parent root = fxmlLoader.load();
+            ForgotPasswordController forgotPasswordController=fxmlLoader.getController();
+            forgotPasswordController.setLoginPageController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Forgot Password - BakeTrack");
+            stage.setScene(new Scene(root));
+            stage.setMinWidth(900);
+            stage.setMinHeight(620);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

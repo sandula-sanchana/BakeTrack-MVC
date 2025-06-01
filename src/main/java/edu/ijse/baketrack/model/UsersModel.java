@@ -33,6 +33,61 @@ public class UsersModel implements UsersInterface {
         }
     }
 
+    public String getEmailByRole(String role) throws SQLException {
+        String sql = "SELECT email FROM users WHERE roles = ? LIMIT 1";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, role);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("email");
+        } else {
+            return null;
+        }
+    }
+
+    public String getPasswordByRole(String role) throws SQLException {
+        String sql = "SELECT user_password FROM users WHERE roles = ? LIMIT 1";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, role);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("user_password");
+        } else {
+            return null;
+        }
+    }
+
+    public String getUserNameByRole(String role) throws SQLException {
+        String sql = "SELECT user_name FROM users WHERE roles = ? LIMIT 1";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, role);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("user_name");
+        } else {
+            return null;
+        }
+    }
+
+    public String updatePasswordByRole(String role, String newPassword) throws SQLException {
+        String sql = "UPDATE users SET user_password = ? WHERE roles = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, newPassword);
+        statement.setString(2, role);
+
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0 ? "Password updated successfully." : "Failed to update password.";
+    }
+
+
+
+
 
     public String updateUser(UsersDto usersDto) throws SQLException {
         String sql = "UPDATE users SET user_name = ?, roles = ?, email = ? WHERE user_id = ?";
