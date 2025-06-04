@@ -28,6 +28,13 @@ public class SupplierDto {
         this.email = email;
     }
 
+    public SupplierDto(String name, String contact, String address, String email) {
+        this.name = name;
+        this.contact = contact;
+        this.address = address;
+        this.email = email;
+    }
+
     public int getSupplier_id() {
         return supplier_id;
     }

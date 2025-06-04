@@ -22,6 +22,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class setPaymentsController implements Initializable {
@@ -257,5 +258,86 @@ public class setPaymentsController implements Initializable {
 
     public void tableMosueClick(MouseEvent mouseEvent) {
         loadSelectedPaytoFIelds();
+    }
+
+    public void btnupdate(ActionEvent actionEvent) {
+
+        if (txtPayid.getText().isEmpty() || cmbPayMethod.getValue() == null || datePicker.getValue() == null || paymentStatus == null) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields before saving.").showAndWait();
+            return;
+        }
+
+
+        try {
+                PaymentsTM selected = TablePayment.getSelectionModel().getSelectedItem();
+
+                if (selected != null) {
+
+                    PaymentsDto updatedPayment = new PaymentsDto(
+                            Integer.parseInt(txtPayid.getText()),
+                            selected.getOrder_id(),
+                            cmbPayMethod.getValue(),
+                            datePicker.getValue(),
+                            paymentStatus
+                    );
+
+                    String result = paymentInterface.updatePayment(updatedPayment);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Update Payment");
+                    alert.setContentText(result);
+                    alert.showAndWait();
+
+                    paymentsTMObservableList.clear();
+                    paymentsDtos = paymentInterface.getPaymentDetailsByOrderId(selected.getOrder_id());
+                    loadPaymentToTable(paymentsDtos);
+                    cleatTxt();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Please select a payment to update.").show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "error");
+            }
+        }
+
+
+
+    public void btnDelete(ActionEvent actionEvent) {
+        try {
+            PaymentsTM selected = TablePayment.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Confirm Deletion", ButtonType.YES, ButtonType.NO);
+                confirm.setHeaderText("Are you sure you want to delete this customer?");
+                confirm.setContentText("This action cannot be undone.");
+
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.YES) {
+                    try {
+                        String resp = paymentInterface.deletePayment(selected.getOrder_id());
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Delete Payment");
+                        alert.setContentText(resp);
+                        alert.showAndWait();
+
+                        paymentsTMObservableList.clear();
+                        paymentsDtos = paymentInterface.getPaymentDetailsByOrderId(selected.getOrder_id());
+
+                        if (paymentsDtos == null) {
+                            paymentsDtos = new ArrayList<>();
+                        }
+
+                        loadPaymentToTable(paymentsDtos);
+                        cleatTxt();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Please select a customer to delete.").showAndWait();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 }

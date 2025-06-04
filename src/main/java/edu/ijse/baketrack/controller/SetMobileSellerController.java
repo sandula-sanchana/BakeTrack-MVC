@@ -236,4 +236,7 @@ public class SetMobileSellerController implements Initializable {
 
         }
     }
+
+    public void tableMouseClick(MouseEvent mouseEvent) {
+    }
 }

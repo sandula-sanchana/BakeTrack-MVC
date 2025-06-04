@@ -13,6 +13,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -27,10 +29,18 @@ import java.util.ResourceBundle;
 public class HRManagerDashboardController implements Initializable {
     public LineChart attendanceLIneChart;
     public PieChart totalEmpPie;
+    public TextField txtOT;
     public PieChart salaryStatusPie;
+    public Button btnUpID;
+    public Button btnLogoutID;
+    public Button btnSendMailID;
+    public Button btnSetMobileSellerId;
+    public Button btnAttendanceID;
+    public Button btnPayrollID;
     private AttendanceInterface attendanceInterface=new AttendanceModel();
     private   EmployeeInterface employeeInterface=new EmployeeModel();
     private PayrollInterface payrollInterface=new PayrollModel();
+    private SystemSettingInterface systemSettingInterface=new SystemSettingModel();
 
     @FXML
     private AnchorPane HMDap;
@@ -95,6 +105,67 @@ public class HRManagerDashboardController implements Initializable {
          loadLineChart();
          loadEmpPieChart();
          loadStatusPayrollPie();
+         loadOtrate();
+
+
+        applyHoverEffect(btnPayrollID, "#3498DB", "#2980B9");
+        applyHoverEffect(btnAttendanceID, "#3498DB", "#2980B9");
+        applyHoverEffect(btnSetMobileSellerId, "#3498DB", "#2980B9");
+        applyHoverEffect(btnSendMailID, "#3498DB", "#2980B9");
+
+        applyHoverEffect(btnLogoutID, "#3498DB", "#E74C3C");
+
+        applyHoverEffect(btnUpID, "#3498DB", "#27AE60");
+
+
+    }
+
+
+    private void applyHoverEffect(Button button, String originalBgColor, String hoverBgColor) {
+
+        String baseStyle = "-fx-background-color: " + originalBgColor + ";" +
+                "-fx-background-radius: " + getButtonRadius(button) + ";" +
+                "-fx-font-size: " + getButtonFontSize(button) + ";";
+
+        button.setStyle(baseStyle);
+
+
+        button.setCursor(javafx.scene.Cursor.HAND);
+
+
+        String hoverStyle = "-fx-background-color: " + hoverBgColor + ";" +
+                "-fx-background-radius: " + getButtonRadius(button) + ";" +
+                "-fx-font-size: " + getButtonFontSize(button) + ";" +
+                "-fx-scale-x: 1.03;" +
+                "-fx-scale-y: 1.03;" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0.6, 0, 0);";
+
+        button.setOnMouseEntered(event -> {
+            button.setStyle(hoverStyle);
+        });
+
+
+        button.setOnMouseExited(event -> {
+            button.setStyle(baseStyle);
+        });
+    }
+
+
+    private String getButtonRadius(Button button) {
+        if (button == btnLogoutID) {
+            return "20";
+        } else if (button == btnUpID) {
+            return "8";
+        }
+        return "9";
+    }
+
+
+    private String getButtonFontSize(Button button) {
+        if (button == btnLogoutID) {
+            return "20px";
+        }
+        return "24px";
     }
 
     public void loadEmpPieChart() {
@@ -143,6 +214,31 @@ public class HRManagerDashboardController implements Initializable {
 
     public void sendEmail(ActionEvent actionEvent) {
         setPages("/View/SendEmailAll.fxml");
+    }
+
+    public void btnOTupBtn(ActionEvent actionEvent) {
+        if ((txtOT.getText().isEmpty())){
+            return;
+        }
+        try {
+            int ot_rate=Integer.parseInt(txtOT.getText());
+            String resp=systemSettingInterface.setOTRate(ot_rate);
+            new Alert(Alert.AlertType.INFORMATION,resp).showAndWait();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    public void loadOtrate(){
+        try {
+            int otrate=systemSettingInterface.getOTRate();
+            String otrate_st=String.valueOf(otrate);
+            txtOT.setText(otrate_st);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

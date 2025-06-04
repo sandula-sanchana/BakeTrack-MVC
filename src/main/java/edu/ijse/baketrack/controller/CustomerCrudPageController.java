@@ -35,6 +35,7 @@ public class CustomerCrudPageController implements Initializable {
     private final String namePattern = "^[A-Za-z ]+$";
     private final String phonePattern = "^(\\+94\\d{9}|94\\d{9}|0\\d{9})$";
     private final String addressPattern = "^[A-Za-z0-9.,/\\-\\s]+$";
+    public AnchorPane apMainSIde;
 
     private CustomerInterface customerInterface;
     private ArrayList<CustomersDto> customerDtoArrayList = new ArrayList<>();
@@ -238,15 +239,26 @@ public class CustomerCrudPageController implements Initializable {
     }
 
     public void btnReport(ActionEvent actionEvent) {
+
+        CustomersTM customersTM=customerTable.getSelectionModel().getSelectedItem();
+
+        if(customersTM==null){
+            new Alert(Alert.AlertType.ERROR, "select a customer from the table first!").showAndWait();
+            return;
+        }
         try {
             JasperReport report = JasperCompileManager.compileReport(
-                    getClass().getResourceAsStream("/report/Customer_report.jrxml")
+                    getClass().getResourceAsStream("/report/order_by_cus.jrxml")
             );
 
             Connection connection = DBobject.getInstance().getConnection();
 
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("p_date", LocalDate.now().toString());
+            parameters.put("p_cusid",String.valueOf(customersTM.getId()));
+            parameters.put("p_cus_con",String.valueOf(customersTM.getContact()));
+            parameters.put("p_cusName",String.valueOf(customersTM.getName()));
+
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     report,

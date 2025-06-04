@@ -38,32 +38,32 @@ public class PaymentModel implements PaymentInterface{
         }
     }
 
-    public void deletePayment(int orderId) throws SQLException {
+    public String deletePayment(int orderId) throws SQLException {
         String sql = "DELETE FROM payments WHERE order_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, orderId);
 
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Payment deleted successfully");
+            return "Payment deleted successfully";
         } else {
-            System.out.println("Failed to delete payment");
+            return "Failed to delete payment";
         }
     }
 
-    public void updatePayment(PaymentsDto payment, int order_id) throws SQLException {
-        String sql = "UPDATE payments SET price = ?, payment_method = ?, payment_date = ? WHERE order_id = ?";
+    public String updatePayment(PaymentsDto payment) throws SQLException {
+        String sql = "UPDATE payments SET status=?, payment_method = ?, payment_date = ? WHERE order_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setDouble(1, payment.getPrice());
+        statement.setString(1, payment.getStatus());
         statement.setString(2, payment.getPaymentMethod());
         statement.setDate(3, java.sql.Date.valueOf(payment.getPaymentDate()));
-        statement.setInt(4, order_id);
+        statement.setInt(4, payment.getOrderID());
 
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Payment updated successfully");
+            return "Payment updated successfully";
         } else {
-            System.out.println("Failed to update payment");
+           return "Failed to update payment";
         }
     }
     public ArrayList<PaymentsDto> getPaymentDetailsByOrderId(int orderId) {

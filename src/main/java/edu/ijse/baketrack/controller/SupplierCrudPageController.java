@@ -31,6 +31,8 @@ public  class SupplierCrudPageController implements Initializable {
     private final String namePattern = "^[A-Za-z ]+$";
     private final String phonePattern = "^(\\+94\\d{9}|94\\d{9}|0\\d{9})$";
     private final String addressPattern = "^[A-Za-z0-9.,/\\-\\s]+$";
+    public TextField txtEmail;
+    public TableColumn<SupplierTM, String> clmnEmail;
 
     private SupplierInterface supplierInterface;
     private ObservableList<SupplierTM> supplierTMObservableList= FXCollections.observableArrayList();
@@ -125,6 +127,7 @@ public  class SupplierCrudPageController implements Initializable {
             txtName.setText(selected.getName());
              txtAddress.setText(selected.getAddress());
             txtContact.setText(selected.getContact());
+            txtEmail.setText(selected.getEmail());
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
             btnSave.setDisable(true);
@@ -138,6 +141,7 @@ public  class SupplierCrudPageController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        clmnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         loadSuppliersToTable();
         supplierTable.setItems(supplierTMObservableList);
@@ -151,7 +155,7 @@ public  class SupplierCrudPageController implements Initializable {
         try {
             ArrayList<SupplierDto> supplierDtoArrayList = supplierInterface.getAllSuppliers();
             for (SupplierDto supplierDto : supplierDtoArrayList) {
-                supplierTMObservableList.add(new SupplierTM(supplierDto.getSupplier_id(),supplierDto.getName(),supplierDto.getContact(),supplierDto.getAddress()));
+                supplierTMObservableList.add(new SupplierTM(supplierDto.getSupplier_id(),supplierDto.getName(),supplierDto.getContact(),supplierDto.getAddress(),supplierDto.getEmail()));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -162,6 +166,7 @@ public  class SupplierCrudPageController implements Initializable {
         String name = txtName.getText();
         String address = txtAddress.getText();
         String contact = txtContact.getText();
+        String email=txtEmail.getText();
 
         boolean validName = name.matches(namePattern);
         boolean validAddress = address.matches(addressPattern);
@@ -172,7 +177,7 @@ public  class SupplierCrudPageController implements Initializable {
         if (!validContact) txtContact.setStyle("-fx-border-color: red;");
 
         if (validName && validAddress && validContact) {
-            SupplierDto dto = new SupplierDto(name, contact,address);
+            SupplierDto dto = new SupplierDto(name, contact,address,email);
             try {
                 String response = supplierInterface.addSupplier(dto);
                 new Alert(Alert.AlertType.INFORMATION, response).showAndWait();
@@ -191,6 +196,7 @@ public  class SupplierCrudPageController implements Initializable {
         txtName.clear();
         txtAddress.clear();
         txtContact.clear();
+        txtEmail.clear();
     }
 
     public void updateSupplier(){
@@ -198,7 +204,7 @@ public  class SupplierCrudPageController implements Initializable {
         if (selected != null) {
             SupplierDto dto = new SupplierDto(
                    selected.getSupplier_id(),
-                    txtName.getText(),txtContact.getText(),txtAddress.getText()
+                    txtName.getText(),txtContact.getText(),txtAddress.getText(),txtEmail.getText()
             );
             try {
                 String response = supplierInterface.updateSupplier(dto);

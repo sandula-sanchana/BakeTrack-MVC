@@ -6,12 +6,28 @@ public class SupplierTM {
     private String name;
     private String contact;
     private String address;
+    private String email;
 
     public SupplierTM(int supplier_id, String name, String contact, String address) {
         this.supplier_id = supplier_id;
         this.name = name;
         this.contact = contact;
         this.address = address;
+    }
+
+    public SupplierTM(int supplier_id, String name, String contact, String address, String email) {
+        this.supplier_id = supplier_id;
+        this.name = name;
+        this.contact = contact;
+        this.address = address;
+        this.email = email;
+    }
+
+    public SupplierTM(String name, String contact, String address, String email) {
+        this.name = name;
+        this.contact = contact;
+        this.address = address;
+        this.email = email;
     }
 
     public SupplierTM(String name, String contact, String address) {
@@ -50,5 +66,13 @@ public class SupplierTM {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

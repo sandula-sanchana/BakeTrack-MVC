@@ -6,85 +6,128 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="apSe" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.SendEmailAllController">
+<AnchorPane fx:id="apSe" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.baketrack.controller.SendEmailAllController">
     <children>
-
-        <AnchorPane layoutX="-3.0" layoutY="0.0" prefHeight="800.0" prefWidth="1283.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F5F5DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Separator layoutX="0.0" layoutY="107.0" prefHeight="18.0" prefWidth="1283.0" style="-fx-background-color: #000;" />
-                <HBox layoutX="500.0" layoutY="583.0" spacing="50.0" />
-                <VBox alignment="TOP_CENTER" layoutX="69.0" layoutY="152.0" prefHeight="411.0" prefWidth="1006.0" spacing="20.0">
+                <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <image>
+                        <Image url="@../images/bi_astract.png" />
+                    </image>
+                </ImageView>
+                <Rectangle fill="#F5F5DC" opacity="0.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+                <AnchorPane prefHeight="150.0" prefWidth="1920.0" style="-fx-background-color: #2C3E50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="31.0" prefWidth="195.0" text="To:" textFill="#2c3e50">
-                                    <font>
-                                        <Font size="21.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="txtEmail" prefHeight="37.0" prefWidth="476.0" promptText="enter email here" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="31.0" prefWidth="195.0" text="Subject :" textFill="#2c3e50">
-                                    <font>
-                                        <Font size="21.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="messageSUb" prefHeight="37.0" prefWidth="777.0" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="30.0">
-                            <children>
-                                <Label prefHeight="31.0" prefWidth="195.0" text="Message :" textFill="#2c3e50">
-                                    <font>
-                                        <Font size="21.0" />
-                                    </font>
-                                </Label>
-                                <TextArea fx:id="messageBody" prefHeight="200.0" prefWidth="781.0" />
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-                <Button layoutX="919.0" layoutY="626.0" mnemonicParsing="false" onAction="#btnSend" prefHeight="79.0" prefWidth="258.0" style="-fx-font-size: 30; -fx-background-color: #3498DB; -fx-background-radius: 7;" text="Send" />
-                <AnchorPane layoutX="1.0" layoutY="-3.0" prefHeight="112.0" prefWidth="1280.0" style="-fx-background-color: #2C3E50;">
-                    <children>
-                        <ImageView fitHeight="124.0" fitWidth="107.0" layoutX="288.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3">
+                        <ImageView fitHeight="120.0" fitWidth="136.0" layoutX="500.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3" scaleZ="1.3">
                             <image>
                                 <Image url="@../images/logo_no_bg.png" />
                             </image>
                         </ImageView>
-                        <Label layoutX="509.0" layoutY="27.0" text="Send Email" textFill="#f39c12">
+                        <Button layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnGOback" prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #34495E; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: #2C3E50; -fx-border-radius: 8;" text="Go Back">
                             <font>
-                                <Font size="34.0" />
+                                <Font size="18.0" />
+                            </font>
+                            <effect>
+                                <DropShadow color="#00000033" offsetX="2.0" offsetY="2.0" radius="5.0" />
+                            </effect>
+                        </Button>
+                        <Label layoutX="680.0" layoutY="45.0" text="Send Email" textFill="#f39c12">
+                            <font>
+                                <Font size="58.0" />
                             </font>
                         </Label>
-                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnGOback" prefHeight="43.0" prefWidth="96.0" style="-fx-font-size: 16;" text="go back" />
                     </children>
                 </AnchorPane>
-                <HBox alignment="CENTER_LEFT" layoutX="69.0" layoutY="653.0" prefHeight="37.0" prefWidth="499.0" spacing="30.0">
+                <Separator layoutY="147.0" prefHeight="18.0" prefWidth="1920.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+
+                <AnchorPane layoutX="250.0" layoutY="200.0" prefHeight="650.0" prefWidth="1420.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="200.0">
+                    <effect>
+                        <DropShadow color="#00000033" offsetX="5.0" offsetY="5.0" radius="10.0" />
+                    </effect>
                     <children>
-                        <Label prefHeight="31.0" prefWidth="221.0" text="Choose attachments::" textFill="#2c3e50">
-                            <font>
-                                <Font size="21.0" />
-                            </font>
-                        </Label>
-                        <FontAwesomeIconView glyphName="PAPERCLIP" onMouseClicked="#attachIconCLick" size="25" wrappingWidth="69.0" />
-                        <Label fx:id="lblAttachmentName" text="No file selected" textFill="#7f8c8d">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Label>
+                        <VBox alignment="TOP_CENTER" prefHeight="610.0" prefWidth="1380.0" spacing="40.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="30.0">
+                                    <children>
+                                        <Label prefHeight="40.0" prefWidth="150.0" text="To:" textFill="#2c3e50">
+                                            <font>
+                                                <Font size="26.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="txtEmail" prefHeight="50.0" prefWidth="1100.0" promptText="Enter email here" style="-fx-background-radius: 5;">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </TextField>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="30.0">
+                                    <children>
+                                        <Label prefHeight="40.0" prefWidth="150.0" text="Subject :" textFill="#2c3e50">
+                                            <font>
+                                                <Font size="26.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="messageSUb" prefHeight="50.0" prefWidth="1100.0" style="-fx-background-radius: 5;">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </TextField>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="TOP_LEFT" spacing="30.0">
+                                    <children>
+                                        <Label prefHeight="40.0" prefWidth="150.0" text="Message :" textFill="#2c3e50">
+                                            <font>
+                                                <Font size="26.0" />
+                                            </font>
+                                        </Label>
+                                        <TextArea fx:id="messageBody" prefHeight="250.0" prefWidth="1100.0" style="-fx-background-radius: 5;">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </TextArea>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1380.0" spacing="30.0">
+                                    <children>
+                                        <Label prefHeight="40.0" prefWidth="250.0" text="Choose attachment:" textFill="#2c3e50">
+                                            <font>
+                                                <Font size="22.0" />
+                                            </font>
+                                        </Label>
+                                        <FontAwesomeIconView glyphName="PAPERCLIP" onMouseClicked="#attachIconCLick" size="35" styleClass="attachment-icon" />
+                                        <Label fx:id="lblAttachmentName" text="No file selected" textFill="#7f8c8d">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
                     </children>
-                </HBox>
+                </AnchorPane>
+
+                <Button layoutX="831.0" layoutY="880.0" mnemonicParsing="false" onAction="#btnSend" prefHeight="80.0" prefWidth="260.0" style="-fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #27ae60; -fx-border-radius: 10;" text="SEND" AnchorPane.leftAnchor="831.0" AnchorPane.rightAnchor="829.0" AnchorPane.topAnchor="880.0">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                    <effect>
+                        <DropShadow color="#00000033" offsetX="3.0" offsetY="3.0" radius="5.0" />
+                    </effect>
+                </Button>
+
             </children>
         </AnchorPane>
     </children>
