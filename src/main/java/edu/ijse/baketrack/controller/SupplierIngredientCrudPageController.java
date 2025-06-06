@@ -111,6 +111,13 @@ public class SupplierIngredientCrudPageController implements Initializable {
 
     @FXML
     void btnGoBack(ActionEvent event) {
+        try {
+            apSupplierIngredientPage.getChildren().clear();
+            AnchorPane ap=FXMLLoader.load(getClass().getResource("/View/StorekeeperDashboard.fxml"));
+            apSupplierIngredientPage.getChildren().add(ap);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

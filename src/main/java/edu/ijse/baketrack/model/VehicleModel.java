@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.ijse.baketrack.db.DBobject;
 import edu.ijse.baketrack.dto.VehicleDto;
@@ -29,6 +31,28 @@ public class VehicleModel implements VehicleInterface {
             return "Failed to add vehicle";
         }
     }
+
+    public Map<String, Integer> getVehicleStatusCount() {
+        String sql = "SELECT status, COUNT(*) as count FROM vehicle GROUP BY status";
+
+        Map<String, Integer> statusCountMap = new HashMap<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String status = rs.getString("status");
+                int count = rs.getInt("count");
+                statusCountMap.put(status, count);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return statusCountMap;
+    }
+
 
     public String deleteVehicle(int vehicleId) throws SQLException {
         String sql = "DELETE FROM vehicle WHERE vehicle_id = ?";

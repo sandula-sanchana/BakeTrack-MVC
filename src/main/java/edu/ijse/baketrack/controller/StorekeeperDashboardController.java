@@ -46,6 +46,7 @@ public class StorekeeperDashboardController implements Initializable {
     public Button btnIngID;
     public AnchorPane sidebarPane;
     public AnchorPane rightpain;
+    public Button btnSIid;
     private ProductInterface productInterface=new ProductModel();
 
     public PieChart pieChart;
@@ -92,22 +93,29 @@ public class StorekeeperDashboardController implements Initializable {
 
     public void loadPieChart() {
         try {
-            List<ProductDto> items = new ArrayList<>();
-            items=productInterface.getAllProducts();
-
+            List<ProductDto> items = productInterface.getAllProducts();
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+            int totalQuantity = 0;
 
             for (ProductDto item : items) {
-                pieChartData.add(new PieChart.Data(item.getName(),item.getQuantity()));
+                String label = item.getName() + " (" + item.getQuantity() + ")";
+                pieChartData.add(new PieChart.Data(label, item.getQuantity()));
+                totalQuantity += item.getQuantity();
             }
 
             pieChart.setData(pieChartData);
-            pieChart.setTitle("Product Quantity Overview");
+            pieChart.setTitle("Product Quantity Overview (" + totalQuantity + ")");
 
         } catch (Exception e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Loading Product Pie Chart");
+            alert.setHeaderText("An error occurred while loading product data.");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -123,6 +131,7 @@ public class StorekeeperDashboardController implements Initializable {
         applyHoverEffect(btnPid, "#3498DB", "#2980B9");
         applyHoverEffect(BTNpIid, "#3498DB", "#2980B9");
         applyHoverEffect(btnESid, "#3498DB", "#2980B9");
+        applyHoverEffect(btnSIid, "#3498DB", "#2980B9");
 
         applyHoverEffect(btnLOgOutid, "#3498DB", "#E74C3C");
 
@@ -270,5 +279,9 @@ public class StorekeeperDashboardController implements Initializable {
 
     public void btnSendEmailSup(ActionEvent actionEvent) {
         setPages("/View/sendEmailToSuppliers.fxml");
+    }
+
+    public void btnSI(ActionEvent actionEvent) {
+        setPages("/View/SupplierIngredientPage.fxml");
     }
 }

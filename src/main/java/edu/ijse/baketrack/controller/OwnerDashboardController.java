@@ -42,6 +42,7 @@ public class OwnerDashboardController implements Initializable {
     public Button btnCusid;
     public Button btnLogout;
     public AnchorPane rightpane;
+    public PieChart vehiclePie;
     private ProductInterface productInterface=new ProductModel();
     private OrderInterface orderInterface=new OrdersModel();
     private PaymentInterface paymentInterface=new PaymentModel();
@@ -126,6 +127,7 @@ public class OwnerDashboardController implements Initializable {
         loadLineChart();
         loadPaymentPieChart();
         loadEmpPieChart();
+        loadVehiclePieChart();
 
             applyHoverEffect(btnCusid, "#3498DB", "#2980B9");
             applyHoverEffect(btnOid, "#3498DB", "#2980B9");
@@ -205,22 +207,51 @@ public class OwnerDashboardController implements Initializable {
         }
     }
 
-    public void loadPaymentPieChart(){
+    public void loadVehiclePieChart() {
         try {
-            Map<String,Integer> paymentCountArray=paymentInterface.getPaymentCount();
-            if(paymentCountArray!=null){
-                ObservableList<PieChart.Data> pieSData=FXCollections.observableArrayList();
-                for(Map.Entry<String,Integer> mapData : paymentCountArray.entrySet() ){
-                    pieSData.add(new PieChart.Data(mapData.getKey(),mapData.getValue()));
+            Map<String, Integer> vehicleStatusMap = new VehicleModel().getVehicleStatusCount();
+            if (vehicleStatusMap != null) {
+                ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+                for (Map.Entry<String, Integer> entry : vehicleStatusMap.entrySet()) {
+                    String label = entry.getKey() + " (" + entry.getValue() + ")";
+                    pieData.add(new PieChart.Data(label, entry.getValue()));
                 }
-                paymentPieChart.setData(pieSData);
-                paymentPieChart.setTitle("Payments");
-
+                vehiclePie.setData(pieData);
+                vehiclePie.setTitle("Vehicle Status");
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Loading Vehicle Pie Chart");
+            alert.setHeaderText("An error occurred while loading vehicle status data.");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
+
+
+    public void loadPaymentPieChart() {
+        try {
+            Map<String, Integer> paymentCountMap = paymentInterface.getPaymentCount();
+            if (paymentCountMap != null) {
+                ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+                for (Map.Entry<String, Integer> entry : paymentCountMap.entrySet()) {
+                    String label = entry.getKey() + " (" + entry.getValue() + ")";
+                    pieData.add(new PieChart.Data(label, entry.getValue()));
+                }
+                paymentPieChart.setData(pieData);
+                paymentPieChart.setTitle("Payments");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Loading Payment Pie Chart");
+            alert.setHeaderText("An error occurred while loading payment data.");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
 
     public void loadEmpPieChart() {
         try {
@@ -228,13 +259,20 @@ public class OwnerDashboardController implements Initializable {
             if (employeeCountMap != null) {
                 ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
                 for (Map.Entry<String, Integer> entry : employeeCountMap.entrySet()) {
-                    pieData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+                    String label = entry.getKey() + " (" + entry.getValue() + ")";
+                    pieData.add(new PieChart.Data(label, entry.getValue()));
                 }
                 employeePieChart.setData(pieData);
-                employeePieChart.setTitle("Working Employees ");
+                employeePieChart.setTitle("Working Employees");
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Loading Employee Pie Chart");
+            alert.setHeaderText("An error occurred while loading employee data.");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
+
 }
