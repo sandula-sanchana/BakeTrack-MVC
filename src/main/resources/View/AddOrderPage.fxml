@@ -178,20 +178,15 @@
                         </Label>
 
                         <HBox alignment="CENTER_RIGHT" layoutX="700.0" layoutY="900.0" prefHeight="60.0" prefWidth="580.0" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="20.0">
-                            <children>
-                                <Label fx:id="lblTotalPrice" prefHeight="36.0" prefWidth="250.0">
-                                    <font>
-                                        <Font size="28.0" />
-                                    </font>
-                                </Label>
-                            </children>
+                     <children>
+      
+                              <Button mnemonicParsing="false" onAction="#btnPlaceOrder" prefHeight="70.0" prefWidth="320.0" style="-fx-background-color: linear-gradient(to bottom, #3498DB, #2980B9); -fx-font-size: 28; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="Place Order">
+                                  <effect>
+                                      <DropShadow color="#00000033" offsetX="3.0" offsetY="3.0" radius="5.0" />
+                                  </effect>
+                              </Button>
+                     </children>
                         </HBox>
-
-                        <Button layoutX="958.0" layoutY="914.0" mnemonicParsing="false" onAction="#btnPlaceOrder" prefHeight="70.0" prefWidth="320.0" style="-fx-background-color: linear-gradient(to bottom, #3498DB, #2980B9); -fx-font-size: 28; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="Place Order" AnchorPane.bottomAnchor="96.0" AnchorPane.rightAnchor="42.0">
-                            <effect>
-                                <DropShadow color="#00000033" offsetX="3.0" offsetY="3.0" radius="5.0" />
-                            </effect>
-                        </Button>
 
                         <Button layoutX="26.0" layoutY="914.0" mnemonicParsing="false" onAction="#getAllEdit" prefHeight="70.0" prefWidth="320.0" style="-fx-background-color: linear-gradient(to bottom, #f39c12, #e67e22); -fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" text="Get All Orders &amp; Edit" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="26.0">
                             <effect>
@@ -203,6 +198,11 @@
                                   <Font size="25.0" />
                               </font>
                           </Label>
+                  <Label fx:id="lblTotalPrice" layoutX="939.0" layoutY="836.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
             </children>

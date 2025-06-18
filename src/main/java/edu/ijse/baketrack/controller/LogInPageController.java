@@ -116,9 +116,9 @@ public class LogInPageController implements Initializable {
             forgotPasswordController.setLoginPageController(this);
             Stage stage = new Stage();
             stage.setTitle("Forgot Password - BakeTrack");
-            stage.setScene(new Scene(root));
-            stage.setMinWidth(900);
-            stage.setMinHeight(620);
+            stage.setScene(new Scene(root, 1920, 1080));
+            stage.setResizable(false);
+            stage.centerOnScreen();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (IOException e) {

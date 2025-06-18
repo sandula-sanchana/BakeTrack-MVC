@@ -7,8 +7,8 @@
 	<parameter name="p_cus_con" class="java.lang.String"/>
 	<parameter name="p_date" class="java.lang.String"/>
 	<parameter name="p_cusid_pass" class="java.lang.String"/>
-	<query language="SQL"><![CDATA[SELECT * 
-FROM orders 
+	<query language="SQL"><![CDATA[SELECT *
+FROM orders
 WHERE customer_id =$P{p_cusid};
 ]]></query>
 	<field name="order_id" class="java.lang.Integer">
